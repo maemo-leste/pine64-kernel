@@ -1,0 +1,37 @@
+Source: pine64-linux
+Section: pinephone
+Priority: optional
+Maintainer: Ivan J. <parazyd@dyne.org>
+Build-Depends:
+ debhelper (>= 10),
+ rsync,
+ kmod,
+ bc,
+ flex,
+ bison,
+ libssl-dev:native,
+ libssl-dev,
+ liblz4-tool,
+ u-boot-tools,
+ device-tree-compiler
+Standards-Version: 4.3.0
+Homepage: https://www.kernel.org
+
+Package: linux-image-pine64
+Architecture: arm64
+Description: Linux kernel for Pinephone
+ This package contains the Linux kernel, modules, and corresponding other files.
+
+Package: linux-headers-pine64
+Architecture: arm64
+Provides: linux-headers
+Description: Linux kernel headers for Pinephone
+ This package provides kernel header files for Pinephone
+ .
+ This is useful for people who need to build external modules
+
+Package: linux-image-pine64-dbg
+Architecture: arm64
+Description: Linux kernel debugging symbols for Pinephone
+ This package will come in handy if you need to debug the kernel. It provides
+ all the necessary debug symbols for the kernel and its modules.

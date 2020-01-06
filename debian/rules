@@ -1,0 +1,36 @@
+#!/usr/bin/make -f
+
+CONFIG = oldconfig
+DTB    = allwinner/sun50i-a64-pinephone.dtb allwinner/sun50i-a64-pinetab.dtb allwinner/sun50i-a64-dontbeevil.dtb
+DEV    = pinephone
+ARCH   = arm64
+
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	BUILD_FLAGS += -j$(NUMJOBS)
+endif
+
+ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_TARGET_MULTIARCH))
+	BUILD_FLAGS += CROSS_COMPILE=$(DEB_TARGET_MULTIARCH)-
+endif
+
+build-arch:
+	cp debian/config-5.4 .config
+	$(MAKE) ARCH=$(ARCH) $(CONFIG)
+	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) Image.gz modules $(DTB)
+
+binary-arch:
+ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_TARGET_MULTIARCH))
+	$(MAKE) ARCH=$(ARCH) DEV=$(DEV) DTB="$(DTB)" $(BUILD_FLAGS) intdeb-pkg
+else
+	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) HOSTCC=$(DEB_TARGET_MULTIARCH)-gcc modules
+	$(MAKE) ARCH=$(ARCH) DEV=$(DEV) DTB="$(DTB)" $(BUILD_FLAGS) \
+		HOSTCC=$(DEB_TARGET_MULTIARCH)-gcc intdeb-pkg
+endif
+
+clean:
+	rm -rf debian/*tmp debian/files
+	$(MAKE) mrproper
+
+build: build-arch
+binary: binary-arch
