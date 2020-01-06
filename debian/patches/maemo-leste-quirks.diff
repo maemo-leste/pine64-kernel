@@ -28,7 +28,7 @@ index d4d36c61940b..a9b9d735497c 100644
  		  Module.symvers \
  		  signing_key.pem signing_key.priv signing_key.x509	\
 diff --git a/scripts/package/builddeb b/scripts/package/builddeb
-index 6e8ab87a1305..27e6d1a2c089 100755
+index 6e8ab87a1305..9f7f495da7aa 100755
 --- a/scripts/package/builddeb
 +++ b/scripts/package/builddeb
 @@ -51,8 +51,8 @@ tmpdir="$objtree/debian/tmp"
@@ -55,7 +55,7 @@ index 6e8ab87a1305..27e6d1a2c089 100755
  fi
  
  # Install the maintainer scripts
-@@ -165,9 +165,11 @@ set -e
+@@ -165,9 +165,25 @@ set -e
  export DEB_MAINT_PARAMS="\$*"
  
  # Tell initramfs builder whether it's wanted
@@ -65,10 +65,24 @@ index 6e8ab87a1305..27e6d1a2c089 100755
  
  test -d $debhookdir/$script.d && run-parts --arg="$version" --arg="/$installed_image_path" $debhookdir/$script.d
 +
++case "$script" in
++postinst)
++	depmod $version
++	rm -f /boot/Image.gz /boot/*.dtb
++	cp -f /boot/Image.gz-$version /boot/Image.gz
++	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-dontbeevil.dtb /boot
++	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinephone.dtb /boot
++	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinetab.dtb /boot
++	;;
++postrm)
++	rm -f /boot/Image.gz /boot/*.dtb
++	;;
++esac
++
  exit 0
  EOF
  	chmod 755 "$tmpdir/DEBIAN/$script"
-@@ -211,7 +213,7 @@ rm -f "$objtree/debian/hdrsrcfiles" "$objtree/debian/hdrobjfiles"
+@@ -211,7 +227,7 @@ rm -f "$objtree/debian/hdrsrcfiles" "$objtree/debian/hdrobjfiles"
  
  if [ "$ARCH" != "um" ]; then
  	create_package "$kernel_headers_packagename" "$kernel_headers_dir"
