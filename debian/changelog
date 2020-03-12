@@ -1,3 +1,9 @@
+pine64-linux (5.4.0-2) unstable; urgency=medium
+
+  * Enable zram as a kernel module
+
+ -- Ivan J. <parazyd@dyne.org>  Thu, 12 Mar 2020 13:54:37 +0100
+
 pine64-linux (5.4.0-1) unstable; urgency=medium
 
   * Initial packaging
