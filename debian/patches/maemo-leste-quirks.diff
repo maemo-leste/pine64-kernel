@@ -1,5 +1,5 @@
 diff --git a/.gitignore b/.gitignore
-index 70580bdd352c..a32c8df8fe1a 100644
+index 72ef86a5570d..a83fad6a174d 100644
 --- a/.gitignore
 +++ b/.gitignore
 @@ -67,11 +67,6 @@ modules.order
@@ -15,10 +15,10 @@ index 70580bdd352c..a32c8df8fe1a 100644
  # Snap directory (make snap-pkg)
  #
 diff --git a/Makefile b/Makefile
-index d4d36c61940b..a9b9d735497c 100644
+index 6a01b073915e..aedd610e9b56 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1365,7 +1365,7 @@ CLEAN_FILES += modules.builtin.modinfo
+@@ -1362,7 +1362,7 @@ CLEAN_FILES += modules.builtin.modinfo modules.nsdeps
  # Directories & files removed with 'make mrproper'
  MRPROPER_DIRS  += include/config include/generated          \
  		  arch/$(SRCARCH)/include/generated .tmp_objdiff \
@@ -28,7 +28,7 @@ index d4d36c61940b..a9b9d735497c 100644
  		  Module.symvers \
  		  signing_key.pem signing_key.priv signing_key.x509	\
 diff --git a/scripts/package/builddeb b/scripts/package/builddeb
-index 6e8ab87a1305..9f7f495da7aa 100755
+index c4c580f547ef..f80f1eb11452 100755
 --- a/scripts/package/builddeb
 +++ b/scripts/package/builddeb
 @@ -51,8 +51,8 @@ tmpdir="$objtree/debian/tmp"
@@ -42,7 +42,7 @@ index 6e8ab87a1305..9f7f495da7aa 100755
  libc_headers_packagename=linux-libc-dev
  dbg_packagename=$packagename-dbg
  
-@@ -143,9 +143,9 @@ if [ "$ARCH" != "um" ]; then
+@@ -134,9 +134,9 @@ if [ "$ARCH" != "um" ]; then
  	$MAKE -f $srctree/Makefile headers_install INSTALL_HDR_PATH="$libc_headers_dir/usr"
  	# move asm headers to /usr/include/<libc-machine>/asm to match the structure
  	# used by Debian-based distros (to support multi-arch)
@@ -55,7 +55,7 @@ index 6e8ab87a1305..9f7f495da7aa 100755
  fi
  
  # Install the maintainer scripts
-@@ -165,9 +165,25 @@ set -e
+@@ -156,9 +156,25 @@ set -e
  export DEB_MAINT_PARAMS="\$*"
  
  # Tell initramfs builder whether it's wanted
@@ -82,7 +82,7 @@ index 6e8ab87a1305..9f7f495da7aa 100755
  exit 0
  EOF
  	chmod 755 "$tmpdir/DEBIAN/$script"
-@@ -211,7 +227,7 @@ rm -f "$objtree/debian/hdrsrcfiles" "$objtree/debian/hdrobjfiles"
+@@ -186,7 +202,7 @@ rm -f "$objtree/debian/hdrsrcfiles" "$objtree/debian/hdrobjfiles"
  
  if [ "$ARCH" != "um" ]; then
  	create_package "$kernel_headers_packagename" "$kernel_headers_dir"
