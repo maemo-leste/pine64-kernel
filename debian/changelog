@@ -1,3 +1,9 @@
+pine64-linux (5.5.0-1) unstable; urgency=medium
+
+  * Merge latest pine64 upstream tree
+
+ -- Ivan J. <parazyd@dyne.org>  Mon, 06 Apr 2020 11:15:12 +0200
+
 pine64-linux (5.4.0-2) unstable; urgency=medium
 
   * Enable zram as a kernel module
