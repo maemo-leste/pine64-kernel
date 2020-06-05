@@ -15,10 +15,10 @@ index 72ef86a5570d..a83fad6a174d 100644
  # Snap directory (make snap-pkg)
  #
 diff --git a/Makefile b/Makefile
-index 6a01b073915e..aedd610e9b56 100644
+index 4d0711f54047..cd1e095a550d 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1362,7 +1362,7 @@ CLEAN_FILES += modules.builtin.modinfo modules.nsdeps
+@@ -1352,7 +1352,7 @@ CLEAN_FILES += modules.builtin modules.builtin.modinfo modules.nsdeps
  # Directories & files removed with 'make mrproper'
  MRPROPER_DIRS  += include/config include/generated          \
  		  arch/$(SRCARCH)/include/generated .tmp_objdiff \
@@ -28,34 +28,23 @@ index 6a01b073915e..aedd610e9b56 100644
  		  Module.symvers \
  		  signing_key.pem signing_key.priv signing_key.x509	\
 diff --git a/scripts/package/builddeb b/scripts/package/builddeb
-index c4c580f547ef..f80f1eb11452 100755
+index 6df3c9f8b2da..a6336741f45f 100755
 --- a/scripts/package/builddeb
 +++ b/scripts/package/builddeb
-@@ -51,8 +51,8 @@ tmpdir="$objtree/debian/tmp"
- kernel_headers_dir="$objtree/debian/hdrtmp"
- libc_headers_dir="$objtree/debian/headertmp"
- dbg_dir="$objtree/debian/dbgtmp"
--packagename=linux-image-$version
--kernel_headers_packagename=linux-headers-$version
-+packagename=linux-image-pine64
-+kernel_headers_packagename=linux-headers-pine64
- libc_headers_packagename=linux-libc-dev
- dbg_packagename=$packagename-dbg
+@@ -94,9 +94,9 @@ deploy_libc_headers () {
  
-@@ -134,9 +134,9 @@ if [ "$ARCH" != "um" ]; then
- 	$MAKE -f $srctree/Makefile headers_install INSTALL_HDR_PATH="$libc_headers_dir/usr"
  	# move asm headers to /usr/include/<libc-machine>/asm to match the structure
  	# used by Debian-based distros (to support multi-arch)
 -	host_arch=$(dpkg-architecture -a$(cat debian/arch) -qDEB_HOST_MULTIARCH)
--	mkdir $libc_headers_dir/usr/include/$host_arch
--	mv $libc_headers_dir/usr/include/asm $libc_headers_dir/usr/include/$host_arch/
+-	mkdir $pdir/usr/include/$host_arch
+-	mv $pdir/usr/include/asm $pdir/usr/include/$host_arch/
 +	#host_arch=$(dpkg-architecture -a$(cat debian/arch) -qDEB_HOST_MULTIARCH)
-+	#mkdir $libc_headers_dir/usr/include/$host_arch
-+	#mv $libc_headers_dir/usr/include/asm $libc_headers_dir/usr/include/$host_arch/
- fi
++	#mkdir $pdir/usr/include/$host_arch
++	#mv $pdir/usr/include/asm $pdir/usr/include/$host_arch/
+ }
  
- # Install the maintainer scripts
-@@ -156,9 +156,25 @@ set -e
+ version=$KERNELRELEASE
+@@ -193,22 +193,30 @@ set -e
  export DEB_MAINT_PARAMS="\$*"
  
  # Tell initramfs builder whether it's wanted
@@ -82,12 +71,16 @@ index c4c580f547ef..f80f1eb11452 100755
  exit 0
  EOF
  	chmod 755 "$tmpdir/DEBIAN/$script"
-@@ -186,7 +202,7 @@ rm -f "$objtree/debian/hdrsrcfiles" "$objtree/debian/hdrobjfiles"
+ done
  
- if [ "$ARCH" != "um" ]; then
- 	create_package "$kernel_headers_packagename" "$kernel_headers_dir"
--	create_package "$libc_headers_packagename" "$libc_headers_dir"
-+	#create_package "$libc_headers_packagename" "$libc_headers_dir"
- fi
- 
+-if [ "$ARCH" != "um" ]; then
+-	deploy_kernel_headers debian/linux-headers
+-	create_package linux-headers-$version debian/linux-headers
+-
+-	deploy_libc_headers debian/linux-libc-dev
+-	create_package linux-libc-dev debian/linux-libc-dev
+-fi
+-
  create_package "$packagename" "$tmpdir"
+ 
+ if [ -n "$BUILD_DEBUG" ] ; then
