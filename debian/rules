@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 CONFIG = oldconfig
-DTB    = allwinner/sun50i-a64-pinephone.dtb allwinner/sun50i-a64-pinetab.dtb allwinner/sun50i-a64-dontbeevil.dtb
+DTB    = allwinner/sun50i-a64-pinephone-1.1.dtb allwinner/sun50i-a64-pinetab.dtb allwinner/sun50i-a64-dontbeevil.dtb
 DEV    = pinephone
 ARCH   = arm64
 
