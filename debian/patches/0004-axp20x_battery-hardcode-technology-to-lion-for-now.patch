@@ -1,0 +1,36 @@
+From 4c0d87efab68d1690d40ea15611cda746ca811b1 Mon Sep 17 00:00:00 2001
+From: Merlijn Wajer <merlijn@wizzup.org>
+Date: Fri, 28 Sep 2018 22:13:38 +0200
+Subject: [PATCH] axp20x_battery: hardcode technology to lion for now
+
+---
+ drivers/power/supply/axp20x_battery.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/power/supply/axp20x_battery.c b/drivers/power/supply/axp20x_battery.c
+index 30a9bc7daf87..1aa0bc9b7f56 100644
+--- a/drivers/power/supply/axp20x_battery.c
++++ b/drivers/power/supply/axp20x_battery.c
+@@ -199,6 +199,11 @@ static int axp20x_battery_get_prop(struct power_supply *psy,
+ 	int ret = 0, reg, val1;
+ 
+ 	switch (psp) {
++    case POWER_SUPPLY_PROP_TECHNOLOGY:
++        /* TODO: AXP can be both Li-ion and LiPo */
++        val->intval = POWER_SUPPLY_TECHNOLOGY_LION;
++        break;
++
+ 	case POWER_SUPPLY_PROP_PRESENT:
+ 	case POWER_SUPPLY_PROP_ONLINE:
+ 		ret = regmap_read(axp20x_batt->regmap, AXP20X_PWR_OP_MODE,
+@@ -485,6 +490,7 @@ static int axp20x_battery_set_prop(struct power_supply *psy,
+ }
+ 
+ static enum power_supply_property axp20x_battery_props[] = {
++	POWER_SUPPLY_PROP_TECHNOLOGY,
+ 	POWER_SUPPLY_PROP_PRESENT,
+ 	POWER_SUPPLY_PROP_ONLINE,
+ 	POWER_SUPPLY_PROP_STATUS,
+-- 
+2.26.2
+
