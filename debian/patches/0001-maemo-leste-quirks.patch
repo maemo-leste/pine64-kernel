@@ -12,7 +12,7 @@ index b668725a2a62..7e822e5510f7 100644
  		  Module.symvers \
  		  signing_key.pem signing_key.priv signing_key.x509	\
 diff --git a/scripts/package/builddeb b/scripts/package/builddeb
-index 6df3c9f8b2da..086909025efc 100755
+index 6df3c9f8b2da..16ef95a7ea10 100755
 --- a/scripts/package/builddeb
 +++ b/scripts/package/builddeb
 @@ -94,15 +94,15 @@ deploy_libc_headers () {
@@ -35,7 +35,7 @@ index 6df3c9f8b2da..086909025efc 100755
  dbg_packagename=$packagename-dbg
  
  if [ "$ARCH" = "um" ] ; then
-@@ -193,9 +193,24 @@ set -e
+@@ -193,9 +193,22 @@ set -e
  export DEB_MAINT_PARAMS="\$*"
  
  # Tell initramfs builder whether it's wanted
@@ -49,10 +49,8 @@ index 6df3c9f8b2da..086909025efc 100755
 +	depmod $version
 +	rm -f /boot/Image.gz /boot/*.dtb
 +	cp -f /boot/vmlinuz-$version /boot/Image.gz
-+	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-dontbeevil.dtb /boot
 +	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinetab.dtb /boot
-+	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinephone-1.1.dtb \
-+		/boot/sun50i-a64-pinephone.dtb
++	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinephone-*.dtb /boot
 +	;;
 +postrm)
 +	rm -f /boot/Image.gz /boot/*.dtb
@@ -61,7 +59,7 @@ index 6df3c9f8b2da..086909025efc 100755
  exit 0
  EOF
  	chmod 755 "$tmpdir/DEBIAN/$script"
-@@ -203,10 +218,10 @@ done
+@@ -203,10 +216,10 @@ done
  
  if [ "$ARCH" != "um" ]; then
  	deploy_kernel_headers debian/linux-headers
