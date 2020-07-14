@@ -1,4 +1,2 @@
 0001-maemo-leste-quirks.patch
-0002-disable-power-save.patch
-0003-touch-dts.patch
 0004-axp20x_battery-hardcode-technology-to-lion-for-now.patch
