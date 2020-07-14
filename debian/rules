@@ -15,7 +15,7 @@ ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_TARGET_MULTIARCH))
 endif
 
 build-arch:
-	cp debian/config-5.6 .config
+	cp debian/config-5.7 .config
 	$(MAKE) ARCH=$(ARCH) $(CONFIG)
 	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) Image.gz modules dtbs
 
