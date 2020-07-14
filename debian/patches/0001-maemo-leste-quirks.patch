@@ -1,8 +1,8 @@
 diff --git a/Makefile b/Makefile
-index 4d0711f54047..cd1e095a550d 100644
+index b668725a2a62..7e822e5510f7 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1352,7 +1352,7 @@ CLEAN_FILES += modules.builtin modules.builtin.modinfo modules.nsdeps
+@@ -1395,7 +1395,7 @@ CLEAN_FILES += modules.builtin modules.builtin.modinfo modules.nsdeps
  # Directories & files removed with 'make mrproper'
  MRPROPER_DIRS  += include/config include/generated          \
  		  arch/$(SRCARCH)/include/generated .tmp_objdiff \
@@ -11,6 +11,88 @@ index 4d0711f54047..cd1e095a550d 100644
  MRPROPER_FILES += .config .config.old .version \
  		  Module.symvers \
  		  signing_key.pem signing_key.priv signing_key.x509	\
+diff --git a/debian/patches/0001-maemo-leste-quirks.patch b/debian/patches/0001-maemo-leste-quirks.patch
+index ba0dd3f57b5e..e69de29bb2d1 100644
+--- a/debian/patches/0001-maemo-leste-quirks.patch
++++ b/debian/patches/0001-maemo-leste-quirks.patch
+@@ -1,77 +0,0 @@
+-diff --git a/Makefile b/Makefile
+-index 4d0711f54047..cd1e095a550d 100644
+---- a/Makefile
+-+++ b/Makefile
+-@@ -1352,7 +1352,7 @@ CLEAN_FILES += modules.builtin modules.builtin.modinfo modules.nsdeps
+- # Directories & files removed with 'make mrproper'
+- MRPROPER_DIRS  += include/config include/generated          \
+- 		  arch/$(SRCARCH)/include/generated .tmp_objdiff \
+--		  debian/ snap/ tar-install/
+-+		  snap/ tar-install/
+- MRPROPER_FILES += .config .config.old .version \
+- 		  Module.symvers \
+- 		  signing_key.pem signing_key.priv signing_key.x509	\
+-diff --git a/scripts/package/builddeb b/scripts/package/builddeb
+-index 6df3c9f8b2da..086909025efc 100755
+---- a/scripts/package/builddeb
+-+++ b/scripts/package/builddeb
+-@@ -94,15 +94,15 @@ deploy_libc_headers () {
+- 
+- 	# move asm headers to /usr/include/<libc-machine>/asm to match the structure
+- 	# used by Debian-based distros (to support multi-arch)
+--	host_arch=$(dpkg-architecture -a$(cat debian/arch) -qDEB_HOST_MULTIARCH)
+--	mkdir $pdir/usr/include/$host_arch
+--	mv $pdir/usr/include/asm $pdir/usr/include/$host_arch/
+-+	#host_arch=$(dpkg-architecture -a$(cat debian/arch) -qDEB_HOST_MULTIARCH)
+-+	#mkdir $pdir/usr/include/$host_arch
+-+	#mv $pdir/usr/include/asm $pdir/usr/include/$host_arch/
+- }
+- 
+- version=$KERNELRELEASE
+- tmpdir=debian/linux-image
+- dbg_dir=debian/linux-image-dbg
+--packagename=linux-image-$version
+-+packagename=linux-image-pine64
+- dbg_packagename=$packagename-dbg
+- 
+- if [ "$ARCH" = "um" ] ; then
+-@@ -193,9 +193,24 @@ set -e
+- export DEB_MAINT_PARAMS="\$*"
+- 
+- # Tell initramfs builder whether it's wanted
+--export INITRD=$(if_enabled_echo CONFIG_BLK_DEV_INITRD Yes No)
+-+export INITRD=No
+- 
+- test -d $debhookdir/$script.d && run-parts --arg="$version" --arg="/$installed_image_path" $debhookdir/$script.d
+-+
+-+case "$script" in
+-+postinst)
+-+	depmod $version
+-+	rm -f /boot/Image.gz /boot/*.dtb
+-+	cp -f /boot/vmlinuz-$version /boot/Image.gz
+-+	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-dontbeevil.dtb /boot
+-+	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinetab.dtb /boot
+-+	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinephone-1.1.dtb \
+-+		/boot/sun50i-a64-pinephone.dtb
+-+	;;
+-+postrm)
+-+	rm -f /boot/Image.gz /boot/*.dtb
+-+	;;
+-+esac
+- exit 0
+- EOF
+- 	chmod 755 "$tmpdir/DEBIAN/$script"
+-@@ -203,10 +218,10 @@ done
+- 
+- if [ "$ARCH" != "um" ]; then
+- 	deploy_kernel_headers debian/linux-headers
+--	create_package linux-headers-$version debian/linux-headers
+-+	create_package linux-headers-pine64 debian/linux-headers
+- 
+--	deploy_libc_headers debian/linux-libc-dev
+--	create_package linux-libc-dev debian/linux-libc-dev
+-+	#deploy_libc_headers debian/linux-libc-dev
+-+	#create_package linux-libc-dev debian/linux-libc-dev
+- fi
+- 
+- create_package "$packagename" "$tmpdir"
 diff --git a/scripts/package/builddeb b/scripts/package/builddeb
 index 6df3c9f8b2da..086909025efc 100755
 --- a/scripts/package/builddeb
