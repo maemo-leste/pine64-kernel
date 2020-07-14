@@ -1,3 +1,9 @@
+pine64-linux (5.7.0-1) unstable; urgency=medium
+
+  * Merge latest pine64 5.7.y tree
+
+ -- Ivan J. <parazyd@dyne.org>  Tue, 14 Jul 2020 11:50:07 +0200
+
 pine64-linux (5.6.0-1) unstable; urgency=medium
 
   * Merge latest pine64 5.6.y tree
