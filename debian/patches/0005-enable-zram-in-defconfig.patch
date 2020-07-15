@@ -1,0 +1,20 @@
+diff --git a/arch/arm64/configs/pine64_defconfig b/arch/arm64/configs/pine64_defconfig
+index 859172669e1694a1865f2ac3c58b4aaf13d555fd..403d20545bfbe30e0a98196767baf03c420d7c52 100644
+--- a/arch/arm64/configs/pine64_defconfig
++++ b/arch/arm64/configs/pine64_defconfig
+@@ -77,6 +77,7 @@ CONFIG_KSM=y
+ CONFIG_MEMORY_FAILURE=y
+ CONFIG_TRANSPARENT_HUGEPAGE=y
+ CONFIG_CMA=y
++CONFIG_ZSMALLOC=y
+ CONFIG_NET=y
+ CONFIG_PACKET=y
+ CONFIG_UNIX=y
+@@ -155,6 +156,7 @@ CONFIG_BLK_DEV_NBD=m
+ CONFIG_VIRTIO_BLK=y
+ CONFIG_BLK_DEV_NVME=m
+ CONFIG_SRAM=y
++CONFIG_ZRAM=m
+ CONFIG_EEPROM_AT25=m
+ # CONFIG_SCSI_PROC_FS is not set
+ CONFIG_BLK_DEV_SD=y
