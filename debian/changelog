@@ -1,3 +1,9 @@
+pine64-linux (5.7.0-2) unstable; urgency=medium
+
+  Enable netfilter masquerading in defconfig.
+
+ -- Ivan J. <parazyd@dyne.org>  Mon, 27 Jul 2020 20:21:41 +0200
+
 pine64-linux (5.7.0-1) unstable; urgency=medium
 
   * Merge latest pine64 5.7.y tree

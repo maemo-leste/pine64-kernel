@@ -1,3 +1,4 @@
 0001-maemo-leste-quirks.patch
 0004-axp20x_battery-hardcode-technology-to-lion-for-now.patch
 0005-enable-zram-in-defconfig.patch
+0006-defconfig_enable_netfilter_masquerading.patch
