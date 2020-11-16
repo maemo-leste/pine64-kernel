@@ -1,6 +1,6 @@
 #!/usr/bin/make -f
 
-CONFIG = olddefconfig
+CONFIG = pine64_defconfig
 DTB    = \
 	allwinner/sun50i-a64-dontbeevil.dtb \
 	allwinner/sun50i-a64-pinephone-1.0.dtb \
@@ -20,7 +20,6 @@ ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_TARGET_MULTIARCH))
 endif
 
 build-arch:
-	cp debian/config-5.8 .config
 	$(MAKE) ARCH=$(ARCH) $(CONFIG)
 	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) Image.gz modules dtbs
 
