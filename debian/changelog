@@ -1,3 +1,9 @@
+pine64-linux (5.9.0-1) unstable; urgency=medium
+
+  * Pull latest 5.9.y branch from pine64.
+
+ -- Ivan J. <parazyd@dyne.org>  Mon, 16 Nov 2020 20:25:16 +0100
+
 pine64-linux (5.8.0-1) unstable; urgency=medium
 
   * Pull latest 5.8.y branch from pine64.
