@@ -1,8 +1,8 @@
 diff --git a/Makefile b/Makefile
-index 24a4c1b97bb0..76c75ac5ebc4 100644
+index d600b38144f4..b8d070771a3e 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1436,7 +1436,7 @@ CLEAN_FILES += include/ksym vmlinux.symvers \
+@@ -1464,7 +1464,7 @@ CLEAN_FILES += include/ksym vmlinux.symvers \
  # Directories & files removed with 'make mrproper'
  MRPROPER_FILES += include/config include/generated          \
  		  arch/$(SRCARCH)/include/generated .tmp_objdiff \

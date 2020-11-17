@@ -1,3 +1,4 @@
 0001-maemo-leste-quirks.patch
 0002-enable-binder-and-ashmem.patch
+0003-enable-netfilter-comment-match.patch
 0004-axp20x_battery-hardcode-technology-to-lion-for-now.patch
