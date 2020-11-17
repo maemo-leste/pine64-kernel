@@ -1,0 +1,18 @@
+diff --git a/arch/arm64/configs/pine64_defconfig b/arch/arm64/configs/pine64_defconfig
+index 07535cbe7e71..c0f88d9195ca 100644
+--- a/arch/arm64/configs/pine64_defconfig
++++ b/arch/arm64/configs/pine64_defconfig
+@@ -289,6 +289,13 @@ CONFIG_OF_CONFIGFS=y
+ CONFIG_ZRAM=m
+ CONFIG_BLK_DEV_LOOP=y
+ CONFIG_BLK_DEV_NBD=m
++CONFIG_SQUASHFS=m
++CONFIG_SQUASHFS_XATTR=y
++CONFIG_SQUASHFS_ZLIB=y
++CONFIG_SQUASHFS_LZ4=y
++CONFIG_SQUASHFS_LZO=y
++CONFIG_SQUASHFS_XZ=y
++CONFIG_SQUASHFS_ZSTD=y
+ CONFIG_ATA_OVER_ETH=m
+ CONFIG_BLK_DEV_NVME=m
+ CONFIG_DUMMY_IRQ=m
