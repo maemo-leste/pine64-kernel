@@ -12,8 +12,6 @@ haptic feedbackd.
  arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts | 2 +-
  3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts
-index 0f6faa44c..2e0892b32 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts
 @@ -7,7 +7,7 @@
@@ -25,8 +23,6 @@ index 0f6faa44c..2e0892b32 100644
  
  	reg_vbus: usb0-vbus {
  		compatible = "regulator-fixed";
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts
-index 95a880fdc..d6bad0838 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts
 @@ -7,7 +7,7 @@
@@ -38,8 +34,6 @@ index 95a880fdc..d6bad0838 100644
  
  	reg_vbus: usb0-vbus {
  		compatible = "regulator-fixed";
-diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts
-index 23ba72508..710493186 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts
 @@ -7,7 +7,7 @@
@@ -51,6 +45,3 @@ index 23ba72508..710493186 100644
  };
  
  &axp803 {
--- 
-2.26.2
-

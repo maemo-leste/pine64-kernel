@@ -1,8 +1,6 @@
-diff --git a/drivers/power/supply/axp20x_battery.c b/drivers/power/supply/axp20x_battery.c
-index f6c849bd15e3..eeb70e14fffa 100644
 --- a/drivers/power/supply/axp20x_battery.c
 +++ b/drivers/power/supply/axp20x_battery.c
-@@ -220,6 +220,11 @@ static int axp20x_battery_get_prop(struct power_supply *psy,
+@@ -220,6 +220,11 @@
  	int ret = 0, reg, val1;
  
  	switch (psp) {
