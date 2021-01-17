@@ -1,5 +1,15 @@
 0001-maemo-leste-quirks.patch
-0002-enable-binder-and-ashmem.patch
-0003-enable-netfilter-comment-match.patch
-0004-axp20x_battery-hardcode-technology-to-lion-for-now.patch
-0005-enable-squashfs.patch
+0002-axp20x_battery-hardcode-technology-to-lion-for-now.patch
+# Thanks pmOS
+0001-dts-add-dontbeevil-pinephone-devkit.patch
+0002-dts-add-pinetab-dev-old-display-panel.patch
+0003-media-gc2145-Added-BGGR-bayer-mode.patch
+0004-dts-pinetab-add-missing-bma223-ohci1.patch
+0005-dts-pinetab-make-audio-routing-consistent-with-pinep.patch
+0006-arm64-dts-allwinner-Add-bluetooth-node-to-the-PineTa.patch
+0007-dts-pinephone-remove-bt-firmware-suffix.patch
+0008-media-ov5640-Implement-autofocus.patch
+0009-leds-gpio-set-max_brightness-to-1.patch
+0010-dts-pinephone-Add-pine64-pinephone-to-compat-list.patch
+0011-dts-pinetab-hardcode-mmc-numbers.patch
+0012-dts-pinephone-drop-modem-power-node.patch
