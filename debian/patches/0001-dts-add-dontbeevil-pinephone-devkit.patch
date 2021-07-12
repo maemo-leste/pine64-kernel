@@ -1,4 +1,4 @@
-From 57b473e72d59c4c5cb2cc45432d4d5d10aca5003 Mon Sep 17 00:00:00 2001
+From faf5874c12ec57232e5389691d12db1a945629bb Mon Sep 17 00:00:00 2001
 From: Martijn Braam <martijn@brixit.nl>
 Date: Sat, 20 Apr 2019 01:19:48 +0200
 Subject: [PATCH] dts: add dontbeevil (pinephone devkit)
@@ -16,6 +16,8 @@ Subject: [PATCH] dts: add dontbeevil (pinephone devkit)
  create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a64-dontbeevil-longts.dts
  create mode 100644 arch/arm64/boot/dts/allwinner/sun50i-a64-dontbeevil.dts
 
+diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
+index 41ce680e5f8d..6740e6a97161 100644
 --- a/arch/arm64/boot/dts/allwinner/Makefile
 +++ b/arch/arm64/boot/dts/allwinner/Makefile
 @@ -1,6 +1,8 @@
@@ -27,6 +29,9 @@ Subject: [PATCH] dts: add dontbeevil (pinephone devkit)
  dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-nanopi-a64.dtb
  dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-oceanic-5205-5inmfd.dtb
  dtb-$(CONFIG_ARCH_SUNXI) += sun50i-a64-olinuxino.dtb
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-dontbeevil-longts.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-dontbeevil-longts.dts
+new file mode 100644
+index 000000000000..49f71536649b
 --- /dev/null
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-dontbeevil-longts.dts
 @@ -0,0 +1,14 @@
@@ -44,6 +49,9 @@ Subject: [PATCH] dts: add dontbeevil (pinephone devkit)
 +&touchscreen {
 +	touchscreen-inverted-x;
 +};
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-dontbeevil.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-dontbeevil.dts
+new file mode 100644
+index 000000000000..15a91f2d6202
 --- /dev/null
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-dontbeevil.dts
 @@ -0,0 +1,476 @@
@@ -523,3 +531,6 @@ Subject: [PATCH] dts: add dontbeevil (pinephone devkit)
 +&hdmi_phy {
 +	status = "disabled";
 +};
+-- 
+2.31.1
+

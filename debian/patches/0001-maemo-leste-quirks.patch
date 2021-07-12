@@ -1,6 +1,8 @@
+diff --git a/Makefile b/Makefile
+index c3f9bd191b89..b6aabf627038 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1474,7 +1474,7 @@
+@@ -1505,7 +1505,7 @@ CLEAN_FILES += include/ksym vmlinux.symvers modules-only.symvers \
  # Directories & files removed with 'make mrproper'
  MRPROPER_FILES += include/config include/generated          \
  		  arch/$(SRCARCH)/include/generated .tmp_objdiff \
@@ -8,10 +10,12 @@
 +		  snap tar-install \
  		  .config .config.old .version \
  		  Module.symvers \
- 		  signing_key.pem signing_key.priv signing_key.x509	\
+ 		  certs/signing_key.pem certs/signing_key.x509 \
+diff --git a/scripts/package/builddeb b/scripts/package/builddeb
+index 91a502bb97e8..fdac070f2eaf 100755
 --- a/scripts/package/builddeb
 +++ b/scripts/package/builddeb
-@@ -101,15 +101,15 @@
+@@ -101,15 +101,15 @@ deploy_libc_headers () {
  
  	# move asm headers to /usr/include/<libc-machine>/asm to match the structure
  	# used by Debian-based distros (to support multi-arch)
@@ -31,7 +35,7 @@
  dbg_packagename=$packagename-dbg
  
  if [ "$ARCH" = "um" ] ; then
-@@ -200,9 +200,23 @@
+@@ -200,9 +200,23 @@ set -e
  export DEB_MAINT_PARAMS="\$*"
  
  # Tell initramfs builder whether it's wanted
@@ -56,7 +60,7 @@
  exit 0
  EOF
  	chmod 755 "$tmpdir/DEBIAN/$script"
-@@ -211,11 +225,11 @@
+@@ -211,11 +225,11 @@ done
  if [ "$ARCH" != "um" ]; then
  	if is_enabled CONFIG_MODULES; then
  		deploy_kernel_headers debian/linux-headers
