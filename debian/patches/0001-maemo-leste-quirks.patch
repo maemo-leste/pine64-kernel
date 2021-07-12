@@ -50,8 +50,8 @@ index 91a502bb97e8..fdac070f2eaf 100755
 +	mkdir -p /boot/allwinner
 +	rm -f /boot/Image.gz /boot/*.dtb
 +	cp -f /boot/vmlinuz-$version /boot/Image.gz
-+	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinetab.dtb /boot/allwinner
-+	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinephone-*.dtb /boot/allwinner
++	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinetab*.dtb /boot/allwinner
++	cp -f /usr/lib/linux-image-pine64/allwinner/sun50i-a64-pinephone*.dtb /boot/allwinner
 +	;;
 +postrm)
 +	rm -rf /boot/Image.gz /boot/allwinner /boot/*.dtb
