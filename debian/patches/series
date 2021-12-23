@@ -187,6 +187,7 @@ defconfig/0186-arm64-Add-defconfig-for-pine64.patch
 defconfig/0187-pine64_defconfig-various-changes.patch
 defconfig/0188-pine64_defconfig-switch-usb_gadget-to-module.patch
 defconfig/0189-pine64_defconfig-enable-support-for-accel-sensor-on-.patch
+defconfig/0190-disable-sysrq.patch
 defconfig/0191-pine64_defconfig-disable-bunch-of-DVB-backends.patch
 defconfig/0192-pine64_defconfig-reflect-change-in-the-panel-driver-.patch
 defconfig/0193-pine64_defconfig-enable-thermal-related-options.patch
