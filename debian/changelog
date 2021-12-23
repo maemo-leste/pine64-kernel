@@ -1,3 +1,10 @@
+pine64-linux (5.15.0-1) unstable; urgency=medium
+
+  * Rebase patches for 5.15
+  * Using pine64_defconfig
+
+ -- Rafael Diniz <rafael@rhizomatica.org>  Thu, 23 Dec 2021 10:46:52 +0300
+
 pine64-linux (5.14.0-1) unstable; urgency=medium
 
   * Update config for 5.14

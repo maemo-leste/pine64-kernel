@@ -1,7 +1,7 @@
 Source: pine64-linux
 Section: pinephone
 Priority: optional
-Maintainer: Ivan J. <parazyd@dyne.org>
+Maintainer: Rafael Diniz <rafael@rhizomatica.org>
 Build-Depends:
  debhelper (>= 10),
  rsync,
