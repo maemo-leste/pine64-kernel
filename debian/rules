@@ -37,7 +37,7 @@ endif
 
 clean:
 	rm -rf debian/*tmp debian/files
-	$(MAKE) clean
+	$(MAKE) mrproper
 
 build: build-arch
 binary: binary-arch
