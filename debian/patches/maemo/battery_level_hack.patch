@@ -1,5 +1,5 @@
---- drivers/power/supply/axp20x_battery.c.orig	2021-12-23 23:44:38.104863520 +0300
-+++ drivers/power/supply/axp20x_battery.c	2021-12-23 23:44:46.828695731 +0300
+--- a/drivers/power/supply/axp20x_battery.c	2021-12-23 23:44:38.104863520 +0300
++++ b/drivers/power/supply/axp20x_battery.c	2021-12-23 23:44:46.828695731 +0300
 @@ -200,6 +200,11 @@
  	int ret = 0, reg, val1;
  
