@@ -17,12 +17,12 @@ Build-Depends:
 Standards-Version: 4.3.0
 Homepage: https://www.kernel.org
 
-Package: linux-image-pine64
+Package: linux-image-5.15.10
 Architecture: arm64
 Description: Linux kernel for Pinephone
  This package contains the Linux kernel, modules, and corresponding other files.
 
-Package: linux-headers-pine64
+Package: linux-headers-5.15.10
 Architecture: arm64
 Provides: linux-headers
 Description: Linux kernel headers for Pinephone
@@ -30,7 +30,7 @@ Description: Linux kernel headers for Pinephone
  .
  This is useful for people who need to build external modules
 
-Package: linux-image-pine64-dbg
+Package: linux-image-5.15.10-dbg
 Architecture: arm64
 Description: Linux kernel debugging symbols for Pinephone
  This package will come in handy if you need to debug the kernel. It provides
