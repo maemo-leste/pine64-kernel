@@ -1,3 +1,4 @@
+0001-maemo-leste-quirks.patch
 common/0001-clk-Implement-protected-clocks-for-all-OF-clock-prov.patch
 common/0002-arm64-dts-allwinner-a64-Protect-SCP-clocks.patch
 common/0003-bus-sunxi-rsb-Always-check-register-address-validity.patch
