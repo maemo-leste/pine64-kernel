@@ -213,3 +213,4 @@ defconfig/0212-pine64_defconfig-compile-typec-support-built-in.patch
 maemo/0213-battery_level_hack.patch
 maemo/0214-maemo-leste-quirks.patch
 maemo/0215-maemo-config.patch
+defconfig/0220-pine64_defconfig-stk3311-as-module.patch
