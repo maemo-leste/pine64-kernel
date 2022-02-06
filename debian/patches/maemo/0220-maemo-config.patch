@@ -1,5 +1,5 @@
---- a/arch/arm64/configs/pine64_defconfig	2022-01-17 00:54:44.359555750 +0300
-+++ b/arch/arm64/configs/pine64_defconfig	2022-01-17 01:27:00.579556673 +0300
+--- a/arch/arm64/configs/pine64_defconfig	2022-02-06 23:37:48.440547397 +0300
++++ b/arch/arm64/configs/pine64_defconfig	2022-02-06 23:38:36.799636286 +0300
 @@ -671,7 +671,7 @@
  CONFIG_GNSS=m
  CONFIG_GNSS_SIRF_SERIAL=m
@@ -22,7 +22,7 @@
  CONFIG_MTD_ONENAND_VERIFY_WRITE=y
  CONFIG_MTD_ONENAND_2X_PROGRAM=y
  CONFIG_MTD_NAND_ECC_SW_BCH=y
-@@ -2069,7 +2069,7 @@
+@@ -2070,7 +2070,7 @@
  CONFIG_NVMEM_SUNXI_SID=y
  CONFIG_TEE=y
  CONFIG_OPTEE=y
