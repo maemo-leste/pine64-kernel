@@ -223,7 +223,7 @@ defconfig/0222-pine64_defconfig-reboot-immediately-on-panic.patch
 defconfig/0223-pine64_defconfig-enable-Pine64-keyboard-case-and-re-.patch
 defconfig/0224-pine64_defconfig-compile-typec-support-built-in.patch
 defconfig/0225-arm-configs-add-IP5XXX-to-pine64_defconfig.patch
-debian/0227-wireless-add-debian-wireless-regdb-certificates.patch
-maemo/0218-battery_level_hack.patch
-maemo/0219-maemo-leste-quirks.patch
-maemo/0220-maemo-config.patch
+debian/0226-wireless-add-debian-wireless-regdb-certificates.patch
+maemo/0227-battery_level_hack.patch
+maemo/0228-maemo-leste-quirks.patch
+maemo/0229-maemo-config.patch
