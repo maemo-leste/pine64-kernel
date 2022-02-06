@@ -1,3 +1,10 @@
+pine64-linux (5.15.0-2) unstable; urgency=medium
+
+  * Rebase patches for 5.15.21
+  * Update keyboard patches
+
+ -- Rafael Diniz <rafael@rhizomatica.org>  Sun, 06 Feb 2022 22:42:01 +0300
+
 pine64-linux (5.15.0-1) unstable; urgency=medium
 
   * Rebase patches for 5.15
