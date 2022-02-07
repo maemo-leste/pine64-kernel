@@ -1,4 +1,4 @@
-pine64-linux (5.15.0-2) unstable; urgency=medium
+pine64-linux (5.15.21-1) unstable; urgency=medium
 
   * Rebase patches for 5.15.21
   * Update keyboard patches
