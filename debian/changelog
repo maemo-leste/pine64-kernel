@@ -1,3 +1,9 @@
+pine64-linux (5.15.22-1) unstable; urgency=medium
+
+  * Test release for pinetab display fixes
+
+ -- Merlijn Wajer <merlijn@wizzup.org>  Tue, 17 May 2022 22:58:42 +0200
+
 pine64-linux (5.15.21-1) unstable; urgency=medium
 
   * Rebase patches for 5.15.21
