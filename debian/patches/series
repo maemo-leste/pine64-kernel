@@ -227,3 +227,4 @@ debian/0226-wireless-add-debian-wireless-regdb-certificates.patch
 maemo/0227-battery_level_hack.patch
 maemo/0228-maemo-leste-quirks.patch
 maemo/0229-maemo-config.patch
+maemo/add-pinetab-display.patch
