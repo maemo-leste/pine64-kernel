@@ -1,3 +1,9 @@
+pine64-linux (5.15.44-1) unstable; urgency=medium
+
+  * Rebase patches for 5.15.44 from Mobian
+
+ -- Rafael Diniz <rafael@rhizomatica.org>  Tue, 21 Jun 2022 23:22:32 +0300
+
 pine64-linux (5.15.22-1) unstable; urgency=medium
 
   * Add pinetab display to config
