@@ -238,4 +238,7 @@ defconfig/0237-pine64_defconfig-enable-Pine64-keyboard-case-and-re-.patch
 defconfig/0238-pine64_defconfig-compile-typec-support-built-in.patch
 defconfig/0239-arm-configs-add-IP5XXX-to-pine64_defconfig.patch
 defconfig/0240-pine64_defconfig-enable-AF8133-magnetometer.patch
+maemo/0241-battery_level_hack.patch
+maemo/0242-maemo-leste-quirks.patch
+maemo/0243-maemo-config.patch
 

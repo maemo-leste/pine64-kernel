@@ -1,6 +1,6 @@
---- a/drivers/power/supply/axp20x_battery.c	2021-12-23 23:44:38.104863520 +0300
-+++ b/drivers/power/supply/axp20x_battery.c	2021-12-23 23:44:46.828695731 +0300
-@@ -200,6 +200,11 @@
+--- a/drivers/power/supply/axp20x_battery.c	2022-06-21 17:46:22.132212930 -0300
++++ b/drivers/power/supply/axp20x_battery.c	2022-06-21 17:47:19.383211313 -0300
+@@ -199,6 +199,11 @@
  	int ret = 0, reg, val1;
  
  	switch (psp) {
@@ -12,7 +12,7 @@
  	case POWER_SUPPLY_PROP_PRESENT:
  	case POWER_SUPPLY_PROP_ONLINE:
  		ret = regmap_read(axp20x_batt->regmap, AXP20X_PWR_OP_MODE,
-@@ -497,6 +502,7 @@
+@@ -496,6 +501,7 @@
  }
  
  static enum power_supply_property axp20x_battery_props[] = {
