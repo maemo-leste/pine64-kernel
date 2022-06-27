@@ -241,4 +241,4 @@ defconfig/0240-pine64_defconfig-enable-AF8133-magnetometer.patch
 maemo/0241-battery_level_hack.patch
 maemo/0242-maemo-leste-quirks.patch
 maemo/0243-maemo-config.patch
-
+maemo/0244-ov5640_camera_fixes.patch
