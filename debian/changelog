@@ -1,3 +1,9 @@
+pine64-linux (5.15.48-2) unstable; urgency=medium
+
+  * OV5640 camera driver re-worked.
+
+ -- Rafael Diniz <rafael@rhizomatica.org>  Tue, 28 Jun 2022 09:53:04 +0300
+
 pine64-linux (5.15.48-1) unstable; urgency=medium
 
   * Rebase patches for 5.15.48 from Mobian
