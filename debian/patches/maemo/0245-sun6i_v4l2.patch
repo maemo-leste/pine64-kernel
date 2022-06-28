@@ -1,0 +1,11 @@
+--- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.c	2022-06-28 13:41:59.633695535 +0300
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.c	2022-06-28 13:42:16.341695543 +0300
+@@ -706,7 +706,7 @@
+ 	vdev->v4l2_dev		= &csi->v4l2_dev;
+ 	vdev->queue		= vidq;
+ 	vdev->lock		= &video->lock;
+-	vdev->device_caps	= V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_CAPTURE;
++	vdev->device_caps	= V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_IO_MC;
+ 	video_set_drvdata(vdev, video);
+ 
+ 	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
