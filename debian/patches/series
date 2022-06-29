@@ -243,3 +243,4 @@ maemo/0242-maemo-leste-quirks.patch
 maemo/0243-maemo-config.patch
 maemo/0244-ov5640_camera_fixes.patch
 maemo/0245-sun6i_v4l2.patch
+maemo/0246-sun6i-complete.patch
