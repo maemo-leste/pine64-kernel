@@ -326,8 +326,8 @@
  	if (ret < 0) {
  		v4l2_err(&csi->v4l2_dev,
 --- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.h	2022-06-29 22:04:44.643762325 +0300
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.h	2022-06-29 22:05:02.635419027 +0300
-@@ -48,6 +48,13 @@
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.h	2022-06-30 10:29:32.488780827 +0300
+@@ -48,16 +48,24 @@
  	struct v4l2_fwnode_endpoint	vep;
  };
  
@@ -339,31 +339,26 @@
 +
 +
  /**
-  * sun6i_csi_is_format_supported() - check if the format supported by csi
-  * @csi:	pointer to the csi
-@@ -67,14 +74,16 @@
- int sun6i_csi_set_power(struct sun6i_csi *csi, bool enable);
- 
- /**
-- * sun6i_csi_update_config() - update the csi register settings
+- * sun6i_csi_is_format_supported() - check if the format supported by csi
 - * @csi:	pointer to the csi
-- * @config:	see struct sun6i_csi_config
+- * @pixformat:	v4l2 pixel format (V4L2_PIX_FMT_*)
+- * @mbus_code:	media bus format code (MEDIA_BUS_FMT_*)
 + * sun6i_csi_get_pixelformats() - get the valid pixel formats for a bus code
 + * @mbus_code:        the bus code
   * @vep:        parsed CSI side bus endpoint configuration
 + * @pixelformats:    returned list of valid pixel formats
 + * @pixelformats_size:    size of pixelformats1
   */
--int sun6i_csi_update_config(struct sun6i_csi *csi,
--			    struct sun6i_csi_config *config,
--			    struct v4l2_fwnode_endpoint* vep);
+-bool sun6i_csi_is_format_supported(struct sun6i_csi *csi,
+-				   u32 pixformat, u32 mbus_code,
+-				   struct v4l2_fwnode_endpoint* vep);
 +bool sun6i_csi_get_pixelformats(u32 mbus_code,
 +                struct v4l2_fwnode_endpoint* vep,
 +                u32 **pixelformats,
 +                u32 *pixelformats_size);
  
  /**
-  * sun6i_csi_update_buf_addr() - update the csi frame buffer address
+  * sun6i_csi_set_power() - power on/off the csi
 --- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.c	2022-06-29 22:04:50.339653629 +0300
 +++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.c	2022-06-29 22:05:02.635419027 +0300
 @@ -46,12 +46,67 @@
