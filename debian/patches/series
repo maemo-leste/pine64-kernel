@@ -242,5 +242,6 @@ maemo/0241-battery_level_hack.patch
 maemo/0242-maemo-leste-quirks.patch
 maemo/0243-maemo-config.patch
 maemo/0244-ov5640_camera_fixes.patch
-maemo/0245-sun6i_v4l2.patch
-maemo/0246-gs2145_camera_fixes.patch
+maemo/0245-sun6i-csi-Implement-framesize-and-frameinterva.patch
+maemo/0246-sun6i-csi-Limit-formats-to-those-compatible-wi.patch
+maemo/0247-gc2145-Add-PIXEL_RATE-HBLANK-and-VBLANK-contro.patch
