@@ -1,0 +1,76 @@
+From 5aa055615bfde586b036d99aea5e502fecc5c676 Mon Sep 17 00:00:00 2001
+From: Benjamin Schaaf <ben.schaaf@gmail.com>
+Date: Mon, 22 Nov 2021 23:38:26 +1100
+Subject: [PATCH] media: sun6i-csi: Implement framesize and frameinterval
+ enumeration
+
+---
+ .../platform/sunxi/sun6i-csi/sun6i_video.c    | 38 ++++++++++++++++++-
+ 1 file changed, 37 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.c b/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.c
+index e7f280d1a15a..23fb296e1d0c 100644
+--- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.c
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.c
+@@ -420,6 +420,39 @@ static int vidioc_try_fmt_vid_cap(struct file *file, void *priv,
+ 	return sun6i_video_try_fmt(video, f);
+ }
+ 
++static int vidioc_enum_framesizes(struct file *file, void *priv,
++				  struct v4l2_frmsizeenum *f)
++{
++	if (f->index != 0)
++		return -EINVAL;
++
++	f->type = V4L2_FRMSIZE_TYPE_CONTINUOUS;
++	f->stepwise.min_width = MIN_WIDTH;
++	f->stepwise.max_width = MAX_WIDTH;
++	f->stepwise.step_width = 1;
++	f->stepwise.min_height = MIN_HEIGHT;
++	f->stepwise.max_height = MAX_HEIGHT;
++	f->stepwise.step_height = 1;
++	return 0;
++}
++
++static int vidioc_enum_frameintervals(struct file *file, void *priv,
++				      struct v4l2_frmivalenum *f)
++{
++	if (f->index > 0)
++		return -EINVAL;
++
++	f->type = V4L2_FRMIVAL_TYPE_CONTINUOUS;
++	f->stepwise.min.denominator = 2;
++	f->stepwise.min.numerator = 1;
++	// Unknown limit
++	f->stepwise.max.denominator = 120;
++	f->stepwise.max.numerator = 1;
++	f->stepwise.step.denominator = 1;
++	f->stepwise.step.numerator = 1;
++	return 0;
++}
++
+ static int vidioc_enum_input(struct file *file, void *fh,
+ 			     struct v4l2_input *inp)
+ {
+@@ -480,6 +513,9 @@ static const struct v4l2_ioctl_ops sun6i_video_ioctl_ops = {
+ 	.vidioc_s_fmt_vid_cap		= vidioc_s_fmt_vid_cap,
+ 	.vidioc_try_fmt_vid_cap		= vidioc_try_fmt_vid_cap,
+ 
++	.vidioc_enum_framesizes		= vidioc_enum_framesizes,
++	.vidioc_enum_frameintervals	= vidioc_enum_frameintervals,
++
+ 	.vidioc_enum_input		= vidioc_enum_input,
+ 	.vidioc_s_input			= vidioc_s_input,
+ 	.vidioc_g_input			= vidioc_g_input,
+@@ -706,7 +742,7 @@ int sun6i_video_init(struct sun6i_video *video, struct sun6i_csi *csi,
+ 	vdev->v4l2_dev		= &csi->v4l2_dev;
+ 	vdev->queue		= vidq;
+ 	vdev->lock		= &video->lock;
+-	vdev->device_caps	= V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_CAPTURE;
++	vdev->device_caps	= V4L2_CAP_STREAMING | V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_IO_MC;
+ 	video_set_drvdata(vdev, video);
+ 
+ 	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+-- 
+2.25.1
+
