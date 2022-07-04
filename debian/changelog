@@ -1,3 +1,10 @@
+pine64-linux (5.15.50-1) unstable; urgency=medium
+
+  * d/patches: rebase on 5.15.50
+  * d/patches: fix backport of ip5xxx driver
+
+ -- Rafael Diniz <rafael@rhizomatica.org>  Mon, 04 Jul 2022 10:01:55 +0300
+
 pine64-linux (5.15.48-2) unstable; urgency=medium
 
   * OV5640 camera driver re-worked.
