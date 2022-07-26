@@ -15,10 +15,10 @@ Signed-off-by: Samuel Holland <samuel@sholland.org>
  create mode 100644 drivers/input/keyboard/pinephone-keyboard.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index f3e1396..d1aa8dd 100644
+index f925106..ec0cfec 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -14895,6 +14895,12 @@ S:	Maintained
+@@ -14904,6 +14904,12 @@ S:	Maintained
  F:	Documentation/devicetree/bindings/iio/chemical/plantower,pms7003.yaml
  F:	drivers/iio/chemical/pms7003.c
  
@@ -66,7 +66,7 @@ index 1d689fd..7348a73 100644
  obj-$(CONFIG_KEYBOARD_PXA930_ROTARY)	+= pxa930_rotary.o
 diff --git a/drivers/input/keyboard/pinephone-keyboard.c b/drivers/input/keyboard/pinephone-keyboard.c
 new file mode 100644
-index 0000000..9a07175
+index 00000000..9a07175
 --- /dev/null
 +++ b/drivers/input/keyboard/pinephone-keyboard.c
 @@ -0,0 +1,258 @@
