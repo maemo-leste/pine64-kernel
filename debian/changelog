@@ -1,3 +1,9 @@
+pine64-linux (5.15.50-2) unstable; urgency=medium
+
+  * CONFIGFS set to Y
+
+ -- Rafael Diniz <rafael@rhizomatica.org>  Fri, 16 Sep 2022 17:04:01 +0300
+
 pine64-linux (5.15.50-1) unstable; urgency=medium
 
   * d/patches: rebase on 5.15.50
