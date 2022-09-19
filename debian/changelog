@@ -1,3 +1,13 @@
+linux-5.15-sunxi64 (5.15.68+sunxi64-1) unstable; urgency=medium
+
+  [ Joerg Schuetter ]
+  * prepare for 5.15.60+
+
+  [ Arnaud Ferraris ]
+  * d/patches: rebase on 5.15.68
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Tue, 20 Sep 2022 01:36:50 +0200
+
 linux-5.15-sunxi64 (5.15.59+sunxi64-1) unstable; urgency=medium
 
   * d/patches: rebase on 5.15.59
