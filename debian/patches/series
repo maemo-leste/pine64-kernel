@@ -246,3 +246,4 @@ maemo/0245-ov5640_camera_fixes.patch
 maemo/0246-sun6i-csi-Implement-framesize-and-frameinterva.patch
 maemo/0247-sun6i-csi-Limit-formats-to-those-compatible-wi.patch
 maemo/0248-gc2145-Add-PIXEL_RATE-HBLANK-and-VBLANK-contro.patch
+maemo/0249-maemo-configfs_must_be_y.patch
