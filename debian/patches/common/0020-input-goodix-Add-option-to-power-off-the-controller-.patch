@@ -10,22 +10,15 @@ Let's power off the controller during system sleep instead.
 
 Signed-off-by: Ondrej Jirman <megous@megous.com>
 ---
- drivers/input/touchscreen/goodix.c | 38 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 38 insertions(+)
+ drivers/input/touchscreen/goodix.c | 37 +++++++++++++++++++++++++++++++++++++
+ drivers/input/touchscreen/goodix.h |  1 +
+ 2 files changed, 38 insertions(+)
 
 diff --git a/drivers/input/touchscreen/goodix.c b/drivers/input/touchscreen/goodix.c
-index 5051a17..079a374 100644
+index 3667f7e..9fa79dd 100644
 --- a/drivers/input/touchscreen/goodix.c
 +++ b/drivers/input/touchscreen/goodix.c
-@@ -115,6 +115,7 @@ struct goodix_ts_data {
- 	unsigned int contact_size;
- 	u8 config[GOODIX_CONFIG_MAX_LENGTH];
- 	unsigned short keymap[GOODIX_MAX_KEYS];
-+	bool poweroff_in_suspend;
- };
- 
- static int goodix_check_cfg_8(struct goodix_ts_data *ts,
-@@ -1156,6 +1157,7 @@ static void goodix_disable_regulators(void *arg)
+@@ -1134,6 +1134,7 @@ static void goodix_disable_regulators(void *arg)
  static int goodix_ts_probe(struct i2c_client *client,
  			   const struct i2c_device_id *id)
  {
@@ -33,7 +26,7 @@ index 5051a17..079a374 100644
  	struct goodix_ts_data *ts;
  	int error;
  
-@@ -1174,6 +1176,7 @@ static int goodix_ts_probe(struct i2c_client *client,
+@@ -1152,6 +1153,7 @@ static int goodix_ts_probe(struct i2c_client *client,
  	i2c_set_clientdata(client, ts);
  	init_completion(&ts->firmware_loading_complete);
  	ts->contact_size = GOODIX_CONTACT_SIZE;
@@ -41,7 +34,7 @@ index 5051a17..079a374 100644
  
  	error = goodix_get_gpio_config(ts);
  	if (error)
-@@ -1278,6 +1281,15 @@ static int __maybe_unused goodix_suspend(struct device *dev)
+@@ -1254,6 +1256,15 @@ static int __maybe_unused goodix_suspend(struct device *dev)
  	if (ts->load_cfg_from_disk)
  		wait_for_completion(&ts->firmware_loading_complete);
  
@@ -57,7 +50,7 @@ index 5051a17..079a374 100644
  	/* We need gpio pins to suspend/resume */
  	if (ts->irq_pin_access_method == IRQ_PIN_ACCESS_NONE) {
  		disable_irq(client->irq);
-@@ -1321,6 +1333,32 @@ static int __maybe_unused goodix_resume(struct device *dev)
+@@ -1297,6 +1308,32 @@ static int __maybe_unused goodix_resume(struct device *dev)
  	u8 config_ver;
  	int error;
  
@@ -90,3 +83,15 @@ index 5051a17..079a374 100644
  	if (ts->irq_pin_access_method == IRQ_PIN_ACCESS_NONE) {
  		enable_irq(client->irq);
  		return 0;
+diff --git a/drivers/input/touchscreen/goodix.h b/drivers/input/touchscreen/goodix.h
+index 1a1571a..be4c877 100644
+--- a/drivers/input/touchscreen/goodix.h
++++ b/drivers/input/touchscreen/goodix.h
+@@ -63,6 +63,7 @@ struct goodix_ts_data {
+ 	unsigned int contact_size;
+ 	u8 config[GOODIX_CONFIG_MAX_LENGTH];
+ 	unsigned short keymap[GOODIX_MAX_KEYS];
++	bool poweroff_in_suspend;
+ };
+ 
+ int goodix_i2c_read(struct i2c_client *client, u16 reg, u8 *buf, int len);

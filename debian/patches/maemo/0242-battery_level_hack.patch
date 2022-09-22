@@ -1,0 +1,22 @@
+--- a/drivers/power/supply/axp20x_battery.c	2022-09-22 17:14:32.071094394 +0300
++++ b/drivers/power/supply/axp20x_battery.c	2022-09-22 17:15:14.674326066 +0300
+@@ -199,6 +199,11 @@
+ 	int ret = 0, reg, val1;
+ 
+ 	switch (psp) {
++	case POWER_SUPPLY_PROP_TECHNOLOGY:
++		/* TODO: AXP can be both Li-ion and LiPo */
++		val->intval = POWER_SUPPLY_TECHNOLOGY_LION;
++		break;
++
+ 	case POWER_SUPPLY_PROP_PRESENT:
+ 	case POWER_SUPPLY_PROP_ONLINE:
+ 		ret = regmap_read(axp20x_batt->regmap, AXP20X_PWR_OP_MODE,
+@@ -524,6 +529,7 @@
+ }
+ 
+ static enum power_supply_property axp20x_battery_props[] = {
++	POWER_SUPPLY_PROP_TECHNOLOGY,
+ 	POWER_SUPPLY_PROP_PRESENT,
+ 	POWER_SUPPLY_PROP_ONLINE,
+ 	POWER_SUPPLY_PROP_STATUS,
