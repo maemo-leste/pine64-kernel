@@ -1,3 +1,9 @@
+linux-5.15-sunxi64 (5.15.73+sunxi64-1) unstable; urgency=medium
+
+  * Rebase on 5.15.73
+
+ -- Arnaud Ferraris <aferraris@debian.org>  Wed, 12 Oct 2022 23:31:27 +0200
+
 linux-5.15-sunxi64 (5.15.72+sunxi64-1) unstable; urgency=medium
 
   * Rebase on 5.15.72
