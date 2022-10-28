@@ -16,10 +16,10 @@ Signed-off-by: Ondrej Jirman <megous@megous.com>
  1 file changed, 14 deletions(-)
 
 diff --git a/drivers/input/touchscreen/goodix.c b/drivers/input/touchscreen/goodix.c
-index 9fa79dd..46da879 100644
+index 5362eb2..862436a 100644
 --- a/drivers/input/touchscreen/goodix.c
 +++ b/drivers/input/touchscreen/goodix.c
-@@ -1260,8 +1260,6 @@ static int __maybe_unused goodix_suspend(struct device *dev)
+@@ -1261,8 +1261,6 @@ static int __maybe_unused goodix_suspend(struct device *dev)
  		goodix_free_irq(ts);
  		goodix_irq_direction_output(ts, 0);
  		gpiod_direction_output(ts->gpiod_rst, 0);
@@ -28,7 +28,7 @@ index 9fa79dd..46da879 100644
  		return 0;
  	}
  
-@@ -1309,18 +1307,6 @@ static int __maybe_unused goodix_resume(struct device *dev)
+@@ -1310,18 +1308,6 @@ static int __maybe_unused goodix_resume(struct device *dev)
  	int error;
  
  	if (ts->poweroff_in_suspend) {
