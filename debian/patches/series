@@ -164,3 +164,7 @@ pinetab/0163-arm64-allwinner-dts-a64-enable-K101-IM2BYL02-panel-f.patch
 pinetab/0164-arm64-allwinner-a64-dts-add-PineTab-board.patch
 pinetab/0165-arm64-allwinner-a64-pinetab-enable-RTL8723CS-bluetoo.patch
 pinetab/0166-arm64-dts-allwinner-pinetab-enable-jack-detection.patch
+
+mobian/0167-arm64-configs-Add-sunxi64_defconfig.patch
+mobian/0168-builddeb-don-t-build-linux-libc-dev-package.patch
+debian/0169-wireless-add-debian-wireless-regdb-certificates.patch
