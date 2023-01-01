@@ -13,7 +13,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  2 files changed, 4 insertions(+)
 
 diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-index bd940b6..66200f85 100644
+index 444fdb4..451d149 100644
 --- a/drivers/mfd/axp20x.c
 +++ b/drivers/mfd/axp20x.c
 @@ -247,6 +247,8 @@ static const struct resource axp803_battery_resources[] = {

@@ -14,7 +14,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  2 files changed, 144 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-index 5bbeb70..bd940b6 100644
+index 18268c9..444fdb4 100644
 --- a/drivers/mfd/axp20x.c
 +++ b/drivers/mfd/axp20x.c
 @@ -209,6 +209,8 @@ static const struct resource axp22x_usb_power_supply_resources[] = {
