@@ -12,7 +12,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 8 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 0c2e776..bf40c2c 100644
+index 75d7ed4..aac2374 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
 @@ -2472,6 +2472,7 @@ static void ov5640_reset(struct ov5640_dev *sensor)
@@ -66,7 +66,7 @@ index 0c2e776..bf40c2c 100644
  static int ov5640_probe(struct i2c_client *client)
  {
  	struct device *dev = &client->dev;
-@@ -3915,20 +3901,9 @@ static int ov5640_probe(struct i2c_client *client)
+@@ -3916,20 +3902,9 @@ static int ov5640_probe(struct i2c_client *client)
  	if (ret)
  		goto entity_cleanup;
  

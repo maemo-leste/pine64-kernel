@@ -10,7 +10,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/bluetooth/hci_h5.c b/drivers/bluetooth/hci_h5.c
-index 0ff9d84..5d1319e 100644
+index 78f35ae..6b8efd9 100644
 --- a/drivers/bluetooth/hci_h5.c
 +++ b/drivers/bluetooth/hci_h5.c
 @@ -1103,7 +1103,7 @@ static const struct of_device_id rtl_bluetooth_of_match[] = {

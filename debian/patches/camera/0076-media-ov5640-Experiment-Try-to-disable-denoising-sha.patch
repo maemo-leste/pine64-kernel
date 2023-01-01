@@ -11,7 +11,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 17 insertions(+)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 4e3ed19..5bb9a4b 100644
+index c9a3154..39a2370 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
 @@ -2323,6 +2323,7 @@ static int ov5640_set_mode(struct ov5640_dev *sensor)
