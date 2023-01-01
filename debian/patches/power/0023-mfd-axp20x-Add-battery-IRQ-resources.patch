@@ -8,7 +8,7 @@ Signed-off-by: Samuel Holland <samuel@sholland.org>
  1 file changed, 36 insertions(+)
 
 diff --git a/drivers/mfd/axp20x.c b/drivers/mfd/axp20x.c
-index 88a212a..5bbeb70 100644
+index 880c41f..18268c9 100644
 --- a/drivers/mfd/axp20x.c
 +++ b/drivers/mfd/axp20x.c
 @@ -179,6 +179,15 @@ static const struct resource axp20x_ac_power_supply_resources[] = {

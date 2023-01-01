@@ -9,7 +9,7 @@ completed the focus routine.
  1 file changed, 18 insertions(+), 49 deletions(-)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 54865af..86478db 100644
+index 6ee4f87..ac35350 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
 @@ -2618,6 +2618,19 @@ static int ov5640_copy_fw_to_device(struct ov5640_dev *sensor,
