@@ -12,7 +12,7 @@ don't bother trying.
  1 file changed, 71 insertions(+), 26 deletions(-)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 3442226..54865af 100644
+index dfd4e79..6ee4f87 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
 @@ -1229,6 +1229,8 @@ static int ov5640_write_reg(struct ov5640_dev *sensor, u16 reg, u8 val)

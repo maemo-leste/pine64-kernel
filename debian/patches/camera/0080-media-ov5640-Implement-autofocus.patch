@@ -14,7 +14,7 @@ Signed-off-by: Martijn Braam <martijn@brixit.nl>
  1 file changed, 278 insertions(+)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 9af996f..3442226 100644
+index f51325b..dfd4e79 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
 @@ -9,6 +9,7 @@
