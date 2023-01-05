@@ -1,3 +1,9 @@
+pine64-linux (6.1.2-1) unstable; urgency=medium
+
+  * Move to kernel 6.1.2 with Mobian patches.
+
+ -- Rafael Diniz <rafael@riseup.net>  Fri, 06 Jan 2023 02:03:52 +0300
+
 pine64-linux (5.15.68-1) unstable; urgency=medium
 
   * Rebase to 5.15.68.
