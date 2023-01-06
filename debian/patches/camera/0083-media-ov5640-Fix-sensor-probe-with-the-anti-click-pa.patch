@@ -1,0 +1,33 @@
+From: Ondrej Jirman <megi@xff.cz>
+Date: Mon, 2 Jan 2023 10:10:25 +0100
+Subject: media: ov5640: Fix sensor probe with the "anti-click" patch
+
+The focus anti-click patch got broken in rebase onto 6.1. Fix it.
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ drivers/media/i2c/ov5640.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index ac35350..74e88fb 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -4194,16 +4194,13 @@ static int ov5640_probe(struct i2c_client *client)
+ 	if (ret)
+ 		goto entity_cleanup;
+ 
+-	pm_runtime_get_noresume(dev);
+-	pm_runtime_enable(dev);
+-
+ 	ret = v4l2_async_register_subdev_sensor(&sensor->sd);
+ 	if (ret)
+ 		goto err_pm_runtime;
+ 
++	pm_runtime_enable(dev);
+ 	pm_runtime_set_autosuspend_delay(dev, 1000);
+ 	pm_runtime_use_autosuspend(dev);
+-	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+ 
