@@ -169,3 +169,4 @@ mobian/0168-arm64-configs-Add-sunxi64_defconfig.patch
 maemo/0169-battery_level_hack.patch
 maemo/0170-maemo-quirks.patch
 maemo/0171-maemo-config-adaptation.patch
+maemo/0172-camera_patches.patch
