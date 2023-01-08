@@ -1,3 +1,9 @@
+pine64-linux (6.1.2-2) unstable; urgency=medium
+
+  * Added Maemo work on better camera support.
+
+ -- Rafael Diniz <rafael@riseup.net>  Sun, 08 Jan 2023 03:22:11 +0300
+
 pine64-linux (6.1.2-1) unstable; urgency=medium
 
   * Move to kernel 6.1.2 with Mobian patches.
