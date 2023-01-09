@@ -1,3 +1,10 @@
+pine64-linux (6.1.3-1) unstable; urgency=medium
+
+  * Sync with upstream.
+  * Removed camera patches, still working on it.
+
+ -- Rafael Diniz <rafael@riseup.net>  Mon, 09 Jan 2023 21:14:15 +0300
+
 pine64-linux (6.1.2-2) unstable; urgency=medium
 
   * Added Maemo work on better camera support.
