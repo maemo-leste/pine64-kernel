@@ -63,7 +63,6 @@ struct goodix_ts_data {
 	unsigned int contact_size;
 	u8 config[GOODIX_CONFIG_MAX_LENGTH];
 	unsigned short keymap[GOODIX_MAX_KEYS];
-	bool poweroff_in_suspend;
 };
 
 int goodix_i2c_read(struct i2c_client *client, u16 reg, u8 *buf, int len);
