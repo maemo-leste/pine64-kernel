@@ -9,10 +9,10 @@ Signed-off-by: Samuel Holland <samuel@sholland.org>
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/staging/media/sunxi/cedrus/cedrus.c b/drivers/staging/media/sunxi/cedrus/cedrus.c
-index aab12fb..9389154 100644
+index 3da89ba..1598636 100644
 --- a/drivers/staging/media/sunxi/cedrus/cedrus.c
 +++ b/drivers/staging/media/sunxi/cedrus/cedrus.c
-@@ -391,7 +391,7 @@ static int cedrus_probe(struct platform_device *pdev)
+@@ -393,7 +393,7 @@ static int cedrus_probe(struct platform_device *pdev)
  	ret = v4l2_device_register(&pdev->dev, &dev->v4l2_dev);
  	if (ret) {
  		dev_err(&pdev->dev, "Failed to register V4L2 device\n");

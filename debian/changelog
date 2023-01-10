@@ -1,3 +1,10 @@
+pine64-linux (5.15.81-1) unstable; urgency=medium
+
+  * Latest 5.15 kernel.
+  * New camera patches.
+
+ -- Rafael Diniz <rafael@rhizomatica.org>  Tue, 10 Jan 2022 19:39:33 +0300
+
 pine64-linux (5.15.21-1) unstable; urgency=medium
 
   * Rebase patches for 5.15.21
