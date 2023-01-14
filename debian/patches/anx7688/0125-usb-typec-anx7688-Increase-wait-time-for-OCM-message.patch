@@ -10,7 +10,7 @@ Signed-off-by: Ondrej Jirman <megous@megous.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/usb/typec/anx7688.c b/drivers/usb/typec/anx7688.c
-index a8e420e..89ecdc8 100644
+index a8e420e..89ecdc84 100644
 --- a/drivers/usb/typec/anx7688.c
 +++ b/drivers/usb/typec/anx7688.c
 @@ -331,8 +331,8 @@ static int anx7688_send_ocm_message(struct anx7688 *anx7688, int cmd,

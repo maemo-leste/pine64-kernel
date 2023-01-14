@@ -31,7 +31,7 @@ Signed-off-by: Ondrej Jirman <megous@megous.com>
  1 file changed, 185 insertions(+), 107 deletions(-)
 
 diff --git a/drivers/usb/typec/anx7688.c b/drivers/usb/typec/anx7688.c
-index 89ecdc8..39c817e0 100644
+index 89ecdc84..39c817e0 100644
 --- a/drivers/usb/typec/anx7688.c
 +++ b/drivers/usb/typec/anx7688.c
 @@ -159,6 +159,7 @@ enum {

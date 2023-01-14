@@ -1,5 +1,5 @@
---- a/drivers/media/i2c/ov5640.c	2022-06-27 21:33:02.680451544 +0300
-+++ b/drivers/media/i2c/ov5640.c	2022-06-27 12:04:54.964435290 +0300
+--- a/drivers/media/i2c/ov5640.c	2023-01-10 18:39:15.955577073 +0300
++++ b/drivers/media/i2c/ov5640.c	2023-01-10 18:39:59.750792063 +0300
 @@ -9,7 +9,6 @@
  #include <linux/clkdev.h>
  #include <linux/ctype.h>
@@ -2354,8 +2354,12 @@
  
  	/* Auto/manual white balance */
  	ctrls->auto_wb = v4l2_ctrl_new_std(hdl, ops,
-@@ -3071,20 +3470,6 @@
- 	ctrls->gain = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_GAIN,
+@@ -3068,23 +3467,9 @@
+ 	/* Auto/manual gain */
+ 	ctrls->auto_gain = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_AUTOGAIN,
+ 					     0, 1, 1, 1);
+-	ctrls->gain = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_GAIN,
++	ctrls->gain = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_ANALOGUE_GAIN,
  					0, 1023, 1, 0);
  
 -	/* Autofocus */
