@@ -1,7 +1,6 @@
-pine64-linux (5.15.81-2) unstable; urgency=medium
+pine64-linux (5.15.81-3) unstable; urgency=medium
 
-  * Rebase to 5.15.81.
-  * Removed galaxy core camera patch.
+  * Rebase to 5.15.81. Same as in beowulf.
 
  -- Rafael Diniz <rafael@rhizomatica.org>  Sat, 14 Jan 2022 23:56:35 +0300
 
