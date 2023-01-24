@@ -1,3 +1,9 @@
+pine64-linux (6.1.6-2) unstable; urgency=medium
+
+  * Merge jmondi ov5640 pwr-up sequence patch
+
+ -- Rafael Diniz <rafael@riseup.net>  Tue, 24 Jan 2023 22:43:54 +0300
+
 pine64-linux (6.1.6-1) unstable; urgency=medium
 
   * Sync with upstream 6.1.6.
