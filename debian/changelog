@@ -1,3 +1,9 @@
+pine64-linux (6.1.6-3) unstable; urgency=medium
+
+  * Support for multiple endpoints in sun6i-csi
+
+ -- Rafael Diniz <rafael@riseup.net>  Fri, 27 Jan 2023 00:03:23 +0300
+
 pine64-linux (6.1.6-2) unstable; urgency=medium
 
   * Merge jmondi ov5640 pwr-up sequence patch
