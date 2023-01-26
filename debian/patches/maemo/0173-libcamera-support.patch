@@ -1,13 +1,5 @@
---- a/drivers/media/platform/sunxi/sun6i-csi/Makefile	2023-01-15 00:20:48.591028358 +0300
-+++ b/drivers/media/platform/sunxi/sun6i-csi/Makefile	2023-01-15 00:20:54.274943899 +0300
-@@ -1,4 +1,4 @@
- # SPDX-License-Identifier: GPL-2.0-only
--sun6i-csi-y += sun6i_video.o sun6i_csi.o
-+sun6i-csi-y += sun6i_csi.o sun6i_csi_bridge.o sun6i_csi_capture.o
- 
- obj-$(CONFIG_VIDEO_SUN6I_CSI) += sun6i-csi.o
---- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.h	2023-01-12 02:35:52.000000000 +0300
-+++ /dev/null	2023-01-14 21:27:24.082843405 +0300
+--- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.h	2023-01-17 11:39:18.000000000 +0300
++++ /dev/null	2023-01-25 23:38:34.267510023 +0300
 @@ -1,35 +0,0 @@
 -/* SPDX-License-Identifier: GPL-2.0+ */
 -/*
@@ -44,8 +36,8 @@
 -void sun6i_video_frame_done(struct sun6i_csi_device *csi_dev);
 -
 -#endif /* __SUN6I_VIDEO_H__ */
---- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.c	2023-01-15 00:15:04.735917712 +0300
-+++ /dev/null	2023-01-14 21:27:24.082843405 +0300
+--- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_video.c	2023-01-26 22:10:37.738633469 +0300
++++ /dev/null	2023-01-25 23:38:34.267510023 +0300
 @@ -1,793 +0,0 @@
 -// SPDX-License-Identifier: GPL-2.0+
 -/*
@@ -840,8 +832,16 @@
 -	media_entity_cleanup(&video_dev->entity);
 -	mutex_destroy(&video->lock);
 -}
---- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_reg.h	2023-01-15 00:23:09.564908396 +0300
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_reg.h	2023-01-15 00:23:20.600740420 +0300
+--- a/drivers/media/platform/sunxi/sun6i-csi/Makefile	2023-01-26 22:14:41.174203439 +0300
++++ b/drivers/media/platform/sunxi/sun6i-csi/Makefile	2023-01-26 22:16:27.466067327 +0300
+@@ -1,4 +1,4 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+-sun6i-csi-y += sun6i_video.o sun6i_csi.o
++sun6i-csi-y += sun6i_csi.o sun6i_csi_bridge.o sun6i_csi_capture.o
+ 
+ obj-$(CONFIG_VIDEO_SUN6I_CSI) += sun6i-csi.o
+--- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_reg.h	2023-01-26 22:19:28.936971003 +0300
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_reg.h	2023-01-26 22:21:00.273290856 +0300
 @@ -1,196 +1,184 @@
  /* SPDX-License-Identifier: GPL-2.0+ */
  /*
@@ -1212,8 +1212,8 @@
  
 -#endif /* __SUN6I_CSI_REG_H__ */
 +#endif
---- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.h	2023-01-15 00:24:02.380102173 +0300
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.h	2023-01-15 00:24:11.651960059 +0300
+--- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.h	2023-01-26 22:31:07.805289189 +0300
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.h	2023-01-26 22:32:20.503529818 +0300
 @@ -1,176 +1,63 @@
  /* SPDX-License-Identifier: GPL-2.0+ */
  /*
@@ -1412,8 +1412,8 @@
  
 -#endif /* __SUN6I_CSI_H__ */
 +#endif
---- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.c	2023-01-15 00:24:39.275535649 +0300
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.c	2023-01-15 00:24:46.319427205 +0300
+--- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.c	2023-01-26 22:31:17.017563321 +0300
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi.c	2023-01-26 22:32:26.835732632 +0300
 @@ -1,18 +1,14 @@
  // SPDX-License-Identifier: GPL-2.0+
  /*
@@ -2326,9 +2326,9 @@
  MODULE_AUTHOR("Yong Deng <yong.deng@magewell.com>");
 +MODULE_AUTHOR("Paul Kocialkowski <paul.kocialkowski@bootlin.com>");
  MODULE_LICENSE("GPL");
---- /dev/null	2023-01-14 21:27:24.082843405 +0300
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h	2023-01-15 00:26:02.498248807 +0300
-@@ -0,0 +1,60 @@
+--- /dev/null	2023-01-25 23:38:34.267510023 +0300
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h	2023-01-26 22:34:28.207803421 +0300
+@@ -0,0 +1,62 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
 + * Copyright 2021-2022 Bootlin
@@ -2369,12 +2369,14 @@
 +	struct sun6i_csi_bridge_source	*source;
 +};
 +
++#define SUN6I_CSI_SOURCE_PARALLEL_MAX 2
++
 +struct sun6i_csi_bridge {
 +	struct v4l2_subdev		subdev;
 +	struct v4l2_async_notifier	notifier;
 +	struct media_pad		pads[2];
 +
-+	struct sun6i_csi_bridge_source	source_parallel;
++	struct sun6i_csi_bridge_source	source_parallel[SUN6I_CSI_SOURCE_PARALLEL_MAX];
 +	struct sun6i_csi_bridge_source	source_mipi_csi2;
 +};
 +
@@ -2389,9 +2391,9 @@
 +void sun6i_csi_bridge_cleanup(struct sun6i_csi_device *csi_dev);
 +
 +#endif
---- /dev/null	2023-01-14 21:27:24.082843405 +0300
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.c	2023-01-15 00:26:07.790166591 +0300
-@@ -0,0 +1,847 @@
+--- /dev/null	2023-01-25 23:38:34.267510023 +0300
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.c	2023-01-26 22:34:34.040006403 +0300
+@@ -0,0 +1,856 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * Copyright 2021-2022 Bootlin
@@ -2601,12 +2603,12 @@
 +
 +static void
 +sun6i_csi_bridge_configure_parallel(struct sun6i_csi_device *csi_dev,
-+				    struct v4l2_subdev_state *state)
++				    struct v4l2_subdev_state *state,
++				    struct sun6i_csi_bridge_source *source)
 +{
 +	struct device *dev = csi_dev->dev;
 +	struct regmap *regmap = csi_dev->regmap;
-+	struct v4l2_fwnode_endpoint *endpoint =
-+		&csi_dev->bridge.source_parallel.endpoint;
++	struct v4l2_fwnode_endpoint *endpoint = &source->endpoint;
 +	unsigned char bus_width = endpoint->bus.parallel.bus_width;
 +	unsigned int flags = endpoint->bus.parallel.flags;
 +	const struct v4l2_mbus_framefmt *sink_format;
@@ -2774,10 +2776,8 @@
 +				       struct sun6i_csi_bridge_source *source,
 +				       struct v4l2_subdev_state *state)
 +{
-+	struct sun6i_csi_bridge *bridge = &csi_dev->bridge;
-+
-+	if (source == &bridge->source_parallel)
-+		sun6i_csi_bridge_configure_parallel(csi_dev, state);
++	if (source->endpoint.bus_type == V4L2_MBUS_PARALLEL)
++		sun6i_csi_bridge_configure_parallel(csi_dev, state, source);
 +	else
 +		sun6i_csi_bridge_configure_mipi_csi2(csi_dev, state);
 +
@@ -2793,11 +2793,11 @@
 +	struct media_pad *local_pad = &bridge->pads[SUN6I_CSI_BRIDGE_PAD_SINK];
 +	bool capture_streaming = csi_dev->capture.state.streaming;
 +	struct device *dev = csi_dev->dev;
-+	struct sun6i_csi_bridge_source *source;
++	struct sun6i_csi_bridge_source *source = NULL;
 +	struct v4l2_subdev *source_subdev;
 +	struct media_pad *remote_pad;
 +	struct v4l2_subdev_state *state;
-+	int ret;
++	int ret, i;
 +
 +	/* Source */
 +
@@ -2810,10 +2810,20 @@
 +
 +	source_subdev = media_entity_to_v4l2_subdev(remote_pad->entity);
 +
-+	if (source_subdev == bridge->source_parallel.subdev)
-+		source = &bridge->source_parallel;
-+	else
++	if (source_subdev == bridge->source_mipi_csi2.subdev) {
 +		source = &bridge->source_mipi_csi2;
++	} else {
++		for (i = 0; i < SUN6I_CSI_SOURCE_PARALLEL_MAX; i++) {
++			if (source_subdev == bridge->source_parallel[i].subdev) {
++				source = &bridge->source_parallel[i];
++				break;
++			}
++		}
++	}
++	if (!source) {
++		dev_err(dev, "bridge source not found\n");
++		return -ENODEV;
++	}
 +
 +	if (!on) {
 +		v4l2_subdev_call(source_subdev, video, s_stream, 0);
@@ -3029,10 +3039,10 @@
 +
 +	switch (source->endpoint.base.port) {
 +	case SUN6I_CSI_PORT_PARALLEL:
-+		enabled = true;
++		enabled = source->endpoint.base.id == 0;
 +		break;
 +	case SUN6I_CSI_PORT_MIPI_CSI2:
-+		enabled = !bridge->source_parallel.expected;
++		enabled = !bridge->source_parallel[0].expected;
 +		break;
 +	default:
 +		return -EINVAL;
@@ -3078,7 +3088,7 @@
 +
 +static int sun6i_csi_bridge_source_setup(struct sun6i_csi_device *csi_dev,
 +					 struct sun6i_csi_bridge_source *source,
-+					 u32 port,
++					 u32 port, u32 ep,
 +					 enum v4l2_mbus_type *bus_types)
 +{
 +	struct device *dev = csi_dev->dev;
@@ -3088,7 +3098,7 @@
 +	struct fwnode_handle *handle;
 +	int ret;
 +
-+	handle = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), port, 0, 0);
++	handle = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), port, ep, 0);
 +	if (!handle)
 +		return -ENODEV;
 +
@@ -3147,7 +3157,7 @@
 +		V4L2_MBUS_BT656,
 +		V4L2_MBUS_INVALID
 +	};
-+	int ret;
++	int ret, i;
 +
 +	/* V4L2 Subdev */
 +
@@ -3195,11 +3205,12 @@
 +	v4l2_async_nf_init(notifier);
 +	notifier->ops = &sun6i_csi_bridge_notifier_ops;
 +
-+	sun6i_csi_bridge_source_setup(csi_dev, &bridge->source_parallel,
-+				      SUN6I_CSI_PORT_PARALLEL,
-+				      parallel_mbus_types);
++	for (i = 0; i < SUN6I_CSI_SOURCE_PARALLEL_MAX; i++)
++		sun6i_csi_bridge_source_setup(csi_dev, &bridge->source_parallel[i],
++					      SUN6I_CSI_PORT_PARALLEL, i,
++					      parallel_mbus_types);
 +	sun6i_csi_bridge_source_setup(csi_dev, &bridge->source_mipi_csi2,
-+				      SUN6I_CSI_PORT_MIPI_CSI2, NULL);
++				      SUN6I_CSI_PORT_MIPI_CSI2, 0, NULL);
 +
 +	if (csi_dev->isp_available)
 +		ret = v4l2_async_subdev_nf_register(subdev, notifier);
@@ -3239,8 +3250,8 @@
 +
 +	media_entity_cleanup(&subdev->entity);
 +}
---- /dev/null	2023-01-14 21:27:24.082843405 +0300
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.h	2023-01-15 00:26:21.217957779 +0300
+--- /dev/null	2023-01-25 23:38:34.267510023 +0300
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.h	2023-01-26 22:35:26.837868144 +0300
 @@ -0,0 +1,85 @@
 +/* SPDX-License-Identifier: GPL-2.0+ */
 +/*
@@ -3327,8 +3338,8 @@
 +void sun6i_csi_capture_cleanup(struct sun6i_csi_device *csi_dev);
 +
 +#endif
---- /dev/null	2023-01-14 21:27:24.082843405 +0300
-+++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c	2023-01-15 00:26:27.481860280 +0300
+--- /dev/null	2023-01-25 23:38:34.267510023 +0300
++++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_capture.c	2023-01-26 22:35:35.354172180 +0300
 @@ -0,0 +1,1155 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
@@ -4485,8 +4496,8 @@
 +
 +	capture->state.setup = false;
 +}
---- a/drivers/media/i2c/ov5640.c	2023-01-24 21:59:41.983088612 +0300
-+++ b/drivers/media/i2c/ov5640.c	2023-01-24 22:02:25.764081761 +0300
+--- a/drivers/media/i2c/ov5640.c	2023-01-26 22:55:29.100617357 +0300
++++ b/drivers/media/i2c/ov5640.c	2023-01-26 22:54:51.094209447 +0300
 @@ -51,6 +51,7 @@
  #define OV5640_REG_SYS_CTRL0		0x3008
  #define OV5640_REG_SYS_CTRL0_SW_PWDN	0x42
@@ -4495,7 +4506,31 @@
  #define OV5640_REG_CHIP_ID		0x300a
  #define OV5640_REG_IO_MIPI_CTRL00	0x300e
  #define OV5640_REG_PAD_OUTPUT_ENABLE01	0x3017
-@@ -581,7 +582,7 @@
+@@ -166,11 +167,7 @@
+ };
+ 
+ enum ov5640_frame_rate {
+-	OV5640_2_FPS = 0,
+-	OV5640_3_FPS,
+-	OV5640_5_FPS,
+-	OV5640_7_FPS,
+-	OV5640_15_FPS,
++	OV5640_15_FPS = 0,
+ 	OV5640_30_FPS,
+ 	OV5640_60_FPS,
+ 	OV5640_NUM_FRAMERATES,
+@@ -380,10 +377,6 @@
+ 		 "MIPI CSI-2 virtual channel (0..3), default 0");
+ 
+ static const int ov5640_framerates[] = {
+-	[OV5640_2_FPS] = 2,
+-	[OV5640_3_FPS] = 3,
+-	[OV5640_5_FPS] = 5,
+-	[OV5640_7_FPS] = 7,
+ 	[OV5640_15_FPS] = 15,
+ 	[OV5640_30_FPS] = 30,
+ 	[OV5640_60_FPS] = 60,
+@@ -581,7 +574,7 @@
  };
  
  static const struct reg_value ov5640_init_setting[] = {
@@ -4504,7 +4539,23 @@
  	{0x3103, 0x03, 0, 0}, {0x3630, 0x36, 0, 0},
  	{0x3631, 0x0e, 0, 0}, {0x3632, 0xe2, 0, 0}, {0x3633, 0x12, 0, 0},
  	{0x3621, 0xe0, 0, 0}, {0x3704, 0xa0, 0, 0}, {0x3703, 0x5a, 0, 0},
-@@ -2530,24 +2531,47 @@
+@@ -1238,7 +1231,6 @@
+ 		return ret;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(&sensor->i2c_client->dev);
+ 	return 0;
+ }
+ 
+@@ -1306,7 +1298,6 @@
+ 	}
+ 
+ 	*val = buf[0];
+-	pm_runtime_mark_last_busy(&sensor->i2c_client->dev);
+ 	return 0;
+ }
+ 
+@@ -2530,24 +2521,47 @@
  	gpiod_set_value_cansleep(sensor->pwdn_gpio, enable ? 0 : 1);
  }
  
@@ -4565,7 +4616,7 @@
  }
  
  static int ov5640_copy_fw_to_device(struct ov5640_dev *sensor,
-@@ -2703,8 +2727,7 @@
+@@ -2703,8 +2717,7 @@
  
  	sensor->af_initialized = 0;
  
@@ -4575,7 +4626,7 @@
  
  	ret = ov5640_init_slave_id(sensor);
  	if (ret)
-@@ -2962,20 +2985,20 @@
+@@ -2962,20 +2975,20 @@
  
  static int ov5640_try_frame_interval(struct ov5640_dev *sensor,
  				     struct v4l2_fract *fi,
@@ -4602,7 +4653,7 @@
  		goto find_mode;
  	}
  
-@@ -2996,7 +3019,7 @@
+@@ -2996,7 +3009,7 @@
  	fi->denominator = best_fps;
  
  find_mode:
@@ -4611,7 +4662,23 @@
  	return mode ? rate : -EINVAL;
  }
  
-@@ -3773,7 +3796,7 @@
+@@ -3617,7 +3630,6 @@
+ 		break;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(&sensor->i2c_client->dev);
+ 	pm_runtime_put_autosuspend(&sensor->i2c_client->dev);
+ 
+ 	return 0;
+@@ -3705,7 +3717,6 @@
+ 		break;
+ 	}
+ 
+-	pm_runtime_mark_last_busy(&sensor->i2c_client->dev);
+ 	pm_runtime_put_autosuspend(&sensor->i2c_client->dev);
+ 
+ 	return ret;
+@@ -3773,7 +3784,7 @@
  	/* Auto/manual gain */
  	ctrls->auto_gain = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_AUTOGAIN,
  					     0, 1, 1, 1);
@@ -4620,7 +4687,15 @@
  					0, 1023, 1, 0);
  
  	/* Autofocus */
-@@ -3884,6 +3907,7 @@
+@@ -3830,6 +3841,7 @@
+ 	ctrls->pixel_rate->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+ 	ctrls->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+ 	ctrls->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
++	ctrls->vblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+ 	ctrls->gain->flags |= V4L2_CTRL_FLAG_VOLATILE;
+ 	ctrls->exposure->flags |= V4L2_CTRL_FLAG_VOLATILE;
+ 
+@@ -3884,6 +3896,7 @@
  	struct v4l2_subdev_frame_interval_enum *fie)
  {
  	struct ov5640_dev *sensor = to_ov5640_dev(sd);
@@ -4628,7 +4703,7 @@
  	struct v4l2_fract tpf;
  	int ret;
  
-@@ -3892,11 +3916,14 @@
+@@ -3892,11 +3905,14 @@
  	if (fie->index >= OV5640_NUM_FRAMERATES)
  		return -EINVAL;
  
@@ -4645,7 +4720,7 @@
  	if (ret < 0)
  		return -EINVAL;
  
-@@ -3935,9 +3962,7 @@
+@@ -3935,9 +3951,7 @@
  
  	mode = sensor->current_mode;
  
@@ -4656,3 +4731,49 @@
  	if (frame_rate < 0) {
  		/* Always return a valid frame interval value */
  		fi->interval = sensor->frame_interval;
+@@ -4038,10 +4052,8 @@
+ out:
+ 	mutex_unlock(&sensor->lock);
+ 
+-	if (!enable || ret) {
+-		pm_runtime_mark_last_busy(&sensor->i2c_client->dev);
++	if (!enable || ret)
+ 		pm_runtime_put_autosuspend(&sensor->i2c_client->dev);
+-	}
+ 
+ 	return ret;
+ }
+@@ -4191,8 +4203,10 @@
+ 		return ret;
+ 
+ 	ret = ov5640_get_regulators(sensor);
+-	if (ret)
++	if (ret) {
++		dev_err_probe(dev, ret, "Failed to get regulators\n");
+ 		goto entity_cleanup;
++	}
+ 
+ 	mutex_init(&sensor->lock);
+ 
+@@ -4200,17 +4214,15 @@
+ 	if (ret)
+ 		goto entity_cleanup;
+ 
+-	pm_runtime_get_noresume(dev);
+-	pm_runtime_enable(dev);
+-
+ 	ret = v4l2_async_register_subdev_sensor(&sensor->sd);
+-	if (ret)
++	if (ret) {
++		dev_err_probe(dev, ret, "Failed to register sensor\n");
+ 		goto err_pm_runtime;
++	}
+ 
++	pm_runtime_enable(dev);
+ 	pm_runtime_set_autosuspend_delay(dev, 1000);
+ 	pm_runtime_use_autosuspend(dev);
+-	pm_runtime_mark_last_busy(dev);
+-	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+ 
