@@ -1,3 +1,9 @@
+pine64-linux (6.1.9-1) unstable; urgency=medium
+
+  * Rebase to 6.1.9.
+
+ -- Rafael Diniz <rafael@riseup.net>  Sun, 05 Feb 2023 10:23:44 +0300
+
 pine64-linux (6.1.6-3) unstable; urgency=medium
 
   * Support for multiple endpoints in sun6i-csi
