@@ -1,3 +1,9 @@
+pine64-linux (6.1.9-2) unstable; urgency=medium
+
+  * Workaround gc2145 driver.
+
+ -- Rafael Diniz <rafael@riseup.net>  Sun, 05 Feb 2023 18:19:10 +0300
+
 pine64-linux (6.1.9-1) unstable; urgency=medium
 
   * Rebase to 6.1.9.
