@@ -33,7 +33,7 @@ index 7a381fc..c023838 100644
  
  /* HCI device flags */
 diff --git a/net/bluetooth/hci_event.c b/net/bluetooth/hci_event.c
-index faca701..14f2b8f 100644
+index 0e2425e..1ffaf80 100644
 --- a/net/bluetooth/hci_event.c
 +++ b/net/bluetooth/hci_event.c
 @@ -881,7 +881,9 @@ static u8 hci_cc_read_local_ext_features(struct hci_dev *hdev, void *data,
