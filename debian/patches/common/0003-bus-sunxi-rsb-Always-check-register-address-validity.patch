@@ -14,7 +14,7 @@ Signed-off-by: Samuel Holland <samuel@sholland.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/bus/sunxi-rsb.c b/drivers/bus/sunxi-rsb.c
-index 3aa91aed..a3a9ed5b 100644
+index 226e87b..21e7d8a 100644
 --- a/drivers/bus/sunxi-rsb.c
 +++ b/drivers/bus/sunxi-rsb.c
 @@ -442,6 +442,9 @@ static int regmap_sunxi_rsb_reg_write(void *context, unsigned int reg,
