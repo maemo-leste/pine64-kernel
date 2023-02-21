@@ -4777,31 +4777,3 @@
  
  	return 0;
  
---- a/drivers/media/i2c/gc2145.c	2023-02-05 16:10:54.131178220 +0300
-+++ b/drivers/media/i2c/gc2145.c	2023-02-05 16:12:58.412590821 +0300
-@@ -841,8 +841,8 @@
- 		gc2145_tx_write8(sensor, 0xb6, is_auto ? 1 : 0);
- 
- 		//XXX: remove?
--		//if (ctrls->auto_exposure->cur.val != ctrls->auto_exposure->val &&
--		    //!is_auto) {
-+		if (ctrls->auto_exposure->cur.val != ctrls->auto_exposure->val &&
-+		    !is_auto) {
- 			/*
- 			 * Hack: At this point, there are current volatile
- 			 * values in val, but control framework will not
-@@ -851,10 +851,10 @@
- 			 * it for our driver. Remove this after the kernel
- 			 * is fixed.
- 			 */
--			//ctrls->exposure->cur.val = ctrls->exposure->val;
--			//ctrls->d_gain->cur.val = ctrls->d_gain->val;
--			//ctrls->a_gain->cur.val = ctrls->a_gain->val;
--		//}
-+			ctrls->exposure->cur.val = ctrls->exposure->val;
-+			ctrls->d_gain->cur.val = ctrls->d_gain->val;
-+			ctrls->a_gain->cur.val = ctrls->a_gain->val;
-+        }
- 	}
- 
- 	if (!is_auto && ctrls->exposure->is_new)
