@@ -1,3 +1,9 @@
+pine64-linux (6.1.13-1) unstable; urgency=medium
+
+  * Rebased to 6.1.13.
+
+ -- Rafael Diniz <rafael@riseup.net>  Mon, 27 Feb 2023 12:22:43 +0300
+
 pine64-linux (6.1.12-1) unstable; urgency=medium
 
   * Rebased to 6.1.12. Reverted gc2145 workaround.
