@@ -1,3 +1,9 @@
+pine64-linux (6.1.15-1) unstable; urgency=medium
+
+  * Rebased to 6.1.15.
+
+ -- Rafael Diniz <rafael@riseup.net>  Mon, 13 Mar 2023 19:55:21 +0300
+
 pine64-linux (6.1.13-1) unstable; urgency=medium
 
   * Rebased to 6.1.13.
