@@ -198,6 +198,8 @@ struct sun8i_mixer {
 
 	struct regmap			*top_regs;
 	struct regmap			*disp_regs;
+	struct sun4i_drv		*drv;
+	bool				hw_preconfigured;
 };
 
 enum {
