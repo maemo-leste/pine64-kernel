@@ -645,6 +645,8 @@ static int hx8394_enable(struct drm_panel *panel)
 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
 	int ret;
 
+	dev_info(ctx->dev, "enable\n");
+
 	ctx->desc->init_sequence(&dsi_ctx);
 
 	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
@@ -677,6 +679,8 @@ static int hx8394_disable(struct drm_panel *panel)
 	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
 	struct mipi_dsi_multi_context dsi_ctx = { .dsi = dsi };
 
+	dev_info(ctx->dev, "disable\n");
+
 	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
 	mipi_dsi_msleep(&dsi_ctx, 50); /* about 3 frames */
 
@@ -686,6 +690,8 @@ static int hx8394_disable(struct drm_panel *panel)
 static int hx8394_unprepare(struct drm_panel *panel)
 {
 	struct hx8394 *ctx = panel_to_hx8394(panel);
+
+	dev_info(ctx->dev, "unprepare\n");
 
 	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
 
@@ -699,6 +705,8 @@ static int hx8394_prepare(struct drm_panel *panel)
 {
 	struct hx8394 *ctx = panel_to_hx8394(panel);
 	int ret;
+
+	dev_info(ctx->dev, "prepare\n");
 
 	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
 
