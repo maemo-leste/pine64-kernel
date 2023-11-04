@@ -161,8 +161,13 @@ static const u16 chrg_cur_input_array[] = {
 	450, 80, 850, 1000, 1250, 1500, 1750, 2000, 2250, 2500, 2750, 3000
 };
 
-void kernel_power_off(void);
+struct rk818_battery;
+
 int rk818_bat_temp_notifier_register(struct notifier_block *nb);
 int rk818_bat_temp_notifier_unregister(struct notifier_block *nb);
+int rk818_battery_get_property(struct rk818_battery *di,
+			       enum power_supply_property psp,
+			       union power_supply_propval *val);
+struct rk818_battery* rk818_battery_get(void);
 
 #endif
