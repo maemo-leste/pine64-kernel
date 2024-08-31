@@ -1,0 +1,6 @@
+linux-6.12-sunxi64 (6.12~rc2+sunxi64-2) unstable; urgency=medium
+
+  * Initial 6.12 release
+
+ -- Andrey Skvortsov <andrej.skvortzov@gmail.com>  Tue, 08 Oct 2024 22:43:27 +0300
+

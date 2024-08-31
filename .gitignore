@@ -38,7 +38,6 @@
 *.mod.c
 *.o
 *.o.*
-*.patch
 *.rmeta
 *.rpm
 *.rsi
@@ -81,7 +80,6 @@ modules.order
 #
 # Debian directory (make deb-pkg)
 #
-/debian/
 
 #
 # Snap directory (make snap-pkg)
@@ -122,10 +120,6 @@ modules.order
 
 # stgit generated dirs
 patches-*
-
-# quilt's files
-patches
-series
 
 # ctags files
 tags

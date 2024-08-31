@@ -1,0 +1,5 @@
+linux-@KVER@-@KVENDOR@ (@KVER@+@KVENDOR@-1) UNRELEASED; urgency=medium
+
+  * Initial @KVER@ release
+
+ -- Andrey Skvortsov <andrej.skvortzov@gmail.com>  Thu, 29 Aug 2024 14:38:14 +0200
