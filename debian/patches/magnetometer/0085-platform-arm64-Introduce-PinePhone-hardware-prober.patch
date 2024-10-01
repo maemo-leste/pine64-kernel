@@ -1,0 +1,160 @@
+From: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+Date: Sun, 15 Sep 2024 00:21:22 +0300
+Subject: platform/arm64: Introduce PinePhone hardware prober
+
+New batches of PinePhones switched the magnetometer to AF8133J from
+LIS3MDL because lack of ST components.
+
+Both chips use the same PB1 pin, but in different modes.
+LIS3MDL uses it as an gpio input to handle interrupt.
+AF8133J uses it as an gpio output as a reset signal.
+
+It wasn't possible at runtime to enable both device tree nodes and
+detect supported sensor at probe time, because both drivers try to
+acquire the same gpio in different modes. Hardware prober solves this
+problem.
+
+The status for all the device nodes for the component options must be
+set to "fail-needs-probe". This makes it clear that some mechanism is
+needed to enable one of them, and also prevents the prober and device
+drivers running at the same time.
+
+Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ MAINTAINERS                                     |  5 ++
+ drivers/platform/arm64/Kconfig                  | 12 ++++
+ drivers/platform/arm64/Makefile                 |  1 +
+ drivers/platform/arm64/pinephone_of_hw_prober.c | 78 +++++++++++++++++++++++++
+ 4 files changed, 96 insertions(+)
+ create mode 100644 drivers/platform/arm64/pinephone_of_hw_prober.c
+
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 963625b7..1db9b8d 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -18363,6 +18363,11 @@ F:	Documentation/devicetree/bindings/pinctrl/sunplus,*
+ F:	drivers/pinctrl/sunplus/
+ F:	include/dt-bindings/pinctrl/sppctl*.h
+ 
++PINE64 PINEPHONE DEVICE TREE HW PROBER
++M:	Andrey Skvortsov <andrej.skvortzov@gmail.com>
++S:	Maintained
++F:	drivers/platform/arm64/pinephone_of_hw_prober.c
++
+ PINE64 PINEPHONE KEYBOARD DRIVER
+ M:	Samuel Holland <samuel@sholland.org>
+ S:	Supported
+diff --git a/drivers/platform/arm64/Kconfig b/drivers/platform/arm64/Kconfig
+index f88395e..b52a472 100644
+--- a/drivers/platform/arm64/Kconfig
++++ b/drivers/platform/arm64/Kconfig
+@@ -49,4 +49,16 @@ config EC_LENOVO_YOGA_C630
+ 
+ 	  Say M or Y here to include this support.
+ 
++config PINEPHONE_OF_HW_PROBER
++	tristate "PinePhone Device Tree Hardware Prober"
++	depends on OF
++	depends on I2C
++	select OF_DYNAMIC
++	default OF
++	help
++	  This option enables the device tree hardware prober for PinePhone.
++	  The driver will probe the correct component variant in
++	  devices that have multiple drop-in options for one component.
++
++
+ endif # ARM64_PLATFORM_DEVICES
+diff --git a/drivers/platform/arm64/Makefile b/drivers/platform/arm64/Makefile
+index b2ae911..b36bfab 100644
+--- a/drivers/platform/arm64/Makefile
++++ b/drivers/platform/arm64/Makefile
+@@ -7,3 +7,4 @@
+ 
+ obj-$(CONFIG_EC_ACER_ASPIRE1)	+= acer-aspire1-ec.o
+ obj-$(CONFIG_EC_LENOVO_YOGA_C630) += lenovo-yoga-c630.o
++obj-$(CONFIG_PINEPHONE_OF_HW_PROBER)	+= pinephone_of_hw_prober.o
+diff --git a/drivers/platform/arm64/pinephone_of_hw_prober.c b/drivers/platform/arm64/pinephone_of_hw_prober.c
+new file mode 100644
+index 00000000..12a44fb
+--- /dev/null
++++ b/drivers/platform/arm64/pinephone_of_hw_prober.c
+@@ -0,0 +1,78 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * PinePhone Device Tree Hardware Prober
++ *
++ * Copyright (c) 2024 Andrey Skvortsov <andrej.skvortzov@gmail.com>
++ */
++
++#include <linux/errno.h>
++#include <linux/i2c-of-prober.h>
++#include <linux/module.h>
++#include <linux/of.h>
++#include <linux/platform_device.h>
++
++#define DRV_NAME	"pinephone_of_hw_prober"
++
++static const struct i2c_of_probe_cfg pinephone_i2c_probe_cfg = {
++	.type = "magnetometer"
++};
++
++static int pinephone_of_hw_prober_probe(struct platform_device *pdev)
++{
++	int ret;
++	struct i2c_of_probe_simple_ctx ctx = {
++		.opts = NULL
++	};
++
++	ret = i2c_of_probe_component(&pdev->dev, &pinephone_i2c_probe_cfg, &ctx);
++	/* Ignore unrecoverable errors */
++	if (ret == -EPROBE_DEFER)
++		return ret;
++
++	return 0;
++}
++
++static struct platform_driver pinephone_of_hw_prober_driver = {
++	.probe	= pinephone_of_hw_prober_probe,
++	.driver	= {
++		.name = DRV_NAME,
++	},
++};
++
++static struct platform_device *pinephone_of_hw_prober_pdev;
++
++static int pinephone_of_hw_prober_driver_init(void)
++{
++	int ret;
++
++	if (!of_machine_is_compatible("pine64,pinephone-1.2"))
++		return -ENODEV;
++
++	ret = platform_driver_register(&pinephone_of_hw_prober_driver);
++	if (ret)
++		return ret;
++
++	pinephone_of_hw_prober_pdev =
++			platform_device_register_simple(DRV_NAME, PLATFORM_DEVID_NONE, NULL, 0);
++	if (IS_ERR(pinephone_of_hw_prober_pdev))
++		goto err;
++
++	return 0;
++
++err:
++	platform_driver_unregister(&pinephone_of_hw_prober_driver);
++
++	return PTR_ERR(pinephone_of_hw_prober_pdev);
++}
++module_init(pinephone_of_hw_prober_driver_init);
++
++static void pinephone_of_hw_prober_driver_exit(void)
++{
++	platform_device_unregister(pinephone_of_hw_prober_pdev);
++	platform_driver_unregister(&pinephone_of_hw_prober_driver);
++}
++module_exit(pinephone_of_hw_prober_driver_exit);
++
++MODULE_LICENSE("GPL");
++MODULE_DESCRIPTION("PinePhone device tree hardware prober");
++MODULE_IMPORT_NS(I2C_OF_PROBER);

@@ -1,0 +1,96 @@
+From: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+Date: Sun, 19 Nov 2023 00:37:27 +0300
+Subject: arm64: dts: allwinner: pinephone: Add modem EG25-G support
+
+Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts |  4 ++++
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts |  4 ++++
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts |  4 ++++
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi    | 14 ++++++++++++++
+ 4 files changed, 26 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts
+index 06af372..3b517c8 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts
+@@ -24,6 +24,10 @@ &axp803 {
+ 	x-powers,drive-vbus-en;
+ };
+ 
++&ring_indicator {
++	gpios = <&pio 1 2 GPIO_ACTIVE_LOW>; /* PB2 */
++};
++
+ &i2c0 {
+ 	anx7688: hdmi-bridge@28 {
+ 		compatible = "analogix,anx7688";
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts
+index 4268fc5..098a358b 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts
+@@ -24,6 +24,10 @@ &axp803 {
+ 	x-powers,drive-vbus-en;
+ };
+ 
++&ring_indicator {
++	gpios = <&pio 1 2 GPIO_ACTIVE_LOW>; /* PB2 */
++};
++
+ &backlight {
+ 	power-supply = <&reg_ldo_io0>;
+ 	/*
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts
+index 10ec061..14f8273 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts
+@@ -19,6 +19,10 @@ &axp803 {
+ 	x-powers,sense-vbus-en;
+ };
+ 
++&ring_indicator {
++	gpios = <&r_pio 0 6 GPIO_ACTIVE_LOW>; /* PL6 */
++};
++
+ &backlight {
+ 	power-supply = <&reg_ldo_io0>;
+ 	/*
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index f7662da..6f4ff90 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -8,6 +8,7 @@
+ 
+ #include <dt-bindings/media/video-interfaces.h>
+ #include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/gpio-keys.h>
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/pwm/pwm.h>
+@@ -311,6 +312,18 @@ ec25_codec: ec25-codec {
+ 		sound-name-prefix = "Modem";
+ 	};
+ 
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		ring_indicator: ring-indicator {
++			label = "Ring Indicator";
++			linux,can-disable;
++			linux,code = <KEY_WAKEUP>;
++			wakeup-event-action = <EV_ACT_ASSERTED>;
++			wakeup-source;
++		};
++	};
++
+ 	i2c_csi: i2c-csi {
+ 		compatible = "i2c-gpio";
+ 		sda-gpios = <&pio 4 13 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>; /* PE13 */
+@@ -389,6 +402,7 @@ reg_usb_5v: usb-5v {
+ 
+ 	reg_vbat_bb: vbat-bb {
+ 		compatible = "regulator-fixed";
++		regulator-always-on;
+ 		regulator-name = "vbat-bb";
+ 		regulator-min-microvolt = <3500000>;
+ 		regulator-max-microvolt = <3500000>;

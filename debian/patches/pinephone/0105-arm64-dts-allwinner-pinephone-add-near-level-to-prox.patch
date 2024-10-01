@@ -1,0 +1,34 @@
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Date: Mon, 7 Mar 2022 13:45:56 +0100
+Subject: arm64: dts: allwinner: pinephone: add "near level" to proximity
+ sensor
+
+Based on the public evidence [1] for behaviour of the original PinePhone v1.2
+proximity sensor, a default value of 80 to distinguish far (less than 80)
+from near (greater than 80) is better justified than the current value
+of 15. This fix was proposed in issue #91 for Mobian sunxi64-linux [2].
+
+[This patch was edited manually - it is not (currently) an email; the
+date stamp has an approximate time entered manually.]
+
+[1] https://codeberg.org/boud/pinephone_hacks/src/branch/main/proximity_data
+[2] https://salsa.debian.org/Mobian-team/devices/kernels/sunxi64-linux/-/issues/91
+
+Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Signed-off-by: Boud Roukema <boud@cosmo.torun.pl>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index 6f4ff90..ba09935 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -666,6 +666,7 @@ light-sensor@48 {
+ 		interrupt-parent = <&pio>;
+ 		interrupts = <1 0 IRQ_TYPE_EDGE_FALLING>; /* PB0 */
+ 		vdd-supply = <&reg_ldo_io0>;
++		proximity-near-level = <80>;
+ 	};
+ 
+ 	/* Accelerometer/gyroscope */

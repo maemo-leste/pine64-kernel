@@ -1,0 +1,32 @@
+From: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+Date: Wed, 18 Sep 2024 19:33:16 +0300
+Subject: arm64: dts: allwinner: pinephone: Add mount-matrix for AF8133J
+ magnetometer
+
+The way Voltafield AF8133J is mounted on the user-facing side of the
+Pine64 PinePhone mainboard requires the magnetometers's x- and y-axis
+to be swapped, and direction of all axis to be inverted.
+
+Rectify this by adding a mount-matrix to the magnetometer's
+definition in the PinePhone dtsi file.
+
+Signed-off-by: Shoji Keita <awaittrot@shjk.jp>
+Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index b04a8df..d92b6e4 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -195,6 +195,9 @@ af8133j: magnetometer@1c {
+ 		reset-gpios = <&pio 1 1 GPIO_ACTIVE_LOW>;
+ 		avdd-supply = <&reg_dldo1>;
+ 		dvdd-supply = <&reg_dldo1>;
++		mount-matrix = "0", "-1", "0",
++				"-1", "0", "0",
++				"0", "0", "-1";
+ 		status = "fail-needs-probe";
+ 	};
+ 

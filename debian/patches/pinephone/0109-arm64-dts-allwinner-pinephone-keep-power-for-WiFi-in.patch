@@ -1,0 +1,30 @@
+From: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+Date: Mon, 30 Sep 2024 23:44:10 +0300
+Subject: arm64: dts: allwinner: pinephone: keep power for WiFi in suspend
+ mode
+
+rtw88 driver expects, that mmc host is be able to keep power in
+suspend mode. Otherwise suspend fails with following errors:
+
+ rtw8723cs mmc0:0001:1: Failed to host PM flag MMC_PM_KEEP_POWER
+ rtw8723cs mmc0:0001:1: PM: dpm_run_callback(): pm_generic_suspend returns -22
+ rtw8723cs mmc0:0001:1: PM: failed to suspend async: error -22
+ PM: Some devices failed to suspend, or early wake event detected
+
+Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index 22c6b88..01bdb10 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -773,6 +773,7 @@ &mmc1 {
+ 	vqmmc-supply = <&reg_dldo4>;
+ 	bus-width = <4>;
+ 	non-removable;
++	keep-power-in-suspend;
+ 	status = "okay";
+ 
+ 	rtl8723cs: wifi@1 {

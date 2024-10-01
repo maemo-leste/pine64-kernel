@@ -1,0 +1,29 @@
+From: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+Date: Fri, 3 Apr 2020 17:13:55 +0200
+Subject: arm64: dts: allwinner: pinephone: lower cpu_alert* temperatures so
+ the phone doesn't get too hot and tree
+
+Signed-off-by: Arnaud Ferraris <arnaud.ferraris@collabora.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index ba09935..2fbc0ac 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -478,6 +478,14 @@ &cpu3 {
+ 	cpu-supply = <&reg_dcdc2>;
+ };
+ 
++&cpu_alert0 {
++	temperature = <60000>;
++};
++
++&cpu_alert1 {
++	temperature = <80000>;
++};
++
+ &csi {
+ 	pinctrl-0 = <&csi_pins>;
+ 	status = "okay";

@@ -1,0 +1,25 @@
+From: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+Date: Sun, 15 Sep 2024 00:20:38 +0300
+Subject: i2c: of-prober: Add missing header for the type bool
+
+otherwise compiler complains about unknown bool type, when
+'i2c-of-prober.h' included without any previous includes.
+
+Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ include/linux/i2c-of-prober.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/include/linux/i2c-of-prober.h b/include/linux/i2c-of-prober.h
+index c5e2411..3296ed0 100644
+--- a/include/linux/i2c-of-prober.h
++++ b/include/linux/i2c-of-prober.h
+@@ -8,6 +8,8 @@
+ #ifndef _LINUX_I2C_OF_PROBER_H
+ #define _LINUX_I2C_OF_PROBER_H
+ 
++#include <linux/types.h>
++
+ #if IS_ENABLED(CONFIG_OF_DYNAMIC)
+ 
+ struct device;

@@ -1,0 +1,32 @@
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 11 Sep 2024 15:27:43 +0800
+Subject: i2c: core: Remove extra space in Makefile
+
+Some lines in the Makefile have a space before tabs. Remove those.
+
+Reported-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Closes: https://lore.kernel.org/all/ZsdE0PxKnGRjzChl@smile.fi.intel.com/
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+---
+ drivers/i2c/Makefile | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/i2c/Makefile b/drivers/i2c/Makefile
+index 3f71ce4..f12d6b1 100644
+--- a/drivers/i2c/Makefile
++++ b/drivers/i2c/Makefile
+@@ -5,10 +5,10 @@
+ 
+ obj-$(CONFIG_I2C_BOARDINFO)	+= i2c-boardinfo.o
+ obj-$(CONFIG_I2C)		+= i2c-core.o
+-i2c-core-objs 			:= i2c-core-base.o i2c-core-smbus.o
++i2c-core-objs			:= i2c-core-base.o i2c-core-smbus.o
+ i2c-core-$(CONFIG_ACPI)		+= i2c-core-acpi.o
+-i2c-core-$(CONFIG_I2C_SLAVE) 	+= i2c-core-slave.o
+-i2c-core-$(CONFIG_OF) 		+= i2c-core-of.o
++i2c-core-$(CONFIG_I2C_SLAVE)	+= i2c-core-slave.o
++i2c-core-$(CONFIG_OF)		+= i2c-core-of.o
+ 
+ obj-$(CONFIG_I2C_SMBUS)		+= i2c-smbus.o
+ obj-$(CONFIG_I2C_CHARDEV)	+= i2c-dev.o

@@ -1,0 +1,243 @@
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Wed, 11 Sep 2024 15:27:46 +0800
+Subject: i2c: of-prober: Add GPIO support to simple helpers
+
+Add GPIO support to the simple helpers for the I2C OF component prober.
+Components that the prober intends to probe likely require their
+regulator supplies be enabled, and GPIOs be toggled to enable them or
+bring them out of reset before they will respond to probe attempts.
+Regulator supplies were handled in the previous patch.
+
+The assumption is that the same class of components to be probed are
+always connected in the same fashion with the same regulator supply
+and GPIO. The names may vary due to binding differences, but the
+physical layout does not change.
+
+This supports at most one GPIO pin. The user must specify the GPIO name,
+the polarity, and the amount of time to wait after the GPIO is toggled.
+Devices with more than one GPIO pin likely require specific power
+sequencing beyond what generic code can easily support.
+
+Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+---
+ drivers/i2c/i2c-core-of-prober.c | 95 +++++++++++++++++++++++++++++++++++++++-
+ include/linux/i2c-of-prober.h    | 10 +++++
+ 2 files changed, 104 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/i2c/i2c-core-of-prober.c b/drivers/i2c/i2c-core-of-prober.c
+index 1371ea5..6794ec7 100644
+--- a/drivers/i2c/i2c-core-of-prober.c
++++ b/drivers/i2c/i2c-core-of-prober.c
+@@ -10,6 +10,7 @@
+ #include <linux/device.h>
+ #include <linux/dev_printk.h>
+ #include <linux/err.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/i2c-of-prober.h>
+ #include <linux/module.h>
+@@ -30,7 +31,6 @@
+  * address responds.
+  *
+  * TODO:
+- * - Support handling common GPIOs.
+  * - Support I2C muxes
+  */
+ 
+@@ -257,6 +257,64 @@ static void i2c_of_probe_simple_disable_regulator(struct device *dev, struct i2c
+ 	regulator_disable(ctx->supply);
+ }
+ 
++static int i2c_of_probe_simple_get_gpiod(struct device *dev, struct device_node *node,
++					 struct i2c_of_probe_simple_ctx *ctx)
++{
++	struct fwnode_handle *fwnode = of_fwnode_handle(node);
++	struct gpio_desc *gpiod;
++	const char *con_id = NULL;
++
++	/* NULL signals no GPIO needed */
++	if (!ctx->opts->gpio_name)
++		return 0;
++
++	/* An empty string signals an unnamed GPIO */
++	if (strlen(ctx->opts->gpio_name))
++		con_id = ctx->opts->gpio_name;
++
++	gpiod = fwnode_gpiod_get_index(fwnode, con_id, 0, GPIOD_ASIS, "i2c-of-prober");
++	if (IS_ERR(gpiod))
++		return PTR_ERR(gpiod);
++
++	ctx->gpiod = gpiod;
++
++	return 0;
++}
++
++static void i2c_of_probe_simple_put_gpiod(struct i2c_of_probe_simple_ctx *ctx)
++{
++	gpiod_put(ctx->gpiod);
++	ctx->gpiod = NULL;
++}
++
++static int i2c_of_probe_simple_set_gpio(struct device *dev, struct i2c_of_probe_simple_ctx *ctx)
++{
++	int ret;
++
++	if (!ctx->gpiod)
++		return 0;
++
++	dev_dbg(dev, "Setting GPIO\n");
++
++	ret = gpiod_direction_output_raw(ctx->gpiod, ctx->opts->gpio_high_to_enable ? 1 : 0);
++	if (ret)
++		return ret;
++
++	msleep(ctx->opts->post_reset_deassert_delay_ms);
++
++	return 0;
++}
++
++static void i2c_of_probe_simple_disable_gpio(struct device *dev, struct i2c_of_probe_simple_ctx *ctx)
++{
++	if (!ctx->gpiod)
++		return;
++
++	dev_dbg(dev, "Setting GPIO to input\n");
++
++	gpiod_direction_input(ctx->gpiod);
++}
++
+ /**
+  * i2c_of_probe_simple_get_res - Simple helper for I2C OF prober to get resources
+  * @dev: Pointer to the &struct device of the caller, only used for dev_printk() messages
+@@ -264,6 +322,8 @@ static void i2c_of_probe_simple_disable_regulator(struct device *dev, struct i2c
+  * @data: Pointer to &struct i2c_of_probe_simple_ctx helper context.
+  *
+  * If &i2c_of_probe_simple_opts->supply_name is given, request the named regulator supply.
++ * If &i2c_of_probe_simple_opts->gpio_name is given, request the named GPIO. Or if it is
++ * the empty string, request the unnamed GPIO.
+  *
+  * Return: %0 on success or no-op, or a negative error number on failure.
+  */
+@@ -292,14 +352,36 @@ int i2c_of_probe_simple_get_res(struct device *dev, struct device_node *bus_node
+ 	if (ret)
+ 		goto out_put_node;
+ 
++	ret = i2c_of_probe_simple_get_gpiod(dev, node, ctx);
++	if (ret)
++		goto out_put_supply;
++
+ 	return 0;
+ 
++out_put_supply:
++	i2c_of_probe_simple_put_supply(ctx);
+ out_put_node:
+ 	of_node_put(node);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_get_res, I2C_OF_PROBER);
+ 
++/**
++ * i2c_of_probe_simple_free_res_early - \
++ *	Simple helper for I2C OF prober to release GPIOs before component is enabled
++ * @data: Pointer to &struct i2c_of_probe_simple_ctx helper context.
++ *
++ * GPIO descriptors are exclusive and have to be released before the
++ * actual driver probes so that the latter can acquire them.
++ */
++void i2c_of_probe_simple_free_res_early(void *data)
++{
++	struct i2c_of_probe_simple_ctx *ctx = data;
++
++	i2c_of_probe_simple_put_gpiod(ctx);
++}
++EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_free_res_early, I2C_OF_PROBER);
++
+ /**
+  * i2c_of_probe_simple_free_res_late - Simple helper for I2C OF prober to release all resources.
+  * @data: Pointer to &struct i2c_of_probe_simple_ctx helper context.
+@@ -308,6 +390,7 @@ void i2c_of_probe_simple_free_res_late(void *data)
+ {
+ 	struct i2c_of_probe_simple_ctx *ctx = data;
+ 
++	i2c_of_probe_simple_put_gpiod(ctx);
+ 	i2c_of_probe_simple_put_supply(ctx);
+ }
+ EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_free_res_late, I2C_OF_PROBER);
+@@ -330,7 +413,15 @@ int i2c_of_probe_simple_enable(struct device *dev, void *data)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = i2c_of_probe_simple_set_gpio(dev, ctx);
++	if (ret)
++		goto err;
++
+ 	return 0;
++
++err:
++	i2c_of_probe_simple_disable_regulator(dev, ctx);
++	return ret;
+ }
+ EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_enable, I2C_OF_PROBER);
+ 
+@@ -347,6 +438,7 @@ int i2c_of_probe_simple_cleanup(struct device *dev, void *data)
+ {
+ 	struct i2c_of_probe_simple_ctx *ctx = data;
+ 
++	i2c_of_probe_simple_disable_gpio(dev, ctx);
+ 	i2c_of_probe_simple_disable_regulator(dev, ctx);
+ 
+ 	return 0;
+@@ -355,6 +447,7 @@ EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_cleanup, I2C_OF_PROBER);
+ 
+ struct i2c_of_probe_ops i2c_of_probe_simple_ops = {
+ 	.get_resources = i2c_of_probe_simple_get_res,
++	.free_resources_early = i2c_of_probe_simple_free_res_early,
+ 	.enable = i2c_of_probe_simple_enable,
+ 	.cleanup = i2c_of_probe_simple_cleanup,
+ 	.free_resources_late = i2c_of_probe_simple_free_res_late,
+diff --git a/include/linux/i2c-of-prober.h b/include/linux/i2c-of-prober.h
+index 541451f..c5e2411 100644
+--- a/include/linux/i2c-of-prober.h
++++ b/include/linux/i2c-of-prober.h
+@@ -83,6 +83,7 @@ int i2c_of_probe_component(struct device *dev, const struct i2c_of_probe_cfg *cf
+  *
+  * The following helpers are provided:
+  * * i2c_of_probe_simple_get_res()
++ * * i2c_of_probe_simple_free_res_early()
+  * * i2c_of_probe_simple_free_res_late()
+  * * i2c_of_probe_simple_enable()
+  * * i2c_of_probe_simple_cleanup()
+@@ -92,24 +93,33 @@ int i2c_of_probe_component(struct device *dev, const struct i2c_of_probe_cfg *cf
+  * struct i2c_of_probe_simple_opts - Options for simple I2C component prober callbacks
+  * @res_node_compatible: Compatible string of device node to retrieve resources from.
+  * @supply_name: Name of regulator supply.
++ * @gpio_name: Name of GPIO.
+  * @post_power_on_delay_ms: Delay in ms after regulators are powered on. Passed to msleep().
++ * @post_reset_deassert_delay_ms: Delay in ms after GPIOs are set. Passed to msleep().
++ * @gpio_high_to_enable: %true if GPIO should be set to electrical high to enable component.
+  */
+ struct i2c_of_probe_simple_opts {
+ 	const char *res_node_compatible;
+ 	const char *supply_name;
++	const char *gpio_name;
+ 	unsigned int post_power_on_delay_ms;
++	unsigned int post_reset_deassert_delay_ms;
++	bool gpio_high_to_enable;
+ };
+ 
+ struct regulator;
++struct gpio_desc;
+ 
+ struct i2c_of_probe_simple_ctx {
+ 	/* public: provided by user before helpers are used. */
+ 	const struct i2c_of_probe_simple_opts *opts;
+ 	/* private: internal fields for helpers. */
+ 	struct regulator *supply;
++	struct gpio_desc *gpiod;
+ };
+ 
+ int i2c_of_probe_simple_get_res(struct device *dev, struct device_node *bus_node, void *data);
++void i2c_of_probe_simple_free_res_early(void *data);
+ void i2c_of_probe_simple_free_res_late(void *data);
+ int i2c_of_probe_simple_enable(struct device *dev, void *data);
+ int i2c_of_probe_simple_cleanup(struct device *dev, void *data);

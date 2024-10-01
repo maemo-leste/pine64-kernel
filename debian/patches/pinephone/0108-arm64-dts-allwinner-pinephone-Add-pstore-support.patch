@@ -1,0 +1,48 @@
+From: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+Date: Sun, 14 May 2023 18:52:33 +0300
+Subject: arm64: dts: allwinner: pinephone: Add pstore support
+
+This patch reserves some memory in the DTS and sets up a
+pstore device tree node to enable pstore support.
+
+In general any DRAM address, that isn't overwritten during a boot is
+suitable for pstore.
+
+Range from 0x40000000 - 0x50000000 is heavily used by u-boot for
+internal use and to load kernel, fdt, fdto, scripts, pxefile and ramdisk
+later in the boot process. Ramdisk start address is 0x4FF00000,
+initramfs for kernel with some hacking features and debug info enabled
+can take more than 100Mb and final address will be around 0x58000000.
+Address 0x61000000 will most likely not overlap with that.
+
+Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index 2fbc0ac..22c6b88 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -22,6 +22,21 @@ aliases {
+ 		serial0 = &uart0;
+ 	};
+ 
++	reserved-memory {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		pstore_mem: ramoops@61000000 {
++			compatible = "ramoops";
++			reg = <0x61000000 0x100000>;
++			record-size = <0x20000>;
++			console-size = <0x20000>;
++			ftrace-size = <0x20000>;
++			pmsg-size = <0x20000>;
++		};
++	};
++
+ 	backlight: backlight {
+ 		compatible = "pwm-backlight";
+ 		pwms = <&r_pwm 0 50000 PWM_POLARITY_INVERTED>;

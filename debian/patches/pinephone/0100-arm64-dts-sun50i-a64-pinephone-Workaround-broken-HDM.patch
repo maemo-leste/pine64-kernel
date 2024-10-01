@@ -1,0 +1,80 @@
+From: =?utf-8?q?Ond=C5=99ej_Jirman?= <megi@xff.cz>
+Date: Tue, 26 Oct 2021 01:25:46 +0200
+Subject: arm64: dts: sun50i-a64-pinephone: Workaround broken HDMI HPD signal
+
+HDMI HPD signal from ANX7688 to SoC's HDMI PHY is wrongly level
+shifted and does not register most of the time at the SoC's input.
+
+We need to do the signalling in software. Link anx7688 to hdmi
+driver via extcon interface.
+
+Signed-off-by: Ondrej Jirman <megi@xff.cz>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts | 6 +++++-
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts | 6 +++++-
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts | 6 +++++-
+ 3 files changed, 15 insertions(+), 3 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts
+index 1863b51..06af372 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.0.dts
+@@ -25,7 +25,7 @@ &axp803 {
+ };
+ 
+ &i2c0 {
+-	hdmi-bridge@28 {
++	anx7688: hdmi-bridge@28 {
+ 		compatible = "analogix,anx7688";
+ 		reg = <0x28>;
+ 
+@@ -105,3 +105,7 @@ &sgm3140 {
+ 	enable-gpios = <&pio 2 3 GPIO_ACTIVE_HIGH>; /* PC3 */
+ 	flash-gpios = <&pio 3 24 GPIO_ACTIVE_HIGH>; /* PD24 */
+ };
++
++&hdmi {
++	extcon = <&anx7688 0>;
++};
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts
+index cad760a..4268fc5 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.1.dts
+@@ -48,7 +48,7 @@ &codec_analog {
+ };
+ 
+ &i2c0 {
+-	hdmi-bridge@28 {
++	anx7688: hdmi-bridge@28 {
+ 		compatible = "analogix,anx7688";
+ 		reg = <0x28>;
+ 
+@@ -124,3 +124,7 @@ usb0_drd_sw: endpoint {
+ 		};
+ 	};
+ };
++
++&hdmi {
++	extcon = <&anx7688 0>;
++};
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts
+index ac63a32..10ec061 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone-1.2.dts
+@@ -53,7 +53,7 @@ &mmc1 {
+ };
+ 
+ &i2c0 {
+-	hdmi-bridge@28 {
++	anx7688: hdmi-bridge@28 {
+ 		compatible = "analogix,anx7688";
+ 		reg = <0x28>;
+ 
+@@ -117,3 +117,7 @@ usb0_drd_sw: endpoint {
+ 		};
+ 	};
+ };
++
++&hdmi {
++	extcon = <&anx7688 0>;
++};

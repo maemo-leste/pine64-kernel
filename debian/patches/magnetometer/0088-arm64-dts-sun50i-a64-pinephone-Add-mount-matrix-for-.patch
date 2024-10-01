@@ -1,0 +1,33 @@
+From: Shoji Keita <awaittrot@shjk.jp>
+Date: Wed, 14 Jul 2021 07:17:18 +0900
+Subject: arm64: dts: allwinner: pinephone: Add mount-matrix for LIS3MDL
+ magnetometer
+
+The way STMicroelectronics LIS3MDL is mounted on the user-facing side
+of the Pine64 PinePhone mainboard requires the magnetometers's x- and
+y-axis to be swapped, and the direction of the accelerometer's x-axis
+to be inverted.
+
+Rectify this by adding a mount-matrix to the magnetometer's
+definition in the PinePhone dtsi file.
+
+Signed-off-by: Shoji Keita <awaittrot@shjk.jp>
+Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index d92b6e4..bc6af17 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -207,6 +207,9 @@ lis3mdl: magnetometer@1e {
+ 		reg = <0x1e>;
+ 		vdd-supply = <&reg_dldo1>;
+ 		vddio-supply = <&reg_dldo1>;
++		mount-matrix = "0", "1", "0",
++				"-1", "0", "0",
++				"0", "0", "1";
+ 		status = "fail-needs-probe";
+ 	};
+ 

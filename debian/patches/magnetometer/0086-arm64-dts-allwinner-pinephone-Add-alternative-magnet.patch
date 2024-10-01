@@ -1,0 +1,52 @@
+From: Icenowy Zheng <icenowy@aosc.io>
+Date: Thu, 18 Mar 2021 20:22:05 +0800
+Subject: arm64: dts: allwinner: pinephone: Add alternative magnetometer
+
+New batches of PinePhones switched the magnetometer to AF8133J from
+LIS3MDL because lack of ST components.
+
+Both chips use the same PB1 pin, but in different modes.
+LIS3MDL uses it as an gpio input to handle interrupt.
+AF8133J uses it as an gpio output as a reset signal.
+
+It wasn't possible at runtime to enable both device tree nodes and
+detect supported sensor at probe time, because both drivers try to
+acquire the same gpio in different modes.
+
+Instead of having them all available, mark them all as "fail-needs-probe"
+and have the implementation try to probe which one is present.
+
+Signed-off-by: Icenowy Zheng <icenowy@aosc.io>
+Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+index 6eab61a..b04a8df 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
+@@ -188,12 +188,23 @@ touchscreen@5d {
+ &i2c1 {
+ 	status = "okay";
+ 
++	/* Alternative magnetometer */
++	af8133j: magnetometer@1c {
++		compatible = "voltafield,af8133j";
++		reg = <0x1c>;
++		reset-gpios = <&pio 1 1 GPIO_ACTIVE_LOW>;
++		avdd-supply = <&reg_dldo1>;
++		dvdd-supply = <&reg_dldo1>;
++		status = "fail-needs-probe";
++	};
++
+ 	/* Magnetometer */
+ 	lis3mdl: magnetometer@1e {
+ 		compatible = "st,lis3mdl-magn";
+ 		reg = <0x1e>;
+ 		vdd-supply = <&reg_dldo1>;
+ 		vddio-supply = <&reg_dldo1>;
++		status = "fail-needs-probe";
+ 	};
+ 
+ 	/* Light/proximity sensor */

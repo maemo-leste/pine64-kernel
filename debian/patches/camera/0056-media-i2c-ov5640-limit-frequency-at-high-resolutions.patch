@@ -1,0 +1,28 @@
+From: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+Date: Wed, 18 Sep 2024 23:40:44 +0300
+Subject: media: i2c: ov5640: limit frequency at high resolutions to 15FPS
+
+sensor at Full HD resolution in 16-bit mode at 30FPS generates
+frequency, that is too high for A64 to handle. As a result no frame
+are received at all.
+
+Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ drivers/media/i2c/ov5640.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index be8e69d..9bd2379 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -1129,8 +1129,8 @@ static const struct ov5640_mode_info ov5640_mode_data[OV5640_NUM_MODES] = {
+ 		},
+ 		.reg_data	= ov5640_setting_1080P_1920_1080,
+ 		.reg_data_size	= ARRAY_SIZE(ov5640_setting_1080P_1920_1080),
+-		.max_fps	= OV5640_30_FPS,
+-		.def_fps	= OV5640_30_FPS
++		.max_fps	= OV5640_15_FPS,
++		.def_fps	= OV5640_15_FPS
+ 	}, {
+ 		/* 2592x1944 */
+ 		.id		= OV5640_MODE_QSXGA_2592_1944,
