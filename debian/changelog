@@ -1,3 +1,10 @@
+linux-6.12-sunxi64 (6.12~rc5+sunxi64-1) unstable; urgency=medium
+
+  * Rebase on 6.12-rc5
+  * fixed slab-use-after-free in axp20x_battery
+
+ -- Andrey Skvortsov <andrej.skvortzov@gmail.com>  Mon, 28 Oct 2024 19:27:56 +0300
+
 linux-6.12-sunxi64 (6.12~rc4+sunxi64-1) unstable; urgency=medium
 
   * Rebase on 6.12-rc4

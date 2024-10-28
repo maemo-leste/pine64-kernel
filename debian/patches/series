@@ -25,7 +25,7 @@ power/0024-power-supply-axp20x-usb-power-Change-Vbus-hold-volta.patch
 power/0025-power-axp803-Add-interrupts-for-low-battery-power-co.patch
 power/0026-power-supply-axp20x-battery-Support-POWER_SUPPLY_PRO.patch
 power/0027-power-supply-axp20x-battery-Enable-poweron-by-RTC-al.patch
-power/0028-power-supply-axp20x-battery-Add-support-for-POWER_SU.patch
+0028-power-supply-axp20x-battery-Add-support-for-POWER_SU.patch
 power/0029-power-supply-Add-support-for-USB_BC_ENABLED-and-USB_.patch
 power/0030-power-supply-axp20x-usb-power-Add-missing-interrupts.patch
 display/0031-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch
