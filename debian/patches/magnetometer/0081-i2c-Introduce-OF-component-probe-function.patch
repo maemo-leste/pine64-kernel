@@ -48,10 +48,10 @@ Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
  create mode 100644 include/linux/i2c-of-prober.h
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index a097afd..963625b7 100644
+index a274079..4783510 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -10674,6 +10674,14 @@ S:	Maintained
+@@ -10645,6 +10645,14 @@ S:	Maintained
  F:	Documentation/devicetree/bindings/i2c/marvell,mv64xxx-i2c.yaml
  F:	drivers/i2c/busses/i2c-mv64xxx.c
  
