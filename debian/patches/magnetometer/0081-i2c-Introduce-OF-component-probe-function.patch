@@ -48,7 +48,7 @@ Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
  create mode 100644 include/linux/i2c-of-prober.h
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index a274079..4783510 100644
+index bdae0fa..f108ebd 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -10645,6 +10645,14 @@ S:	Maintained
