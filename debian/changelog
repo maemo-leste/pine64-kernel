@@ -1,3 +1,9 @@
+linux-6.12-sunxi64 (6.12~rc6+sunxi64-1) unstable; urgency=medium
+
+  * Rebase on 6.12~rc6+sunxi64-1
+
+ -- Andrey Skvortsov <andrej.skvortzov@gmail.com>  Mon, 04 Nov 2024 23:21:40 +0300
+
 linux-6.12-sunxi64 (6.12~rc5+sunxi64-1) unstable; urgency=medium
 
   * Rebase on 6.12-rc5
