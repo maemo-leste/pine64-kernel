@@ -25,7 +25,7 @@ power/0024-power-supply-axp20x-usb-power-Change-Vbus-hold-volta.patch
 power/0025-power-axp803-Add-interrupts-for-low-battery-power-co.patch
 power/0026-power-supply-axp20x-battery-Support-POWER_SUPPLY_PRO.patch
 power/0027-power-supply-axp20x-battery-Enable-poweron-by-RTC-al.patch
-0028-power-supply-axp20x-battery-Add-support-for-POWER_SU.patch
+power/0028-power-supply-axp20x-battery-Add-support-for-POWER_SU.patch
 power/0029-power-supply-Add-support-for-USB_BC_ENABLED-and-USB_.patch
 power/0030-power-supply-axp20x-usb-power-Add-missing-interrupts.patch
 display/0031-drm-sun4i-Mark-one-of-the-UI-planes-as-a-cursor-one.patch
@@ -38,11 +38,11 @@ display/0037-drm-bridge-dw-hdmi-Report-HDMI-hotplug-events.patch
 audio/0038-arm64-dts-allwinner-a64-Add-hdmi-sound-card.patch
 audio/0039-ASoC-ec25-New-codec-driver-for-the-EC25-modem.patch
 audio/0040-clk-sunxi-ng-a64-Increase-PLL_AUDIO-base-frequency.patch
-0041-dt-bindings-sound-Add-jack-type-property-to-sun8i-a3.patch
-0042-ASoC-sun8i-codec-Allow-the-jack-type-to-be-set-via-d.patch
-0043-ASoC-sun8i-codec-Set-jack_type-from-DT-in-probe.patch
-0044-ASoC-sun8i-codec-define-button-keycodes.patch
-0045-ASoC-simple-card-Allow-to-define-pins-for-aux-jack-d.patch
+audio/0041-dt-bindings-sound-Add-jack-type-property-to-sun8i-a3.patch
+audio/0042-ASoC-sun8i-codec-Allow-the-jack-type-to-be-set-via-d.patch
+audio/0043-ASoC-sun8i-codec-Set-jack_type-from-DT-in-probe.patch
+audio/0044-ASoC-sun8i-codec-define-button-keycodes.patch
+audio/0045-ASoC-simple-card-Allow-to-define-pins-for-aux-jack-d.patch
 cedrus/0046-media-cedrus-Fix-missing-cleanup-in-error-path.patch
 cedrus/0047-media-cedrus-Fix-failure-to-clean-up-hardware-on-pro.patch
 camera/0048-dt-bindings-media-i2c-add-galaxycore-gc2145-DVP-bus-.patch
@@ -107,6 +107,6 @@ pinephone/0106-arm64-dts-allwinner-pinephone-lower-cpu_alert-temper.patch
 pinephone/0107-arm64-dts-allwinner-pinephone-change-backlight-brigh.patch
 pinephone/0108-arm64-dts-allwinner-pinephone-Add-pstore-support.patch
 pinephone/0109-arm64-dts-allwinner-pinephone-keep-power-for-WiFi-in.patch
-0110-arm64-dts-sun50i-a64-pinephone-Use-newer-jack-detect.patch
-0111-arm64-dts-sun50-a64-pinephone-Define-jack-pins-in-DT.patch
+pinephone/0110-arm64-dts-sun50i-a64-pinephone-Use-newer-jack-detect.patch
+pinephone/0111-arm64-dts-sun50-a64-pinephone-Define-jack-pins-in-DT.patch
 debian/0112-wireless-Add-Debian-wireless-regdb-certificates.patch
