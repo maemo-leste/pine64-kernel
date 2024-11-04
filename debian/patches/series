@@ -74,10 +74,10 @@ keyboard/0073-power-supply-ip5xxx-Add-ip5xxx-usb-supply.patch
 keyboard/0074-power-supply-ip5xxx-Add-support-for-POWER_SUPPLY_PRO.patch
 keyboard/0075-power-supply-ip5xxx-Add-support-for-POWER_SUPPLY_PRO.patch
 keyboard/0076-input-pinephone-keyboard-Wait-a-bit-after-enabling-v.patch
-magnetometer/0077-of-dynamic-Add-of_changeset_update_prop_string.patch
-magnetometer/0078-of-base-Add-for_each_child_of_node_with_prefix.patch
-magnetometer/0079-regulator-Add-of_regulator_get_optional-for-pure-DT-.patch
-magnetometer/0080-i2c-core-Remove-extra-space-in-Makefile.patch
+magnetometer/0077-regulator-Add-of_regulator_get_optional-for-pure-DT-.patch
+magnetometer/0078-i2c-core-Remove-extra-space-in-Makefile.patch
+magnetometer/0079-of-dynamic-Add-of_changeset_update_prop_string.patch
+magnetometer/0080-of-base-Add-for_each_child_of_node_with_prefix.patch
 magnetometer/0081-i2c-Introduce-OF-component-probe-function.patch
 magnetometer/0082-i2c-of-prober-Add-simple-helpers-for-regulator-suppo.patch
 magnetometer/0083-i2c-of-prober-Add-GPIO-support-to-simple-helpers.patch

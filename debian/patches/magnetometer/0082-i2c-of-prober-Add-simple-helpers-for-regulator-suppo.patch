@@ -1,5 +1,5 @@
 From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 11 Sep 2024 15:27:45 +0800
+Date: Wed, 30 Oct 2024 15:22:25 +0800
 Subject: i2c: of-prober: Add simple helpers for regulator support
 
 Add helpers to do regulator management for the I2C OF component prober.
@@ -19,13 +19,15 @@ name and the amount of time to wait after the supply is enabled are
 also given by the user.
 
 Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
- drivers/i2c/i2c-core-of-prober.c | 169 ++++++++++++++++++++++++++++++++++++++-
- include/linux/i2c-of-prober.h    |  48 +++++++++++
- 2 files changed, 216 insertions(+), 1 deletion(-)
+ drivers/i2c/i2c-core-of-prober.c | 138 ++++++++++++++++++++++++++++++++++++++-
+ include/linux/i2c-of-prober.h    |  44 +++++++++++++
+ 2 files changed, 181 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/i2c/i2c-core-of-prober.c b/drivers/i2c/i2c-core-of-prober.c
-index 62ff2f4..1371ea5 100644
+index 21f7a47..76df75c 100644
 --- a/drivers/i2c/i2c-core-of-prober.c
 +++ b/drivers/i2c/i2c-core-of-prober.c
 @@ -6,6 +6,7 @@
@@ -42,9 +44,9 @@ index 62ff2f4..1371ea5 100644
  #include <linux/of.h>
 +#include <linux/regulator/consumer.h>
  #include <linux/slab.h>
+ #include <linux/stddef.h>
  
- /*
-@@ -28,7 +30,6 @@
+@@ -29,7 +31,6 @@
   * address responds.
   *
   * TODO:
@@ -52,7 +54,7 @@ index 62ff2f4..1371ea5 100644
   * - Support handling common GPIOs.
   * - Support I2C muxes
   */
-@@ -193,3 +194,169 @@ int i2c_of_probe_component(struct device *dev, const struct i2c_of_probe_cfg *cf
+@@ -181,3 +182,138 @@ int i2c_of_probe_component(struct device *dev, const struct i2c_of_probe_cfg *cf
  	return ret;
  }
  EXPORT_SYMBOL_NS_GPL(i2c_of_probe_component, I2C_OF_PROBER);
@@ -64,10 +66,10 @@ index 62ff2f4..1371ea5 100644
 +	struct regulator *supply;
 +
 +	/*
-+	 * It's entirely possible for the component's device node to not have regulator
-+	 * supplies. While it does not make sense from a hardware perspective, the
-+	 * supplies could be always on or otherwise not modeled in the device tree, but
-+	 * the device would still work.
++	 * It's entirely possible for the component's device node to not have the
++	 * regulator supplies. While it does not make sense from a hardware perspective,
++	 * the supplies could be always on or otherwise not modeled in the device tree,
++	 * but the device would still work.
 +	 */
 +	supply_name = ctx->opts->supply_name;
 +	if (!supply_name)
@@ -104,7 +106,8 @@ index 62ff2f4..1371ea5 100644
 +	if (ret)
 +		return ret;
 +
-+	msleep(ctx->opts->post_power_on_delay_ms);
++	if (ctx->opts->post_power_on_delay_ms)
++		msleep(ctx->opts->post_power_on_delay_ms);
 +
 +	return 0;
 +}
@@ -120,16 +123,17 @@ index 62ff2f4..1371ea5 100644
 +}
 +
 +/**
-+ * i2c_of_probe_simple_get_res - Simple helper for I2C OF prober to get resources
++ * i2c_of_probe_simple_enable - Simple helper for I2C OF prober to get and enable resources
 + * @dev: Pointer to the &struct device of the caller, only used for dev_printk() messages
 + * @bus_node: Pointer to the &struct device_node of the I2C adapter.
 + * @data: Pointer to &struct i2c_of_probe_simple_ctx helper context.
 + *
 + * If &i2c_of_probe_simple_opts->supply_name is given, request the named regulator supply.
++ * If a regulator supply was found, enable that regulator.
 + *
 + * Return: %0 on success or no-op, or a negative error number on failure.
 + */
-+int i2c_of_probe_simple_get_res(struct device *dev, struct device_node *bus_node, void *data)
++int i2c_of_probe_simple_enable(struct device *dev, struct device_node *bus_node, void *data)
 +{
 +	struct i2c_of_probe_simple_ctx *ctx = data;
 +	struct device_node *node;
@@ -154,79 +158,46 @@ index 62ff2f4..1371ea5 100644
 +	if (ret)
 +		goto out_put_node;
 +
++	ret = i2c_of_probe_simple_enable_regulator(dev, ctx);
++	if (ret)
++		goto out_put_supply;
++
 +	return 0;
 +
++out_put_supply:
++	i2c_of_probe_simple_put_supply(ctx);
 +out_put_node:
 +	of_node_put(node);
 +	return ret;
 +}
-+EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_get_res, I2C_OF_PROBER);
-+
-+/**
-+ * i2c_of_probe_simple_free_res_late - Simple helper for I2C OF prober to release all resources.
-+ * @data: Pointer to &struct i2c_of_probe_simple_ctx helper context.
-+ */
-+void i2c_of_probe_simple_free_res_late(void *data)
-+{
-+	struct i2c_of_probe_simple_ctx *ctx = data;
-+
-+	i2c_of_probe_simple_put_supply(ctx);
-+}
-+EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_free_res_late, I2C_OF_PROBER);
-+
-+/**
-+ * i2c_of_probe_simple_enable - Enable resources for I2C OF prober simple helpers
-+ * @dev: Pointer to the &struct device of the caller, only used for dev_printk() messages
-+ * @data: Pointer to &struct i2c_of_probe_simple_ctx helper context.
-+ *
-+ * If a regulator supply was found, enable that regulator.
-+ *
-+ * Return: %0 on success or no-op, or a negative error number on failure.
-+ */
-+int i2c_of_probe_simple_enable(struct device *dev, void *data)
-+{
-+	struct i2c_of_probe_simple_ctx *ctx = data;
-+	int ret;
-+
-+	ret = i2c_of_probe_simple_enable_regulator(dev, ctx);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
 +EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_enable, I2C_OF_PROBER);
 +
 +/**
-+ * i2c_of_probe_simple_cleanup - Clean up resources for I2C OF prober simple helpers
++ * i2c_of_probe_simple_cleanup - Clean up and release resources for I2C OF prober simple helpers
 + * @dev: Pointer to the &struct device of the caller, only used for dev_printk() messages
 + * @data: Pointer to &struct i2c_of_probe_simple_ctx helper context.
 + *
-+ * If a regulator supply was found, disable that regulator.
-+ *
-+ * Return: %0 on success or no-op, or a negative error number on failure.
++ * * If a regulator supply was found, disable that regulator and release it.
 + */
-+int i2c_of_probe_simple_cleanup(struct device *dev, void *data)
++void i2c_of_probe_simple_cleanup(struct device *dev, void *data)
 +{
 +	struct i2c_of_probe_simple_ctx *ctx = data;
 +
 +	i2c_of_probe_simple_disable_regulator(dev, ctx);
-+
-+	return 0;
++	i2c_of_probe_simple_put_supply(ctx);
 +}
 +EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_cleanup, I2C_OF_PROBER);
 +
 +struct i2c_of_probe_ops i2c_of_probe_simple_ops = {
-+	.get_resources = i2c_of_probe_simple_get_res,
 +	.enable = i2c_of_probe_simple_enable,
 +	.cleanup = i2c_of_probe_simple_cleanup,
-+	.free_resources_late = i2c_of_probe_simple_free_res_late,
 +};
 +EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_ops, I2C_OF_PROBER);
 diff --git a/include/linux/i2c-of-prober.h b/include/linux/i2c-of-prober.h
-index 0f94e7c..541451f 100644
+index e7e052a..df95aa6 100644
 --- a/include/linux/i2c-of-prober.h
 +++ b/include/linux/i2c-of-prober.h
-@@ -68,6 +68,54 @@ struct i2c_of_probe_cfg {
+@@ -70,6 +70,50 @@ struct i2c_of_probe_cfg {
  
  int i2c_of_probe_component(struct device *dev, const struct i2c_of_probe_cfg *cfg, void *ctx);
  
@@ -235,17 +206,15 @@ index 0f94e7c..541451f 100644
 + *
 + * Components such as trackpads are commonly connected to a devices baseboard
 + * with a 6-pin ribbon cable. That gives at most one voltage supply and one
-+ * GPIO besides the I2C bus, interrupt pin, and common ground. Touchscreens,
-+ * while integrated into the display panel's connection, typically have the
-+ * same set of connections.
++ * GPIO (commonly a "enable" or "reset" line) besides the I2C bus, interrupt
++ * pin, and common ground. Touchscreens, while integrated into the display
++ * panel's connection, typically have the same set of connections.
 + *
 + * A simple set of helpers are provided here for use with the I2C OF component
 + * prober. This implementation targets such components, allowing for at most
 + * one regulator supply.
 + *
 + * The following helpers are provided:
-+ * * i2c_of_probe_simple_get_res()
-+ * * i2c_of_probe_simple_free_res_late()
 + * * i2c_of_probe_simple_enable()
 + * * i2c_of_probe_simple_cleanup()
 + */
@@ -254,7 +223,7 @@ index 0f94e7c..541451f 100644
 + * struct i2c_of_probe_simple_opts - Options for simple I2C component prober callbacks
 + * @res_node_compatible: Compatible string of device node to retrieve resources from.
 + * @supply_name: Name of regulator supply.
-+ * @post_power_on_delay_ms: Delay in ms after regulators are powered on. Passed to msleep().
++ * @post_power_on_delay_ms: Delay after regulators are powered on. Passed to msleep().
 + */
 +struct i2c_of_probe_simple_opts {
 +	const char *res_node_compatible;
@@ -271,10 +240,8 @@ index 0f94e7c..541451f 100644
 +	struct regulator *supply;
 +};
 +
-+int i2c_of_probe_simple_get_res(struct device *dev, struct device_node *bus_node, void *data);
-+void i2c_of_probe_simple_free_res_late(void *data);
-+int i2c_of_probe_simple_enable(struct device *dev, void *data);
-+int i2c_of_probe_simple_cleanup(struct device *dev, void *data);
++int i2c_of_probe_simple_enable(struct device *dev, struct device_node *bus_node, void *data);
++void i2c_of_probe_simple_cleanup(struct device *dev, void *data);
 +
 +extern struct i2c_of_probe_ops i2c_of_probe_simple_ops;
 +

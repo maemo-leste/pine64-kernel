@@ -1,5 +1,5 @@
 From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 11 Sep 2024 15:27:39 +0800
+Date: Wed, 30 Oct 2024 15:22:22 +0800
 Subject: of: dynamic: Add of_changeset_update_prop_string
 
 Add a helper function to add string property updates to an OF changeset.
