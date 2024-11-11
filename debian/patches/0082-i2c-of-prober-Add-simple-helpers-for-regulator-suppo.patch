@@ -1,5 +1,5 @@
 From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 30 Oct 2024 15:22:25 +0800
+Date: Wed, 6 Nov 2024 17:33:31 +0800
 Subject: i2c: of-prober: Add simple helpers for regulator support
 
 Add helpers to do regulator management for the I2C OF component prober.

@@ -1,5 +1,5 @@
 From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 30 Oct 2024 15:22:26 +0800
+Date: Wed, 6 Nov 2024 17:33:32 +0800
 Subject: i2c: of-prober: Add GPIO support to simple helpers
 
 Add GPIO support to the simple helpers for the I2C OF component prober.
@@ -23,8 +23,8 @@ Reviewed-by: Douglas Anderson <dianders@chromium.org>
 Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 ---
  drivers/i2c/i2c-core-of-prober.c | 100 ++++++++++++++++++++++++++++++++++++++-
- include/linux/i2c-of-prober.h    |  20 ++++++++
- 2 files changed, 118 insertions(+), 2 deletions(-)
+ include/linux/i2c-of-prober.h    |  21 ++++++++
+ 2 files changed, 119 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/i2c/i2c-core-of-prober.c b/drivers/i2c/i2c-core-of-prober.c
 index 76df75c..b9ca785 100644
@@ -197,10 +197,18 @@ index 76df75c..b9ca785 100644
  };
  EXPORT_SYMBOL_NS_GPL(i2c_of_probe_simple_ops, I2C_OF_PROBER);
 diff --git a/include/linux/i2c-of-prober.h b/include/linux/i2c-of-prober.h
-index df95aa6..a232f3c 100644
+index df95aa6..bb6d47f 100644
 --- a/include/linux/i2c-of-prober.h
 +++ b/include/linux/i2c-of-prober.h
-@@ -85,6 +85,7 @@ int i2c_of_probe_component(struct device *dev, const struct i2c_of_probe_cfg *cf
+@@ -9,6 +9,7 @@
+ #define _LINUX_I2C_OF_PROBER_H
+ 
+ #include <linux/kconfig.h>
++#include <linux/types.h>
+ 
+ struct device;
+ struct device_node;
+@@ -85,6 +86,7 @@ int i2c_of_probe_component(struct device *dev, const struct i2c_of_probe_cfg *cf
   *
   * The following helpers are provided:
   * * i2c_of_probe_simple_enable()
@@ -208,7 +216,7 @@ index df95aa6..a232f3c 100644
   * * i2c_of_probe_simple_cleanup()
   */
  
-@@ -92,14 +93,31 @@ int i2c_of_probe_component(struct device *dev, const struct i2c_of_probe_cfg *cf
+@@ -92,14 +94,31 @@ int i2c_of_probe_component(struct device *dev, const struct i2c_of_probe_cfg *cf
   * struct i2c_of_probe_simple_opts - Options for simple I2C component prober callbacks
   * @res_node_compatible: Compatible string of device node to retrieve resources from.
   * @supply_name: Name of regulator supply.
@@ -240,7 +248,7 @@ index df95aa6..a232f3c 100644
  struct regulator;
  
  struct i2c_of_probe_simple_ctx {
-@@ -107,9 +125,11 @@ struct i2c_of_probe_simple_ctx {
+@@ -107,9 +126,11 @@ struct i2c_of_probe_simple_ctx {
  	const struct i2c_of_probe_simple_opts *opts;
  	/* private: internal fields for helpers. */
  	struct regulator *supply;

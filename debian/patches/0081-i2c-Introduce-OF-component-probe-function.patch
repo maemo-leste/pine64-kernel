@@ -1,5 +1,5 @@
 From: Chen-Yu Tsai <wenst@chromium.org>
-Date: Wed, 30 Oct 2024 15:22:24 +0800
+Date: Wed, 6 Nov 2024 17:33:30 +0800
 Subject: i2c: Introduce OF component probe function
 
 Some devices are designed and manufactured with some components having
