@@ -29,7 +29,7 @@ Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
  create mode 100644 drivers/platform/arm64/pinephone_of_hw_prober.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 21a1a97..1dc4bfc 100644
+index 30dd6bf..a2cbd3f 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -18314,6 +18314,11 @@ F:	Documentation/devicetree/bindings/pinctrl/sunplus,*
