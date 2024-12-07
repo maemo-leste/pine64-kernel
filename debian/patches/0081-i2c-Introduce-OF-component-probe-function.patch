@@ -50,7 +50,7 @@ Reviewed-by: Douglas Anderson <dianders@chromium.org>
  create mode 100644 include/linux/i2c-of-prober.h
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index b878ddc..30dd6bf 100644
+index 6bb4ec0..a5f351c 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -10647,6 +10647,14 @@ S:	Maintained
@@ -82,7 +82,7 @@ index f12d6b1..c539cdc 100644
  obj-$(CONFIG_I2C_CHARDEV)	+= i2c-dev.o
 diff --git a/drivers/i2c/i2c-core-of-prober.c b/drivers/i2c/i2c-core-of-prober.c
 new file mode 100644
-index 00000000..21f7a47
+index 0000000..21f7a47
 --- /dev/null
 +++ b/drivers/i2c/i2c-core-of-prober.c
 @@ -0,0 +1,183 @@
@@ -271,7 +271,7 @@ index 00000000..21f7a47
 +EXPORT_SYMBOL_NS_GPL(i2c_of_probe_component, I2C_OF_PROBER);
 diff --git a/include/linux/i2c-of-prober.h b/include/linux/i2c-of-prober.h
 new file mode 100644
-index 00000000..e7e052a
+index 0000000..e7e052a
 --- /dev/null
 +++ b/include/linux/i2c-of-prober.h
 @@ -0,0 +1,75 @@

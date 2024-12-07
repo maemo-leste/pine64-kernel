@@ -360,7 +360,7 @@ index 2303e5d..2a34ae8 100644
  	if (csi_dev->isp_available)
  		ret = v4l2_async_register_subdev(subdev);
 diff --git a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h
-index 722b633..a5b0a6f0 100644
+index 722b633..a5b0a6f 100644
 --- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h
 +++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h
 @@ -42,8 +42,6 @@ struct sun6i_csi_bridge {
