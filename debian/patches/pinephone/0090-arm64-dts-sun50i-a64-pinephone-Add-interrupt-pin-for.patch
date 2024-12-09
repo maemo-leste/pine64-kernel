@@ -8,10 +8,10 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
-index 8f939df..3cda63a 100644
+index 16bbe97..6b827d4 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
-@@ -373,6 +373,8 @@ &mmc1 {
+@@ -376,6 +376,8 @@ &mmc1 {
  
  	rtl8723cs: wifi@1 {
  		reg = <1>;

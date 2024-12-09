@@ -141,7 +141,7 @@ index 2a34ae8..d377eb4 100644
  	ret = v4l2_async_nf_register(notifier);
  	if (ret) {
 diff --git a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h
-index a5b0a6f..e755b67 100644
+index a5b0a6f0..e755b67 100644
 --- a/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h
 +++ b/drivers/media/platform/sunxi/sun6i-csi/sun6i_csi_bridge.h
 @@ -38,12 +38,14 @@ struct sun6i_csi_bridge_async_subdev {

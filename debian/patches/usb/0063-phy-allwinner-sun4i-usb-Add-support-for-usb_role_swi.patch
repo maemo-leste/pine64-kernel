@@ -11,7 +11,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  2 files changed, 51 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/phy/allwinner/Kconfig b/drivers/phy/allwinner/Kconfig
-index fb58451..e93a531 100644
+index fb584518..e93a531 100644
 --- a/drivers/phy/allwinner/Kconfig
 +++ b/drivers/phy/allwinner/Kconfig
 @@ -12,6 +12,7 @@ config PHY_SUN4I_USB

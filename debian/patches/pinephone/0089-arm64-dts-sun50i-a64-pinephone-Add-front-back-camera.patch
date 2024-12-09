@@ -12,7 +12,7 @@ Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
  1 file changed, 94 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
-index bc6af17..8f939df 100644
+index 0fca770..16bbe97 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
 @@ -6,6 +6,7 @@

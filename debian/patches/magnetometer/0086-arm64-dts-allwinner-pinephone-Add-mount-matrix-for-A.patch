@@ -17,7 +17,7 @@ Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
-index b04a8df..d92b6e4 100644
+index bb88244..b8daf25 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
 @@ -195,6 +195,9 @@ af8133j: magnetometer@1c {

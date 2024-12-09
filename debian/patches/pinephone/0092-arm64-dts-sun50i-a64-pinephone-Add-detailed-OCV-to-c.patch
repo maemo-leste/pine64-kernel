@@ -13,7 +13,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 151 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
-index 2ec814a..4fb9c9d 100644
+index f13fca3..c60a6bf 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinephone.dtsi
 @@ -29,6 +29,156 @@ backlight: backlight {
@@ -173,7 +173,7 @@ index 2ec814a..4fb9c9d 100644
  	bt_sco_codec: bt-sco-codec {
  		#sound-dai-cells = <1>;
  		compatible = "linux,bt-sco";
-@@ -502,6 +652,7 @@ axp803: pmic@3a3 {
+@@ -505,6 +655,7 @@ axp803: pmic@3a3 {
  
  &battery_power_supply {
  	status = "okay";
