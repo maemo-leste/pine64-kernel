@@ -12,10 +12,10 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 27 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp20x-regulator.c
-index ad8136a..2d0061d 100644
+index 21f2c3d..32fb878 100644
 --- a/drivers/regulator/axp20x-regulator.c
 +++ b/drivers/regulator/axp20x-regulator.c
-@@ -1713,12 +1713,36 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
+@@ -1725,12 +1725,36 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
  	}
  
  	if (drivevbus) {

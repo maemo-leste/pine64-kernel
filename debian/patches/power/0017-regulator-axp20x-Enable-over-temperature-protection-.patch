@@ -11,7 +11,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 7 insertions(+)
 
 diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp20x-regulator.c
-index a8e91d9..ad8136a 100644
+index 945d291..21f2c3d 100644
 --- a/drivers/regulator/axp20x-regulator.c
 +++ b/drivers/regulator/axp20x-regulator.c
 @@ -92,6 +92,8 @@
@@ -23,7 +23,7 @@ index a8e91d9..ad8136a 100644
  
  #define AXP22X_DCDC1_V_OUT_MASK		GENMASK(4, 0)
  #define AXP22X_DCDC2_V_OUT_MASK		GENMASK(5, 0)
-@@ -1723,6 +1725,11 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
+@@ -1735,6 +1737,11 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
  		}
  	}
  

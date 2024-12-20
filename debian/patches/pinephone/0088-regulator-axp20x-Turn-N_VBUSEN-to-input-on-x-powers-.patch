@@ -29,10 +29,10 @@ index 4e7e237..bdca3e1 100644
  	power-supply = <&reg_ldo_io0>;
  	/*
 diff --git a/drivers/regulator/axp20x-regulator.c b/drivers/regulator/axp20x-regulator.c
-index 2d0061d..63957a9 100644
+index 32fb878..e905714 100644
 --- a/drivers/regulator/axp20x-regulator.c
 +++ b/drivers/regulator/axp20x-regulator.c
-@@ -1712,6 +1712,14 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
+@@ -1724,6 +1724,14 @@ static int axp20x_regulator_probe(struct platform_device *pdev)
  						&aldo1_name);
  	}
  
