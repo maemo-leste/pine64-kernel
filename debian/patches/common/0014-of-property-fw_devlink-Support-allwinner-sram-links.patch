@@ -13,10 +13,10 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 22 insertions(+)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 11b922f..dc9aa96 100644
+index 7bd8390..6310674 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
-@@ -1351,6 +1351,27 @@ static struct device_node *parse_remote_endpoint(struct device_node *np,
+@@ -1350,6 +1350,27 @@ static struct device_node *parse_remote_endpoint(struct device_node *np,
  	return of_graph_get_remote_port_parent(np);
  }
  
@@ -44,7 +44,7 @@ index 11b922f..dc9aa96 100644
  static const struct supplier_bindings of_supplier_bindings[] = {
  	{ .parse_prop = parse_clocks, },
  	{ .parse_prop = parse_interconnects, },
-@@ -1399,6 +1420,7 @@ static const struct supplier_bindings of_supplier_bindings[] = {
+@@ -1397,6 +1418,7 @@ static const struct supplier_bindings of_supplier_bindings[] = {
  		.parse_prop = parse_post_init_providers,
  		.fwlink_flags = FWLINK_FLAG_IGNORE,
  	},

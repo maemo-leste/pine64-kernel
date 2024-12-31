@@ -17,7 +17,7 @@ Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
  2 files changed, 44 insertions(+)
 
 diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 20603d3..d3c123b 100644
+index 63161d0..fe3831e 100644
 --- a/drivers/of/base.c
 +++ b/drivers/of/base.c
 @@ -628,6 +628,41 @@ struct device_node *of_get_next_child(const struct device_node *node,
