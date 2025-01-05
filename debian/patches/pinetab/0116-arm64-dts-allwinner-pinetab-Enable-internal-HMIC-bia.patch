@@ -1,0 +1,28 @@
+From: Julian <juliannfairfax@protonmail.com>
+Date: Sat, 4 Jan 2025 21:32:55 +0000
+Subject: arm64: dts: allwinner: pinetab: Enable internal HMIC bias
+
+The PineTab mainboard do not have an external
+resistor connecting HBIAS to MIC2P. Enable the internal resistor to
+provide the necessary headeset microphone bias.
+
+Signed-off-by: Samuel Holland <samuel@sholland.org>
+Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+Signed-off-by: Julian <juliannfairfax@protonmail.com>
+---
+ arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
+index 08c55b1..ec56ac0 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
++++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
+@@ -98,6 +98,7 @@ &codec {
+
+ &codec_analog {
+ 	cpvdd-supply = <&reg_eldo1>;
++	allwinner,internal-bias-resistor;
+ 	status = "okay";
+ };
+

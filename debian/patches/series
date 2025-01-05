@@ -107,4 +107,14 @@ pinephone/0106-arm64-dts-allwinner-pinephone-Add-pstore-support.patch
 pinephone/0107-arm64-dts-allwinner-pinephone-keep-power-for-WiFi-in.patch
 pinephone/0108-arm64-dts-sun50i-a64-pinephone-Use-newer-jack-detect.patch
 pinephone/0109-arm64-dts-sun50-a64-pinephone-Define-jack-pins-in-DT.patch
-debian/0110-wireless-Add-Debian-wireless-regdb-certificates.patch
+pinetab/0110-arm64-dts-allwinner-pinetab-enable-K101-IM2BYL02-panel.patch
+pinetab/0111-arm64-allwinner-a64-pinetab-enable-BMA223-accelerometer.patch
+pinetab/0112-arm64-allwinner-a64-pinetab-enable-RTL8723CS-bluetooth.patch
+pinetab/0113-arm64-dts-allwinner-pinetab-fix-powersupply-axp20x-battery.patch
+pinetab/0114-arm64-dts-sun50i-a64-pinetab-Add-front-back-cameras.patch
+pinetab/0115-arm64-dts-allwinner-pinetab-Set-audio-card-name.patch
+pinetab/0116-arm64-dts-allwinner-pinetab-Enable-internal-HMIC-bia.patch
+pinetab/0117-arm64-dts-sun50i-a64-pinetab-Use-newer-jack-detect.patch
+pinetab/0118-arm64-dts-sun50-a64-pinetab-Define-jack-pins-in-DT.patch
+pinetab/0119-arm64-dts-allwinner-pinetab-keep-power-for-WiFi-in.patch
+debian/0120-wireless-Add-Debian-wireless-regdb-certificates.patch
