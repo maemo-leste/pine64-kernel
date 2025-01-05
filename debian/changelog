@@ -1,3 +1,10 @@
+linux-6.12-sunxi64 (6.12.8-2) unstable; urgency=medium
+
+  [ Julian ]
+  * Add PineTab support
+
+ -- Andrey Skvortsov <andrej.skvortzov@gmail.com>  Sun, 05 Jan 2025 18:12:59 +0300
+
 linux-6.12-sunxi64 (6.12.8-1) unstable; urgency=medium
 
   * Rebase on 6.12.8
