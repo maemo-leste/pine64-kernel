@@ -20,7 +20,7 @@ index 00501e0..f9f43ab 100644
 @@ -478,6 +478,19 @@ &uart0 {
  	status = "okay";
  };
-
+ 
 +&uart1 {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&uart1_pins>, <&uart1_rts_cts_pins>;

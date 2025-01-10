@@ -15,7 +15,7 @@ index f5fb1ee..6483df8 100644
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
 @@ -162,12 +162,10 @@ &dsi {
  	status = "okay";
-
+ 
  	panel@0 {
 -		compatible = "feixin,k101-im2ba02";
 +		compatible = "feixin,k101-im2byl02";

@@ -12,18 +12,18 @@ index 6483df8..00501e0 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
 @@ -159,6 +159,8 @@ &dphy {
-
+ 
  &dsi {
  	vcc-dsi-supply = <&reg_dldo1>;
 +	#address-cells = <1>;
 +	#size-cells = <0>;
  	status = "okay";
-
+ 
  	panel@0 {
 @@ -199,7 +201,15 @@ &i2c0_pins {
  &i2c1 {
  	status = "okay";
-
+ 
 -	/* TODO: add Bochs BMA223 accelerometer here */
 +	bma223@18 {
 +		compatible = "bosch,bma223", "bosch,bma222e";
@@ -35,12 +35,12 @@ index 6483df8..00501e0 100644
 +			       "0", "0", "-1";
 +	};
  };
-
+ 
  &lradc {
 @@ -265,6 +275,10 @@ &ohci0 {
  	status = "okay";
  };
-
+ 
 +&ohci1 {
 +	status = "okay";
 +};

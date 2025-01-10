@@ -15,14 +15,14 @@ Signed-off-by: Julian <juliannfairfax@protonmail.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
-index 08c55b1..ec56ac0 100644
+index 94732e6..b6c1b96 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
 @@ -98,6 +98,7 @@ &codec {
-
+ 
  &codec_analog {
  	cpvdd-supply = <&reg_eldo1>;
 +	allwinner,internal-bias-resistor;
  	status = "okay";
  };
-
+ 

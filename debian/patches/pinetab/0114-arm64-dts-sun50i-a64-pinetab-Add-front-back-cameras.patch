@@ -14,13 +14,13 @@ Signed-off-by: Julian <juliannfairfax@protonmail.com>
  1 file changed, 72 insertions(+), 29 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
-index 7d5e995..1c1e995 100644
+index c5e7801..05194ac 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64-pinetab.dts
 @@ -11,6 +11,7 @@
  #include "sun50i-a64.dtsi"
  #include "sun50i-a64-cpu-opp.dtsi"
-
+ 
 +#include <dt-bindings/media/video-interfaces.h>
  #include <dt-bindings/gpio/gpio.h>
  #include <dt-bindings/input/input.h>
@@ -28,7 +28,7 @@ index 7d5e995..1c1e995 100644
 @@ -60,40 +61,13 @@ hdmi_con_in: endpoint {
  		};
  	};
-
+ 
 -	i2c-csi {
 +	i2c_csi: i2c-csi {
  		compatible = "i2c-gpio";
@@ -65,15 +65,15 @@ index 7d5e995..1c1e995 100644
 -			};
 -		};
  	};
-
+ 
  	speaker_amp: audio-amplifier {
 @@ -144,10 +118,15 @@ &cpu3 {
  };
-
+ 
  &csi {
 +	pinctrl-0 = <&csi_pins>;
  	status = "okay";
-
+ 
  	port {
 -		csi_ep: endpoint {
 +		#address-cells = <1>;
@@ -100,11 +100,11 @@ index 7d5e995..1c1e995 100644
 +		};
  	};
  };
-
+ 
 @@ -193,6 +182,60 @@ &ehci1 {
  	status = "okay";
  };
-
+ 
 +&i2c_csi {
 +	pinctrl-names = "default";
 +	pinctrl-0 = <&csi_mclk_pin>;
@@ -161,4 +161,4 @@ index 7d5e995..1c1e995 100644
 +
  &i2c0 {
  	status = "okay";
-
+ 
