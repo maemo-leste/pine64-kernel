@@ -326,6 +326,11 @@
 &sfc {
 	pinctrl-names = "default";
 	pinctrl-0 = <&fspim1_pins>;
+
+};
+
+&spi_flash {
+	spi-max-frequency = <50000000>;
 };
 
 &u2phy1_otg {
