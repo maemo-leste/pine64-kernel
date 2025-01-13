@@ -121,6 +121,9 @@
 };
 
 &hdmi0 {
+	pinctrl-0 = <&hdmim0_tx0_cec &hdmim0_tx0_hpd
+		     &hdmim0_tx0_scl &hdmim0_tx0_sda
+		     &hdmi0_tx_on_h>;
 	status = "okay";
 };
 
@@ -141,6 +144,9 @@
 };
 
 &hdmi1 {
+	pinctrl-0 = <&hdmim2_tx1_cec &hdmim0_tx1_hpd
+		     &hdmim1_tx1_scl &hdmim1_tx1_sda
+		     &hdmi1_tx_on_h>;
 	status = "okay";
 };
 
@@ -304,6 +310,16 @@
 
 		typec5v_pwren: typec5v-pwren {
 			rockchip,pins = <4 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+	};
+
+	hdmi {
+		hdmi0_tx_on_h: hdmi0-tx-on-h {
+			rockchip,pins = <4 RK_PB1 RK_FUNC_GPIO &pcfg_pull_up>;
+		};
+
+		hdmi1_tx_on_h: hdmi1-tx-on-h {
+			rockchip,pins = <4 RK_PB2 RK_FUNC_GPIO &pcfg_pull_up>;
 		};
 	};
 };
