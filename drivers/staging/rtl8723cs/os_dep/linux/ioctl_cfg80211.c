@@ -4578,6 +4578,7 @@ exit:
 static int cfg80211_rtw_get_txpower(struct wiphy *wiphy,
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3, 8, 0))
 	struct wireless_dev *wdev,
+	unsigned int link_id,
 #endif
 	int *dbm)
 {
