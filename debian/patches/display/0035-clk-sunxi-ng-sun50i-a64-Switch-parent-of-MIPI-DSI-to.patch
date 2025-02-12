@@ -1,5 +1,5 @@
-From: =?utf-8?q?Ond=C5=99ej_Jirman?= <megi@xff.cz>
-Date: Wed, 7 Oct 2020 02:11:35 +0200
+From: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+Date: Wed, 12 Feb 2025 22:33:07 +0300
 Subject: clk: sunxi-ng: sun50i-a64: Switch parent of MIPI-DSI to periph0(1x)
 
 This makes video0(1x) clock less constrained, and improves compatibility
@@ -12,7 +12,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 8 insertions(+)
 
 diff --git a/drivers/clk/sunxi-ng/ccu-sun50i-a64.c b/drivers/clk/sunxi-ng/ccu-sun50i-a64.c
-index c255dba..2459f92 100644
+index 6727a3e..aec285f1 100644
 --- a/drivers/clk/sunxi-ng/ccu-sun50i-a64.c
 +++ b/drivers/clk/sunxi-ng/ccu-sun50i-a64.c
 @@ -942,6 +942,8 @@ static struct ccu_mux_nb sun50i_a64_cpu_nb = {
@@ -34,6 +34,6 @@ index c255dba..2459f92 100644
 +	val |= (2 << 8) | ((4 - 1) << 0); /* M-1 */
 +	writel(val, reg + CCU_MIPI_DSI_CLK);
 +
- 	/* Set PLL MIPI as parent for TCON0 */
- 	val = readl(reg + SUN50I_A64_TCON0_CLK_REG);
- 	val &= ~GENMASK(26, 24);
+ 	ret = devm_sunxi_ccu_probe(&pdev->dev, reg, &sun50i_a64_ccu_desc);
+ 	if (ret)
+ 		return ret;

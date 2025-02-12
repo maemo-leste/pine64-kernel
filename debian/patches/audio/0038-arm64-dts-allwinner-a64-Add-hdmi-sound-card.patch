@@ -10,7 +10,7 @@ Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
  1 file changed, 15 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-index f6f8301..33f899e 100644
+index 04e869d..8d7fd91 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
 @@ -229,6 +229,20 @@ link0_codec: codec {
@@ -34,7 +34,7 @@ index f6f8301..33f899e 100644
  	timer {
  		compatible = "arm,armv8-timer";
  		allwinner,erratum-unknown1;
-@@ -1306,6 +1320,7 @@ deinterlace: deinterlace@1e00000 {
+@@ -1308,6 +1322,7 @@ deinterlace: deinterlace@1e00000 {
  		};
  
  		hdmi: hdmi@1ee0000 {

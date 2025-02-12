@@ -29,7 +29,7 @@ index 0d9d1d2..7cca971 100644
  	tristate "Everest Semi ES7134 CODEC"
  
 diff --git a/sound/soc/codecs/Makefile b/sound/soc/codecs/Makefile
-index 54cbc3f..101357f 100644
+index 69cb0b3..1d06d6b 100644
 --- a/sound/soc/codecs/Makefile
 +++ b/sound/soc/codecs/Makefile
 @@ -120,6 +120,7 @@ snd-soc-da7219-y := da7219.o da7219-aad.o
@@ -50,7 +50,7 @@ index 54cbc3f..101357f 100644
  obj-$(CONFIG_SND_SOC_ES83XX_DSM_COMMON)    += snd-soc-es83xx-dsm-common.o
 diff --git a/sound/soc/codecs/ec25.c b/sound/soc/codecs/ec25.c
 new file mode 100644
-index 0000000..4f9b6b0
+index 00000000..4f9b6b0
 --- /dev/null
 +++ b/sound/soc/codecs/ec25.c
 @@ -0,0 +1,94 @@

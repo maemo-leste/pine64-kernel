@@ -44,7 +44,7 @@ index 7a368fe..fe4bf3b 100644
  obj-$(CONFIG_TYPEC)		+= mux/
 diff --git a/drivers/usb/typec/typec-extcon.c b/drivers/usb/typec/typec-extcon.c
 new file mode 100644
-index 0000000..e460f35
+index 00000000..e460f35
 --- /dev/null
 +++ b/drivers/usb/typec/typec-extcon.c
 @@ -0,0 +1,332 @@

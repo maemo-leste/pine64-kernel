@@ -86,7 +86,7 @@ index fe4bf3b..0b2d1d2 100644
  obj-$(CONFIG_TYPEC_RT1719)	+= rt1719.o
 diff --git a/drivers/usb/typec/anx7688.c b/drivers/usb/typec/anx7688.c
 new file mode 100644
-index 0000000..fa1d349
+index 00000000..fa1d349
 --- /dev/null
 +++ b/drivers/usb/typec/anx7688.c
 @@ -0,0 +1,2237 @@

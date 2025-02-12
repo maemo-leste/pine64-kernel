@@ -8,7 +8,7 @@ Signed-off-by: Samuel Holland <samuel@sholland.org>
  1 file changed, 20 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-index 8d2b3cc..e979342 100644
+index 9293820..c631822 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
 @@ -167,6 +167,13 @@ psci {

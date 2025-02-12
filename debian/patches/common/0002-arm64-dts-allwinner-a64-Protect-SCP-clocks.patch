@@ -8,10 +8,10 @@ Signed-off-by: Samuel Holland <samuel@sholland.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-index a5c3920..c502ec4 100644
+index 0fecf0a..c35f8eb 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-@@ -699,6 +699,7 @@ ccu: clock@1c20000 {
+@@ -701,6 +701,7 @@ ccu: clock@1c20000 {
  			reg = <0x01c20000 0x400>;
  			clocks = <&osc24M>, <&rtc CLK_OSC32K>;
  			clock-names = "hosc", "losc";
@@ -19,7 +19,7 @@ index a5c3920..c502ec4 100644
  			#clock-cells = <1>;
  			#reset-cells = <1>;
  		};
-@@ -1329,6 +1330,7 @@ r_ccu: clock@1f01400 {
+@@ -1331,6 +1332,7 @@ r_ccu: clock@1f01400 {
  			clocks = <&osc24M>, <&rtc CLK_OSC32K>, <&rtc CLK_IOSC>,
  				 <&ccu CLK_PLL_PERIPH0>;
  			clock-names = "hosc", "losc", "iosc", "pll-periph";

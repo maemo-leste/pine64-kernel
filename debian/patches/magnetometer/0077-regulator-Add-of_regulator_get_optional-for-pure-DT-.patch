@@ -29,7 +29,7 @@ Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
  4 files changed, 53 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 1179766..d0b3879f 100644
+index 4bb2652..feb8e9f 100644
 --- a/drivers/regulator/core.c
 +++ b/drivers/regulator/core.c
 @@ -1959,8 +1959,8 @@ static struct regulator_dev *regulator_dev_lookup(struct device *dev,
@@ -64,10 +64,10 @@ index 5b43f80..f62cacb 100644
  {
  	return ERR_PTR(-ENODEV);
 diff --git a/drivers/regulator/of_regulator.c b/drivers/regulator/of_regulator.c
-index 3f490d8..358c3ed 100644
+index deab0b9..16e5fd0 100644
 --- a/drivers/regulator/of_regulator.c
 +++ b/drivers/regulator/of_regulator.c
-@@ -588,7 +588,8 @@ static struct device_node *of_get_child_regulator(struct device_node *parent,
+@@ -600,7 +600,8 @@ static struct device_node *of_get_child_regulator(struct device_node *parent,
  
  /**
   * of_get_regulator - get a regulator device node based on supply name
@@ -77,7 +77,7 @@ index 3f490d8..358c3ed 100644
   * @supply: regulator supply name
   *
   * Extract the regulator device node corresponding to the supply name.
-@@ -596,15 +597,16 @@ static struct device_node *of_get_child_regulator(struct device_node *parent,
+@@ -608,15 +609,16 @@ static struct device_node *of_get_child_regulator(struct device_node *parent,
   * Return: Pointer to the &struct device_node corresponding to the regulator
   *	   if found, or %NULL if not found.
   */
@@ -97,7 +97,7 @@ index 3f490d8..358c3ed 100644
  	if (regnode)
  		return regnode;
  
-@@ -628,6 +630,7 @@ static struct regulator_dev *of_find_regulator_by_node(struct device_node *np)
+@@ -640,6 +642,7 @@ static struct regulator_dev *of_find_regulator_by_node(struct device_node *np)
  /**
   * of_regulator_dev_lookup - lookup a regulator device with device tree only
   * @dev: Device pointer for regulator supply lookup.
@@ -105,7 +105,7 @@ index 3f490d8..358c3ed 100644
   * @supply: Supply name or regulator ID.
   *
   * Return: Pointer to the &struct regulator_dev on success, or ERR_PTR()
-@@ -642,13 +645,13 @@ static struct regulator_dev *of_find_regulator_by_node(struct device_node *np)
+@@ -654,13 +657,13 @@ static struct regulator_dev *of_find_regulator_by_node(struct device_node *np)
   * * -%ENODEV if lookup fails permanently.
   * * -%EPROBE_DEFER if lookup could succeed in the future.
   */
@@ -121,7 +121,7 @@ index 3f490d8..358c3ed 100644
  	if (node) {
  		r = of_find_regulator_by_node(node);
  		of_node_put(node);
-@@ -665,6 +668,42 @@ struct regulator_dev *of_regulator_dev_lookup(struct device *dev,
+@@ -677,6 +680,42 @@ struct regulator_dev *of_regulator_dev_lookup(struct device *dev,
  	return ERR_PTR(-ENODEV);
  }
  

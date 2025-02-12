@@ -39,7 +39,7 @@ Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
  1 file changed, 26 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
-index e979342..f6f8301 100644
+index c631822..04e869d 100644
 --- a/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
 +++ b/arch/arm64/boot/dts/allwinner/sun50i-a64.dtsi
 @@ -54,6 +54,7 @@ cpu0: cpu@0 {
