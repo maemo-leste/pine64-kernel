@@ -14,7 +14,7 @@ Signed-off-by: Martijn Braam <martijn@brixit.nl>
  1 file changed, 279 insertions(+)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index c1981f3..85879d1 100644
+index 2d40e3a..f795718 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
 @@ -9,6 +9,7 @@
@@ -86,7 +86,7 @@ index c1981f3..85879d1 100644
  };
  
  static inline struct ov5640_dev *to_ov5640_dev(struct v4l2_subdev *sd)
-@@ -2476,6 +2517,118 @@ static void ov5640_powerup_sequence(struct ov5640_dev *sensor)
+@@ -2477,6 +2518,118 @@ static void ov5640_powerup_sequence(struct ov5640_dev *sensor)
  			 OV5640_REG_SYS_CTRL0_SW_PWDN);
  }
  
@@ -205,7 +205,7 @@ index c1981f3..85879d1 100644
  static int ov5640_set_power_on(struct ov5640_dev *sensor)
  {
  	struct i2c_client *client = sensor->i2c_client;
-@@ -2496,8 +2649,11 @@ static int ov5640_set_power_on(struct ov5640_dev *sensor)
+@@ -2497,8 +2650,11 @@ static int ov5640_set_power_on(struct ov5640_dev *sensor)
  		goto xclk_off;
  	}
  
@@ -217,7 +217,7 @@ index c1981f3..85879d1 100644
  	ret = ov5640_init_slave_id(sensor);
  	if (ret)
  		goto power_off;
-@@ -3083,6 +3239,35 @@ static int ov5640_set_framefmt(struct ov5640_dev *sensor,
+@@ -3084,6 +3240,35 @@ static int ov5640_set_framefmt(struct ov5640_dev *sensor,
  			      is_jpeg ? (BIT(5) | BIT(3)) : 0);
  }
  
@@ -253,7 +253,7 @@ index c1981f3..85879d1 100644
  /*
   * Sensor Controls.
   */
-@@ -3199,6 +3384,41 @@ static int ov5640_set_ctrl_exposure(struct ov5640_dev *sensor,
+@@ -3200,6 +3385,41 @@ static int ov5640_set_ctrl_exposure(struct ov5640_dev *sensor,
  	return ret;
  }
  
@@ -295,7 +295,7 @@ index c1981f3..85879d1 100644
  static int ov5640_set_ctrl_gain(struct ov5640_dev *sensor, bool auto_gain)
  {
  	struct ov5640_ctrls *ctrls = &sensor->ctrls;
-@@ -3314,6 +3534,32 @@ static int ov5640_set_ctrl_vblank(struct ov5640_dev *sensor, int value)
+@@ -3315,6 +3535,32 @@ static int ov5640_set_ctrl_vblank(struct ov5640_dev *sensor, int value)
  				  mode->height + value);
  }
  
@@ -328,7 +328,7 @@ index c1981f3..85879d1 100644
  static int ov5640_g_volatile_ctrl(struct v4l2_ctrl *ctrl)
  {
  	struct v4l2_subdev *sd = ctrl_to_sd(ctrl);
-@@ -3338,6 +3584,12 @@ static int ov5640_g_volatile_ctrl(struct v4l2_ctrl *ctrl)
+@@ -3339,6 +3585,12 @@ static int ov5640_g_volatile_ctrl(struct v4l2_ctrl *ctrl)
  			return val;
  		sensor->ctrls.exposure->val = val;
  		break;
@@ -341,7 +341,7 @@ index c1981f3..85879d1 100644
  	}
  
  	pm_runtime_mark_last_busy(&sensor->i2c_client->dev);
-@@ -3387,6 +3639,18 @@ static int ov5640_s_ctrl(struct v4l2_ctrl *ctrl)
+@@ -3388,6 +3640,18 @@ static int ov5640_s_ctrl(struct v4l2_ctrl *ctrl)
  	case V4L2_CID_AUTO_WHITE_BALANCE:
  		ret = ov5640_set_ctrl_white_balance(sensor, ctrl->val);
  		break;
@@ -360,7 +360,7 @@ index c1981f3..85879d1 100644
  	case V4L2_CID_HUE:
  		ret = ov5640_set_ctrl_hue(sensor, ctrl->val);
  		break;
-@@ -3487,6 +3751,20 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
+@@ -3488,6 +3752,20 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
  	ctrls->gain = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_ANALOGUE_GAIN,
  					0, 1023, 1, 0);
  
@@ -381,7 +381,7 @@ index c1981f3..85879d1 100644
  	ctrls->saturation = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_SATURATION,
  					      0, 255, 1, 64);
  	ctrls->hue = v4l2_ctrl_new_std(hdl, ops, V4L2_CID_HUE,
-@@ -3533,6 +3811,7 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
+@@ -3534,6 +3812,7 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
  	v4l2_ctrl_auto_cluster(3, &ctrls->auto_wb, 0, false);
  	v4l2_ctrl_auto_cluster(2, &ctrls->auto_gain, 0, true);
  	v4l2_ctrl_auto_cluster(2, &ctrls->auto_exp, 1, true);

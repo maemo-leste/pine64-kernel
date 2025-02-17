@@ -84,7 +84,7 @@ index a3e8a51..3a090e5 100644
  		enable_irq(client->irq);
  		return 0;
 diff --git a/drivers/input/touchscreen/goodix.h b/drivers/input/touchscreen/goodix.h
-index 87797cc..dc358bcd 100644
+index 87797cc..dc358bc 100644
 --- a/drivers/input/touchscreen/goodix.h
 +++ b/drivers/input/touchscreen/goodix.h
 @@ -104,6 +104,7 @@ struct goodix_ts_data {

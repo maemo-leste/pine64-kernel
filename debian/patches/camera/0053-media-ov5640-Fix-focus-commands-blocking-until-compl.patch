@@ -9,10 +9,10 @@ completed the focus routine.
  1 file changed, 18 insertions(+), 49 deletions(-)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 869f36a..4d5c91f 100644
+index f143b18..159cd0a 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
-@@ -2625,6 +2625,19 @@ static int ov5640_copy_fw_to_device(struct ov5640_dev *sensor,
+@@ -2626,6 +2626,19 @@ static int ov5640_copy_fw_to_device(struct ov5640_dev *sensor,
  	return -ETIMEDOUT;
  }
  
@@ -32,7 +32,7 @@ index 869f36a..4d5c91f 100644
  static int ov5640_af_init(struct ov5640_dev *sensor)
  {
  	struct i2c_client *client = sensor->i2c_client;
-@@ -2662,6 +2675,11 @@ static int ov5640_af_init(struct ov5640_dev *sensor)
+@@ -2663,6 +2676,11 @@ static int ov5640_af_init(struct ov5640_dev *sensor)
  
  	// Set lens focus driver on
  	ret = ov5640_write_reg(sensor, OV5640_REG_VCM_CONTROL4, 0x3f);
@@ -44,7 +44,7 @@ index 869f36a..4d5c91f 100644
  	if (ret)
  		return ret;
  	return ret;
-@@ -3277,35 +3295,6 @@ static int ov5640_set_framefmt(struct ov5640_dev *sensor,
+@@ -3278,35 +3296,6 @@ static int ov5640_set_framefmt(struct ov5640_dev *sensor,
  			      is_jpeg ? (BIT(5) | BIT(3)) : 0);
  }
  
@@ -80,7 +80,7 @@ index 869f36a..4d5c91f 100644
  /*
   * Sensor Controls.
   */
-@@ -3441,26 +3430,6 @@ static int ov5640_set_ctrl_focus(struct ov5640_dev *sensor, int command)
+@@ -3442,26 +3431,6 @@ static int ov5640_set_ctrl_focus(struct ov5640_dev *sensor, int command)
  		return 0;
  	}
  

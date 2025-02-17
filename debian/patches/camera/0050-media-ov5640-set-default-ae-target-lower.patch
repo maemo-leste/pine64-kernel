@@ -9,10 +9,10 @@ the exposure target one stop lower.
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index c1d3fce..c1981f3 100644
+index 8566bc2..2d40e3a 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
-@@ -3870,7 +3870,7 @@ static int ov5640_probe(struct i2c_client *client)
+@@ -3871,7 +3871,7 @@ static int ov5640_probe(struct i2c_client *client)
  	sensor->current_link_freq =
  		ov5640_csi2_link_freqs[OV5640_DEFAULT_LINK_FREQ];
  

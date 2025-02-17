@@ -12,7 +12,7 @@ Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index be8e69d..9bd2379 100644
+index 7bc9dbc..c75359c 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
 @@ -1129,8 +1129,8 @@ static const struct ov5640_mode_info ov5640_mode_data[OV5640_NUM_MODES] = {

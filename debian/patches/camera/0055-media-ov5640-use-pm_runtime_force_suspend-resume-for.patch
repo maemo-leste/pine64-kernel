@@ -14,10 +14,10 @@ Signed-off-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 341d92b..be8e69d 100644
+index dda73a7..7bc9dbc 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
-@@ -4293,6 +4293,8 @@ static void ov5640_remove(struct i2c_client *client)
+@@ -4294,6 +4294,8 @@ static void ov5640_remove(struct i2c_client *client)
  }
  
  static const struct dev_pm_ops ov5640_pm_ops = {

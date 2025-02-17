@@ -7,10 +7,10 @@ Subject: media: ov5640: Add read-only property for vblank
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 4d5c91f..341d92b 100644
+index 159cd0a..dda73a7 100644
 --- a/drivers/media/i2c/ov5640.c
 +++ b/drivers/media/i2c/ov5640.c
-@@ -3819,6 +3819,7 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
+@@ -3820,6 +3820,7 @@ static int ov5640_init_controls(struct ov5640_dev *sensor)
  	ctrls->pixel_rate->flags |= V4L2_CTRL_FLAG_READ_ONLY;
  	ctrls->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
  	ctrls->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
