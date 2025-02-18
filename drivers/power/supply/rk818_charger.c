@@ -15,6 +15,8 @@
 #include <linux/power_supply.h>
 #include <linux/regmap.h>
 
+#include "rk818_battery.h"
+
 #define RK818_CHG_STS_MASK		(7u << 4) /* charger status */
 #define RK818_CHG_STS_NONE		(0u << 4)
 #define RK818_CHG_STS_WAKEUP_CUR	(1u << 4)
@@ -373,12 +375,6 @@ static int rk818_charger_get_voltage_max(struct rk818_charger *cg, int *val)
 
 	return 0;
 }
-
-struct rk818_battery;
-struct rk818_battery* rk818_battery_get(void);
-int rk818_battery_get_property(struct rk818_battery *di,
-			       enum power_supply_property psp,
-			       union power_supply_propval *val);
 
 static int rk818_charger_get_property(struct power_supply *psy,
 				      enum power_supply_property psp,
