@@ -10,7 +10,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 23 insertions(+)
 
 diff --git a/drivers/power/supply/axp20x_battery.c b/drivers/power/supply/axp20x_battery.c
-index e204ddb..7255437 100644
+index acb35d6..5f6be24 100644
 --- a/drivers/power/supply/axp20x_battery.c
 +++ b/drivers/power/supply/axp20x_battery.c
 @@ -270,6 +270,25 @@ static int axp717_get_constant_charge_current(struct axp20x_batt_ps *axp,
@@ -49,7 +49,7 @@ index e204ddb..7255437 100644
  	case POWER_SUPPLY_PROP_CAPACITY:
  		/* When no battery is present, return capacity is 100% */
  		ret = regmap_read(axp20x_batt->regmap, AXP20X_PWR_OP_MODE,
-@@ -849,6 +871,7 @@ static enum power_supply_property axp20x_battery_props[] = {
+@@ -848,6 +870,7 @@ static enum power_supply_property axp20x_battery_props[] = {
  	POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT,
  	POWER_SUPPLY_PROP_CONSTANT_CHARGE_CURRENT_MAX,
  	POWER_SUPPLY_PROP_HEALTH,

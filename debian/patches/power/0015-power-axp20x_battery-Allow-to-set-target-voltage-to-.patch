@@ -10,10 +10,10 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 5 insertions(+)
 
 diff --git a/drivers/power/supply/axp20x_battery.c b/drivers/power/supply/axp20x_battery.c
-index f71cc90..e204ddb 100644
+index 57eba1d..acb35d6 100644
 --- a/drivers/power/supply/axp20x_battery.c
 +++ b/drivers/power/supply/axp20x_battery.c
-@@ -599,6 +599,11 @@ static int axp22x_battery_set_max_voltage(struct axp20x_batt_ps *axp20x_batt,
+@@ -598,6 +598,11 @@ static int axp22x_battery_set_max_voltage(struct axp20x_batt_ps *axp20x_batt,
  		val = AXP20X_CHRG_CTRL1_TGT_4_2V;
  		break;
  

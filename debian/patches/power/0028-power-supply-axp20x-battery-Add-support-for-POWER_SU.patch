@@ -11,7 +11,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 26 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/power/supply/axp20x_battery.c b/drivers/power/supply/axp20x_battery.c
-index fdd7857..ae13724 100644
+index 6acf8c7..c6b8973 100644
 --- a/drivers/power/supply/axp20x_battery.c
 +++ b/drivers/power/supply/axp20x_battery.c
 @@ -127,6 +127,7 @@ struct axp20x_batt_ps {
@@ -39,7 +39,7 @@ index fdd7857..ae13724 100644
  	default:
  		return -EINVAL;
  	}
-@@ -914,6 +925,8 @@ static enum power_supply_property axp20x_battery_props[] = {
+@@ -913,6 +924,8 @@ static enum power_supply_property axp20x_battery_props[] = {
  	POWER_SUPPLY_PROP_VOLTAGE_MAX,
  	POWER_SUPPLY_PROP_VOLTAGE_MIN,
  	POWER_SUPPLY_PROP_CAPACITY,
@@ -48,7 +48,7 @@ index fdd7857..ae13724 100644
  };
  
  static enum power_supply_property axp717_battery_props[] = {
-@@ -1213,12 +1226,18 @@ static const struct of_device_id axp20x_battery_ps_id[] = {
+@@ -1212,12 +1225,18 @@ static const struct of_device_id axp20x_battery_ps_id[] = {
  };
  MODULE_DEVICE_TABLE(of, axp20x_battery_ps_id);
  
@@ -68,7 +68,7 @@ index fdd7857..ae13724 100644
  	struct device *dev = &pdev->dev;
  	const struct axp_irq_data *irq_data;
  	int irq, ret;
-@@ -1256,9 +1275,12 @@ static int axp20x_power_probe(struct platform_device *pdev)
+@@ -1255,9 +1274,12 @@ static int axp20x_power_probe(struct platform_device *pdev)
  
  	axp20x_batt->health = POWER_SUPPLY_HEALTH_GOOD;
  

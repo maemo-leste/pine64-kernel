@@ -14,10 +14,10 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 5 insertions(+)
 
 diff --git a/drivers/power/supply/axp20x_battery.c b/drivers/power/supply/axp20x_battery.c
-index 496da48..fdd7857 100644
+index b865f0f..6acf8c7 100644
 --- a/drivers/power/supply/axp20x_battery.c
 +++ b/drivers/power/supply/axp20x_battery.c
-@@ -1333,6 +1333,11 @@ static int axp20x_power_probe(struct platform_device *pdev)
+@@ -1332,6 +1332,11 @@ static int axp20x_power_probe(struct platform_device *pdev)
  		ret = regmap_update_bits(axp20x_batt->regmap, 0x84, 0x37, 0x31);
  		if (ret)
  			goto warn_bat;

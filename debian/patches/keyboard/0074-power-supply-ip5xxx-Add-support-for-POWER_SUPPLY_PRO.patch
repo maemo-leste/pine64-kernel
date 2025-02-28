@@ -17,10 +17,10 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  2 files changed, 30 insertions(+)
 
 diff --git a/drivers/power/supply/axp20x_battery.c b/drivers/power/supply/axp20x_battery.c
-index ae13724..534f6f2 100644
+index c6b8973..09d5d8f 100644
 --- a/drivers/power/supply/axp20x_battery.c
 +++ b/drivers/power/supply/axp20x_battery.c
-@@ -1054,6 +1054,7 @@ static const struct power_supply_desc axp717_batt_ps_desc = {
+@@ -1053,6 +1053,7 @@ static const struct power_supply_desc axp717_batt_ps_desc = {
  	.property_is_writeable = axp717_battery_prop_writeable,
  	.get_property = axp717_battery_get_prop,
  	.set_property = axp717_battery_set_prop,
