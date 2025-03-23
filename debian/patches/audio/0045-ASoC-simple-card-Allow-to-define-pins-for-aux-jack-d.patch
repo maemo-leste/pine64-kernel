@@ -11,7 +11,7 @@ Signed-off-by: Ondrej Jirman <megi@xff.cz>
  1 file changed, 40 insertions(+)
 
 diff --git a/sound/soc/generic/simple-card-utils.c b/sound/soc/generic/simple-card-utils.c
-index fedae7f..5582f94 100644
+index 975ffd2..f451a04 100644
 --- a/sound/soc/generic/simple-card-utils.c
 +++ b/sound/soc/generic/simple-card-utils.c
 @@ -853,6 +853,46 @@ int simple_util_init_aux_jacks(struct simple_util_priv *priv, char *prefix)
