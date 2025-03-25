@@ -118,3 +118,5 @@ pinetab/0117-arm64-dts-sun50i-a64-pinetab-Use-newer-jack-detect.patch
 pinetab/0118-arm64-dts-sun50-a64-pinetab-Define-jack-pins-in-DT.patch
 pinetab/0119-arm64-dts-allwinner-pinetab-keep-power-for-WiFi-in.patch
 debian/0120-wireless-Add-Debian-wireless-regdb-certificates.patch
+wireless/0121-Revert-wifi-rtw88-station-mode-only-for-SDIO-chips.patch
+wireless/0122-rtw88-fix-AP-mode-for-SDIO-cards.patch

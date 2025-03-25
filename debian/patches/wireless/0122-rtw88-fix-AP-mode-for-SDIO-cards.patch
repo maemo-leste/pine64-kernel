@@ -1,0 +1,35 @@
+From: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+Date: Tue, 25 Mar 2025 23:11:07 +0300
+Subject: rtw88: fix AP mode for SDIO cards
+
+After hostapd sends out association ack to STA in step
+"associated (aid 1)", it expect an TX status reports to trigger
+function handle_assoc_cb(), where it either set the STA authorized or
+conducts further 4-way handshake.
+
+TX status reports never come up.
+
+Based on discussion from https://github.com/lwfinger/rtw88/issues/245
+
+Signed-off-by: Zhen XIN <lone.2004@gmail.com>
+Tested-by: Andrey Skvortsov <andrej.skvortzov@gmail.com>
+---
+ drivers/net/wireless/realtek/rtw88/sdio.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
+index 1d62b38..e602bd0 100644
+--- a/drivers/net/wireless/realtek/rtw88/sdio.c
++++ b/drivers/net/wireless/realtek/rtw88/sdio.c
+@@ -1230,7 +1230,10 @@ static void rtw_sdio_process_tx_queue(struct rtw_dev *rtwdev,
+ 
+ 	if (queue <= RTW_TX_QUEUE_VO)
+ 		rtw_sdio_indicate_tx_status(rtwdev, skb);
+-	else
++	else if (queue == RTW_TX_QUEUE_MGMT) {
++		IEEE80211_SKB_CB(skb)->flags |= IEEE80211_TX_STAT_ACK;
++		ieee80211_tx_status_irqsafe(rtwdev->hw, skb);
++	} else
+ 		dev_kfree_skb_any(skb);
+ }
+ 
