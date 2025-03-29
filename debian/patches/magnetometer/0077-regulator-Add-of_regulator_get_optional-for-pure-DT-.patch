@@ -29,7 +29,7 @@ Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
  4 files changed, 53 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 4bb2652..feb8e9f 100644
+index 1f4698d..08a4668 100644
 --- a/drivers/regulator/core.c
 +++ b/drivers/regulator/core.c
 @@ -1959,8 +1959,8 @@ static struct regulator_dev *regulator_dev_lookup(struct device *dev,
