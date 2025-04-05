@@ -429,6 +429,14 @@ void rockchip_clk_of_add_provider(struct device_node *np,
 }
 EXPORT_SYMBOL_GPL(rockchip_clk_of_add_provider);
 
+void rockchip_clk_add_lookup(struct rockchip_clk_provider *ctx,
+			     struct clk *clk, unsigned int id)
+{
+	if (ctx->clk_data.clks && id)
+		ctx->clk_data.clks[id] = clk;
+}
+EXPORT_SYMBOL_GPL(rockchip_clk_add_lookup);
+
 void rockchip_clk_register_plls(struct rockchip_clk_provider *ctx,
 				struct rockchip_pll_clock *list,
 				unsigned int nr_pll, int grf_lock_offset)
@@ -721,6 +729,30 @@ void rockchip_clk_register_armclk(struct rockchip_clk_provider *ctx,
 	rockchip_clk_set_lookup(ctx, clk, lookup_id);
 }
 EXPORT_SYMBOL_GPL(rockchip_clk_register_armclk);
+
+void rockchip_clk_register_armclk_v2(struct rockchip_clk_provider *ctx,
+				     struct rockchip_clk_branch *list,
+				     const struct rockchip_cpuclk_rate_table *rates,
+				     int nrates)
+{
+	struct clk *clk;
+
+	clk = rockchip_clk_register_cpuclk_v2(list->name, list->parent_names,
+					      list->num_parents, ctx->reg_base,
+					      list->muxdiv_offset, list->mux_shift,
+					      list->mux_width, list->mux_flags,
+					      list->div_offset, list->div_shift,
+					      list->div_width, list->div_flags,
+					      list->flags, &ctx->lock, rates, nrates);
+	if (IS_ERR(clk)) {
+		pr_err("%s: failed to register clock %s: %ld\n",
+		       __func__, list->name, PTR_ERR(clk));
+		return;
+	}
+
+	rockchip_clk_add_lookup(ctx, clk, list->id);
+}
+EXPORT_SYMBOL_GPL(rockchip_clk_register_armclk_v2);
 
 void rockchip_clk_protect_critical(const char *const clocks[],
 				   int nclocks)
