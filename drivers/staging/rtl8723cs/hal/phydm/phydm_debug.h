@@ -242,9 +242,9 @@ static __inline void PHYDM_DBG_F(PDM_ODM_T dm, int comp, char *fmt, ...)
 
 #elif defined(DM_ODM_CE_MAC80211_V2)
 
-#define PHYDM_DBG(dm, comp, fmt, args...)
-#define PHYDM_DBG_F(dm, comp, fmt, args...)
-#define PHYDM_PRINT_ADDR(dm, comp, title_str, addr)
+#define PHYDM_DBG(dm, comp, fmt, args...) (void)0
+#define PHYDM_DBG_F(dm, comp, fmt, args...) (void)0
+#define PHYDM_PRINT_ADDR(dm, comp, title_str, addr) (void)0
 
 #else
 
@@ -307,10 +307,10 @@ static __inline void PHYDM_DBG_F(struct dm_struct *dm, int comp, char *fmt, ...)
 {
 }
 #else
-#define PHYDM_DBG(dm, comp, fmt, args...)
-#define PHYDM_DBG_F(dm, comp, fmt, args...)
+#define PHYDM_DBG(dm, comp, fmt, args...) (void)0
+#define PHYDM_DBG_F(dm, comp, fmt, args...) (void)0
 #endif
-#define PHYDM_PRINT_ADDR(dm, comp, title_str, ptr)
+#define PHYDM_PRINT_ADDR(dm, comp, title_str, ptr) (void)0
 
 #endif
 
