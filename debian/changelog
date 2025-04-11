@@ -1,3 +1,9 @@
+linux-6.12-sunxi64 (6.12.23-2) unstable; urgency=medium
+
+  * d/patches: fix AP mode
+
+ -- Andrey Skvortsov <andrej.skvortzov@gmail.com>  Fri, 11 Apr 2025 10:16:50 +0300
+
 linux-6.12-sunxi64 (6.12.23-1) unstable; urgency=medium
 
   * Rebase on 6.12.23
