@@ -1,3 +1,9 @@
+linux-6.12-sunxi64 (6.12.25-1) unstable; urgency=medium
+
+  * Rebase on 6.12.25
+
+ -- Mobot <group_9279_bot_322d6e899378048e14b6d1f9dce111eb@noreply.salsa.debian.org>  Sat, 26 Apr 2025 02:36:37 +0000
+
 linux-6.12-sunxi64 (6.12.24-1) unstable; urgency=medium
 
   * Rebase on 6.12.24
