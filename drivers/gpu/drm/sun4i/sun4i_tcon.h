@@ -12,6 +12,7 @@
 
 #include <drm/drm_crtc.h>
 
+#include <linux/hrtimer.h>
 #include <linux/kernel.h>
 #include <linux/list.h>
 #include <linux/mod_devicetable.h>
@@ -252,6 +253,8 @@ struct sun4i_tcon_quirks {
 	bool	polarity_in_ch0; /* some tcon1 channels have polarity bits in tcon0 pol register */
 	bool	restores_rate;   /* restores the initial rate when rate changes */
 	u8	dclk_min_div;	/* minimum divider for TCON0 DCLK */
+	bool	vblank_delay;	/* delay page flip reporting for 250us (TCON report vblank
+				   shortly before register flip) */
 
 	/* callback to handle tcon muxing options */
 	int	(*set_mux)(struct sun4i_tcon *, const struct drm_encoder *);
@@ -289,6 +292,7 @@ struct sun4i_tcon {
 
 	/* Associated crtc */
 	struct sun4i_crtc		*crtc;
+	struct hrtimer			flip_timer;
 
 	int				id;
 

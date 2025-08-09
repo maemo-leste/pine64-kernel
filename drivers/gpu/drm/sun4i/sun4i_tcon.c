@@ -240,6 +240,9 @@ void sun4i_tcon_enable_vblank(struct sun4i_tcon *tcon, bool enable)
 	if (enable)
 		val = mask;
 
+        if (!enable && tcon->quirks->vblank_delay)
+		hrtimer_cancel(&tcon->flip_timer);
+
 	regmap_update_bits(tcon->regs, SUN4I_TCON_GINT0_REG, mask, val);
 }
 EXPORT_SYMBOL(sun4i_tcon_enable_vblank);
@@ -836,6 +839,17 @@ static void sun4i_tcon_finish_page_flip(struct drm_device *dev,
 	spin_unlock_irqrestore(&dev->event_lock, flags);
 }
 
+static enum hrtimer_restart sun4i_tcon_flip_timer_cb(struct hrtimer *timer)
+{
+	struct sun4i_tcon *tcon = container_of(timer,
+					       struct sun4i_tcon, flip_timer);
+
+	drm_crtc_handle_vblank(&tcon->crtc->crtc);
+	sun4i_tcon_finish_page_flip(tcon->drm, tcon->crtc);
+
+	return HRTIMER_NORESTART;
+}
+
 static irqreturn_t sun4i_tcon_handler(int irq, void *private)
 {
 	struct sun4i_tcon *tcon = private;
@@ -851,8 +865,12 @@ static irqreturn_t sun4i_tcon_handler(int irq, void *private)
 			SUN4I_TCON_GINT0_TCON0_TRI_FINISH_INT)))
 		return IRQ_NONE;
 
-	drm_crtc_handle_vblank(&scrtc->crtc);
-	sun4i_tcon_finish_page_flip(drm, scrtc);
+	if (tcon->quirks->vblank_delay) {
+		hrtimer_start(&tcon->flip_timer, us_to_ktime(250), HRTIMER_MODE_REL);
+	} else {
+		drm_crtc_handle_vblank(&scrtc->crtc);
+		sun4i_tcon_finish_page_flip(drm, scrtc);
+	}
 
 	/* Acknowledge the interrupt */
 	regmap_update_bits(tcon->regs, SUN4I_TCON_GINT0_REG,
@@ -900,6 +918,9 @@ static int sun4i_tcon_init_irq(struct device *dev,
 {
 	struct platform_device *pdev = to_platform_device(dev);
 	int irq, ret;
+
+	hrtimer_setup(&tcon->flip_timer, sun4i_tcon_flip_timer_cb,
+		      CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 
 	irq = platform_get_irq(pdev, 0);
 	if (irq < 0)
@@ -1614,6 +1635,7 @@ static const struct sun4i_tcon_quirks sun50i_a64_lcd_quirks = {
 	.restores_rate		= true,
 	.dclk_min_div		= 1,
 	.setup_lvds_phy		= sun6i_tcon_setup_lvds_phy,
+	.vblank_delay		= true,
 };
 
 static const struct sun4i_tcon_quirks sun8i_a83t_lcd_quirks = {
