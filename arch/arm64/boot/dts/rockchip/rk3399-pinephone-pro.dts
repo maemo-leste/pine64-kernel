@@ -259,6 +259,21 @@
 		leds = <&led_red>, <&led_green>, <&led_blue>;
 	};
 
+	sgm3140: led-controller {
+		compatible = "sgmicro,sgm3140";
+		vin-supply = <&vcc3v3_sys>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&flash_pins>;
+		enable-gpios = <&gpio4 RK_PC6 GPIO_ACTIVE_HIGH>;
+		flash-gpios = <&gpio1 RK_PA3 GPIO_ACTIVE_HIGH>;
+
+		sgm3140_flash: led {
+			function = LED_FUNCTION_FLASH;
+			color = <LED_COLOR_ID_WHITE>;
+			flash-max-timeout-us = <250000>;
+		};
+	};
+
 	// in1  - digital mic daughhterboard
 	// in2  - headset mic
 	// in3  - modem output  (muxed with mono)
@@ -872,6 +887,7 @@
 		compatible = "sony,imx258";
 		reg = <0x1a>;
 		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK0, derived from CIF_CLKO */
+		flash-leds = <&sgm3140_flash>;
 		lens-focus = <&wcam_lens>;
 		orientation = <1>; /* V4L2_CAMERA_ORIENTATION_BACK */
 		pinctrl-names = "default";
@@ -879,6 +895,7 @@
 		reset-gpios = <&gpio1 RK_PA0 GPIO_ACTIVE_LOW>;
 		rotation = <270>;
 		/* Note: both cameras also depend on vcca1v8_codec to power the I2C bus. */
+		i2c-supply = <&vcca1v8_codec>;
 		vif-supply = <&vcc1v8_dvp>;
 		vana-supply = <&avdd2v8_dvp>;
 		vdig-supply = <&vcc1v2_dvp>; /* DVDD_DVP is the same as VCC1V2_DVP */
@@ -1285,6 +1302,12 @@
 
 		blue_led_pin: blue-led-pin {
 			rockchip,pins = <4 RK_PD6 RK_FUNC_GPIO &pcfg_pull_none>;
+		};
+
+		flash_pins: flash-pins {
+			rockchip,pins =
+				<1 RK_PA3 RK_FUNC_GPIO &pcfg_pull_none>,
+				<4 RK_PC6 RK_FUNC_GPIO &pcfg_pull_none>;
 		};
 	};
 
