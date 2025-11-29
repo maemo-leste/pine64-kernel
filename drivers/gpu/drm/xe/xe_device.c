@@ -967,16 +967,16 @@ void xe_device_shutdown(struct xe_device *xe)
 
 	drm_dbg(&xe->drm, "Shutting down device\n");
 
-	if (xe_driver_flr_disabled(xe)) {
-		xe_display_pm_shutdown(xe);
+	xe_display_pm_shutdown(xe);
 
-		xe_irq_suspend(xe);
+	xe_irq_suspend(xe);
 
-		for_each_gt(gt, xe, id)
-			xe_gt_shutdown(gt);
+	for_each_gt(gt, xe, id)
+		xe_gt_shutdown(gt);
 
-		xe_display_pm_shutdown_late(xe);
-	} else {
+	xe_display_pm_shutdown_late(xe);
+
+	if (!xe_driver_flr_disabled(xe)) {
 		/* BOOM! */
 		__xe_driver_flr(xe);
 	}
@@ -1157,8 +1157,10 @@ static void xe_device_wedged_fini(struct drm_device *drm, void *arg)
  * xe_device_declare_wedged - Declare device wedged
  * @xe: xe device instance
  *
- * This is a final state that can only be cleared with a module
+ * This is a final state that can only be cleared with the recovery method
+ * specified in the drm wedged uevent. The default recovery method is
  * re-probe (unbind + bind).
+ *
  * In this state every IOCTL will be blocked so the GT cannot be used.
  * In general it will be called upon any critical error such as gt reset
  * failure or guc loading failure. Userspace will be notified of this state
@@ -1192,13 +1194,15 @@ void xe_device_declare_wedged(struct xe_device *xe)
 			"IOCTLs and executions are blocked. Only a rebind may clear the failure\n"
 			"Please file a _new_ bug report at https://gitlab.freedesktop.org/drm/xe/kernel/issues/new\n",
 			dev_name(xe->drm.dev));
+	}
 
+	for_each_gt(gt, xe, id)
+		xe_gt_declare_wedged(gt);
+
+	if (xe_device_wedged(xe)) {
 		/* Notify userspace of wedged device */
 		drm_dev_wedged_event(&xe->drm,
 				     DRM_WEDGE_RECOVERY_REBIND | DRM_WEDGE_RECOVERY_BUS_RESET,
 				     NULL);
 	}
-
-	for_each_gt(gt, xe, id)
-		xe_gt_declare_wedged(gt);
 }

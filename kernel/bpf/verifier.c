@@ -8917,7 +8917,7 @@ static int widen_imprecise_scalars(struct bpf_verifier_env *env,
 				   struct bpf_verifier_state *cur)
 {
 	struct bpf_func_state *fold, *fcur;
-	int i, fr;
+	int i, fr, num_slots;
 
 	reset_idmap_scratch(env);
 	for (fr = old->curframe; fr >= 0; fr--) {
@@ -8930,7 +8930,9 @@ static int widen_imprecise_scalars(struct bpf_verifier_env *env,
 					&fcur->regs[i],
 					&env->idmap_scratch);
 
-		for (i = 0; i < fold->allocated_stack / BPF_REG_SIZE; i++) {
+		num_slots = min(fold->allocated_stack / BPF_REG_SIZE,
+				fcur->allocated_stack / BPF_REG_SIZE);
+		for (i = 0; i < num_slots; i++) {
 			if (!is_spilled_reg(&fold->stack[i]) ||
 			    !is_spilled_reg(&fcur->stack[i]))
 				continue;
@@ -15906,6 +15908,8 @@ static int is_scalar_branch_taken(struct bpf_reg_state *reg1, struct bpf_reg_sta
 		 */
 		if (tnum_is_const(t1) && tnum_is_const(t2))
 			return t1.value == t2.value;
+		if (!tnum_overlap(t1, t2))
+			return 0;
 		/* non-overlapping ranges */
 		if (umin1 > umax2 || umax1 < umin2)
 			return 0;
@@ -15930,6 +15934,8 @@ static int is_scalar_branch_taken(struct bpf_reg_state *reg1, struct bpf_reg_sta
 		 */
 		if (tnum_is_const(t1) && tnum_is_const(t2))
 			return t1.value != t2.value;
+		if (!tnum_overlap(t1, t2))
+			return 1;
 		/* non-overlapping ranges */
 		if (umin1 > umax2 || umax1 < umin2)
 			return 1;
