@@ -1,0 +1,47 @@
+#!/usr/bin/make -f
+
+CONFIG = pinephone_defconfig
+DTB    = \
+	allwinner/sun50i-a64-pinephone-1.0.dtb \
+	allwinner/sun50i-a64-pinephone-1.1.dtb \
+	allwinner/sun50i-a64-pinephone-1.2.dtb \
+	allwinner/sun50i-a64-pinetab.dtb \
+	allwinner/sun50i-a64-pinetab-early-adopter.dtb
+DEV    = pinephone
+ARCH   = arm64
+
+ifneq (,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	NUMJOBS = $(patsubst parallel=%,%,$(filter parallel=%,$(DEB_BUILD_OPTIONS)))
+	BUILD_FLAGS += -j$(NUMJOBS)
+endif
+
+# only set cross-compile if host != target
+ifneq ($(DEB_BUILD_GNU_TYPE),$(DEB_TARGET_MULTIARCH))
+	BUILD_FLAGS += CROSS_COMPILE=$(DEB_TARGET_MULTIARCH)-
+endif
+
+build-arch:
+	$(MAKE) ARCH=$(ARCH) $(CONFIG)
+	scripts/config --disable BPF
+	scripts/config --disable BPF_SYSCALL
+	scripts/config --disable BPF_JIT
+	scripts/config --disable BPF_EVENTS
+	scripts/config --disable SECURITY_APPARMOR
+	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) olddefconfig
+	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) Image modules dtbs
+
+binary-arch:
+ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_TARGET_MULTIARCH))
+	$(MAKE) ARCH=$(ARCH) DEV=$(DEV) DTB="$(DTB)" $(BUILD_FLAGS) intdeb-pkg
+else
+	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) HOSTCC=$(DEB_TARGET_MULTIARCH)-gcc modules
+	$(MAKE) ARCH=$(ARCH) DEV=$(DEV) DTB="$(DTB)" $(BUILD_FLAGS) \
+		HOSTCC=$(DEB_TARGET_MULTIARCH)-gcc intdeb-pkg
+endif
+
+clean:
+	rm -rf debian/*tmp debian/files
+	$(MAKE) clean
+
+build: build-arch
+binary: binary-arch
