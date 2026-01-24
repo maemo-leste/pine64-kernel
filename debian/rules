@@ -30,7 +30,7 @@ build-arch:
 	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) olddefconfig
 	$(MAKE) ARCH=$(ARCH) $(BUILD_FLAGS) Image modules dtbs
 
-binary-arch:
+binary-arch: build-arch
 ifeq ($(DEB_BUILD_GNU_TYPE),$(DEB_TARGET_MULTIARCH))
 	$(MAKE) ARCH=$(ARCH) DEV=$(DEV) DTB="$(DTB)" $(BUILD_FLAGS) intdeb-pkg
 else
